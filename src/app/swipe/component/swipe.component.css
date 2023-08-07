@@ -1,0 +1,52 @@
+/* Add your styles for the swipe component here */
+.swipe {
+    max-width: 300px;
+    margin: 20px auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .swipe img {
+    width: 100%;
+    max-height: 200px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  
+  .swipe h2 {
+    font-size: 18px;
+    margin-bottom: 5px;
+  }
+  
+  .swipe p {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  
+  .swipe button {
+    display: block;
+    width: 100%;
+    padding: 8px 0;
+    margin-top: 10px;
+    border: none;
+    background-color: #ff585d;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .swipe button:hover {
+    background-color: #ff474c;
+  }
+  
+  .swipe button:last-child {
+    background-color: #ccc;
+    color: #333;
+  }
+  
+  .swipe button:last-child:hover {
+    background-color: #bbb;
+  }

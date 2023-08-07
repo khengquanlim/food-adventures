@@ -1,0 +1,7 @@
+<div class="swipe" *ngIf="user">
+    <img [src]="user.photoUrl" alt="User Photo">
+    <h2>{{ user.name }}</h2>
+    <p>{{ user.bio }}</p>
+    <button (click)="like()">Like</button>
+    <button (click)="dislike()">Dislike</button>
+  </div>
