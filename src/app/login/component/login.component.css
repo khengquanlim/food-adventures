@@ -1,0 +1,24 @@
+.container {
+    margin-top: 50px;
+    align-items: center; /* Vertically center content */
+    justify-content: center; /* Horizontally center content */
+    height: 100vh; /* Adjust to your desired height */
+    display: flex;
+  }
+  
+  /* New styles for the image container */
+  .image {
+    flex: 1; /* Take up 50% of the container width */
+    padding: 20px;
+    display: flex; /* Enable nested flexbox layout */
+    flex-direction: column; /* Stack content vertically */
+    align-items: center; /* Center content horizontally within the image container */
+  }
+  
+  .image img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Styles for the form container */
+  

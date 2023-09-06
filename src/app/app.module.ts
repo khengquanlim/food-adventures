@@ -14,6 +14,7 @@ import { RegistrationComponent } from './registration/component/registration.com
 import { RestaurantOwnerProfileComponent } from './profile/restaurant-owner-profile/component/restaurant-owner-profile.component';
 import { UserProfileComponent } from './profile/user-profile/component/user-profile.component';
 import { LoginComponent } from './login/component/login.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { LoginComponent } from './login/component/login.component';
     RecommendationComponent,
     RegistrationComponent,
     RestaurantOwnerProfileComponent,
-    LoginComponent
+    LoginComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
