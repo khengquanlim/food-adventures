@@ -1,0 +1,18 @@
+.profile-picture img{
+    border-radius:100px;
+    height: 100px;
+    width: 100px;
+}
+
+.profile{
+    text-align:center;
+    border-right: 2px solid lightgray;
+    height: 100%;
+}
+
+.profile h1{
+    font-size:medium;
+}
+.profile p{
+    font-size:medium;
+}
