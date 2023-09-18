@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-registration',
@@ -7,4 +8,19 @@ import { Component } from '@angular/core';
 })
 export class RegistrationComponent {
 
+  userType!: string;
+  name!: string;
+  email!: string;
+  password!: string;
+  confirmPassword!: string;
+  errorMessage: string = '';
+
+  constructor() {}
+
+  onSubmit() {
+    //validation and registration logic
+  }
+
 }
+
+
