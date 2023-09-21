@@ -12,31 +12,61 @@
     </header>
 
     <main>
-        <div class="row" style="display: flex; flex-direction: row; height: 100%;">
-            <div class="col" class="profile">
-                    <div class="row-1 profile-picture">
-                        <!-- User's profile picture -->
-                        <img src="\assets\images\ppg.jpg" alt="User Profile Picture">
+        <div class="container">
+            <div class="row" style="display: flex; flex-direction: row; ">
+                <!-- <div class="row" style="display: flex; flex-direction: row; height: 100%;"> -->
+                
+                <div class="profile col-lg-6" style="color:red">
+                    <div class="row edit">
+                        <div class="col text-right edit-button">
+                            <button *ngIf="!editMode" (click)="toggleEditMode()">Edit</button>
+                            <button *ngIf="editMode" (click)="saveChanges()">Done</button>
+                        </div>                    
+                    </div>    
+                    <div class="row profile-picture">
+                            <!-- User's profile picture -->
+                            <div class="col text-center">
+                                <img *ngIf="!editMode" src="\assets\images\ppg.jpg" alt="User Profile Picture">
+                                <!-- Add file upload input for changing profile picture when in edit mode -->
+                                <input *ngIf="editMode" type="file" (change)="onProfilePictureChange($event)">
+                            </div>
+                            <!-- <img src="\assets\images\ppg.jpg" alt="User Profile Picture"> -->
                     </div>
-                    <div class="row-5 profile-info">
-                        <h1>User's Name</h1>
-                        <p>Email: user@example.com</p>
+                    <div class="row profile-info">
+                        <h1>{{ user.name }}</h1>
+                        <p>{{ user.age }} years old, {{ user.gender }}</p>
+                        <p>Likes: {{ user.likes }}</p>
+                        <p>Dislikes: {{ user.dislikes }}</p>
+                        <!-- Editable fields when in edit mode -->
+                        <input *ngIf="editMode" [(ngModel)]="user.name">
+                        <input *ngIf="editMode" [(ngModel)]="user.age">
+                        <input *ngIf="editMode" [(ngModel)]="user.gender">
+                        <!-- Implement tags input field for likes and dislikes when in edit mode -->
+                        <input *ngIf="editMode" [(ngModel)]="user.likes" placeholder="Likes (comma-separated)">
+                        <input *ngIf="editMode" [(ngModel)]="user.dislikes" placeholder="Dislikes (comma-separated)">
                         <!-- Add more user information here as needed -->
                     </div>
-                
-            </div>
-            <div class="col" class="feed">
-                
-                    <h2>Profile Details</h2>
-                    <ul>
-                        <li><strong>Username:</strong> username123</li>
-                        <li><strong>Location:</strong> City, Country</li>
-                        <li><strong>Joined:</strong> January 1, 20XX</li>
-                        <!-- Add more user details here as needed -->
-                    </ul>
-                
+                    <div class="row empty">
+                        <div class="col">
+                            <!-- Empty row for spacing -->
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="feed col-lg-6">
+                    
+                        <h2>Profile Details 2</h2>
+                        <ul>
+                            <li><strong>Username:</strong> username123</li>
+                            <li><strong>Location:</strong> City, Country</li>
+                            <li><strong>Joined:</strong> January 1, 20XX</li>
+                            <!-- Add more user details here as needed -->
+                        </ul>
+                    
+                </div>
             </div>
         </div>
+        
         
         
 
@@ -46,5 +76,6 @@
     <footer>
         <!-- Add a footer with additional information or links if needed -->
     </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.min.js"></script>
 </body>
 </html>

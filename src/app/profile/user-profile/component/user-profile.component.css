@@ -7,7 +7,8 @@
 .profile{
     text-align:center;
     border-right: 2px solid lightgray;
-    height: 100%;
+    height: 100vh;
+    overflow-y:auto;
 }
 
 .profile h1{
@@ -15,4 +16,37 @@
 }
 .profile p{
     font-size:medium;
+}
+
+.edit,
+.profile-picture,
+.profile-info,
+.empty{
+    flex: 1; /* Distribute available space equally among the rows */
+    padding: 20px; /* Add spacing between rows (adjust as needed) */
+    /* border: 1px solid #ccc; */
+}
+
+.edit {
+    display: flex;
+    align-items: flex-start; /* Align items to the top */
+    justify-content: space-between; /* Add space between items (right-align) */
+    position:relative;
+}
+
+/* Style the "Edit" button */
+.edit-button button {
+    background-color: transparent; /* Make the button background transparent */
+    border: none; /* Remove borders */
+    cursor: pointer; /* Add a pointer cursor */
+    padding: 10px 15px; /* Add padding (adjust as needed) */
+    margin: 5px;
+    position: absolute; /* Position the button absolutely within the container */
+    top: 0; /* Align to the top */
+    right: 0;
+}
+
+.edit-button button:hover{
+    color: pink; /* Make the button background transparent */
+    
 }
