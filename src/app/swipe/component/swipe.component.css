@@ -1,31 +1,32 @@
-/* Add your styles for the swipe component here */
-.swipe {
+/* Add your styles for the card component here */
+.card {
     max-width: 300px;
     margin: 20px auto;
     border: 1px solid #ccc;
     border-radius: 5px;
     padding: 10px;
     text-align: center;
+    transition: transform 0.3s ease-in-out;
   }
   
-  .swipe img {
+  .card img {
     width: 100%;
     max-height: 200px;
     border-radius: 5px;
     margin-bottom: 10px;
   }
   
-  .swipe h2 {
+  .card h2 {
     font-size: 18px;
     margin-bottom: 5px;
   }
   
-  .swipe p {
+  .card p {
     font-size: 14px;
     margin-bottom: 10px;
   }
   
-  .swipe button {
+  .card button {
     display: block;
     width: 100%;
     padding: 8px 0;
@@ -38,15 +39,30 @@
     border-radius: 5px;
   }
   
-  .swipe button:hover {
+  .card button:hover {
     background-color: #ff474c;
   }
   
-  .swipe button:last-child {
+  .card button:last-child {
     background-color: #ccc;
     color: #333;
   }
   
-  .swipe button:last-child:hover {
+  .card button:last-child:hover {
     background-color: #bbb;
+  }
+
+  /* Apply styles for swiped state */
+  .card.swipedLeft {
+    transform: translateX(-100%); /* Move the card to the left when swiped left */
+  }
+
+  /* Apply styles for swiped right state */
+  .card.swipedRight {
+    transform: translateX(100%); /* Move the card to the right when swiped right */
+  }
+
+  /* Apply styles for not swiped state */
+  .card.notSwiped {
+    transform: translateX(0); /* Return the card to its initial position */
   }

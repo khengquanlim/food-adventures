@@ -1,7 +1,7 @@
-<div class="swipe" *ngIf="user">
+<div class="card" [ngClass]="{ 'swipedLeft': directionOfCard === 'left', 'swipedRight': directionOfCard === 'right' }" *ngIf="user">
     <img [src]="user.photoUrl" alt="User Photo">
     <h2>{{ user.name }}</h2>
     <p>{{ user.bio }}</p>
-    <button (click)="like()">Like</button>
-    <button (click)="dislike()">Dislike</button>
+    <button (click)="buttonPressOnMatchCard('like')">Like</button>
+    <button (click)="buttonPressOnMatchCard('dislike')">Dislike</button>
   </div>
