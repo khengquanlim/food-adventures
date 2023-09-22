@@ -8,12 +8,17 @@ import { Component, OnInit } from '@angular/core';
 export class UserProfileComponent implements OnInit {
 
   constructor(
-  ) { }
+  ) { 
+    console.log("this.use.name: ", this.user.name);
+
+  }
 
   ngOnInit(): void {
     
   }
   editMode = false;
+
+
   user: any = {  // Initialize with user data
     name: 'John Doe',
     age: 30,
@@ -22,9 +27,13 @@ export class UserProfileComponent implements OnInit {
     dislikes: 'Crowded places',
     profilePictureUrl: 'assets/default-profile.jpg'  // Default profile picture
   };
+  profileName="Mary";
+  profileAge=36;
+  profileGender="Female";
 
   toggleEditMode() {
     this.editMode = !this.editMode;
+    console.log("editmode: ", this.editMode);
   }
   onProfilePictureChange(event: any) {
     // Implement logic to upload and set the new profile picture

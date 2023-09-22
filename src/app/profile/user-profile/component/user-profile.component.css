@@ -5,10 +5,14 @@
 }
 
 .profile{
-    text-align:center;
+    /* text-align:center; */
     border-right: 2px solid lightgray;
     height: 100vh;
     overflow-y:auto;
+}
+
+.profile-picture{
+    text-align: center;
 }
 
 .profile h1{
@@ -49,4 +53,12 @@
 .edit-button button:hover{
     color: pink; /* Make the button background transparent */
     
+}
+
+.label{
+    padding-bottom:10px;
+}
+
+.label-input{
+    padding-bottom:30px;
 }
