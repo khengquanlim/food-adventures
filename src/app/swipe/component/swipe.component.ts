@@ -42,36 +42,17 @@ export class SwipeComponent implements OnInit {
       this.directionOfCard = 'right';
       if (this.user) {
         this.userService.likeUser(this.user.id);
-        // this.getNextUser();
+        this.getNextUser();
       }
     } else if (likeOrDislike === 'dislike') {
       this.directionOfCard = 'left';
       if (this.user) {
         this.userService.dislikeUser(this.user.id);
-        // this.getNextUser();
+        this.getNextUser();
       }
 
     }
 
-  }
-
-  like(direction: 'right'): void {
-    this.directionOfCard = direction;
-    if (this.user) {
-      this.userService.likeUser(this.user.id);
-      // Fetch the next user after liking
-      // this.getNextUser();
-    }
-  }
-
-  dislike(direction: 'left'): void {
-    this.isSwiped = true;
-    this.directionOfCard = direction;
-    if (this.user) {
-      this.userService.dislikeUser(this.user.id);
-      // Fetch the next user after disliking
-      // this.getNextUser();
-    }
   }
 
   private getNextUser(): void {
