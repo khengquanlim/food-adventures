@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./recommendation.component.css']
 })
 export class RecommendationComponent {
-
+  restaurantName = 'Restaurant XYZ';
 }
