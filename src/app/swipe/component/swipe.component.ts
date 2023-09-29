@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
 import { ActivatedRoute } from '@angular/router';
-import { UserService } from './../../core/services/user.service';
-import { User } from './../../core/models/user.model';
+import { DinnerUserService } from '../../core/services/dinerUser.service';
+import { DinerUser } from '../../core/models/dinerUser.model';
 
 @Component({
   selector: 'app-swipe',
@@ -23,57 +23,47 @@ export class SwipeComponent implements OnInit {
   isSwiped = false;
   isResetting = false;
   directionOfCard: "left" | 'right' | null = null;
-  user: User | undefined;
+  dinerUser: DinerUser | undefined;
 
   constructor(
     private route: ActivatedRoute,
-    private userService: UserService
+    private userService: DinnerUserService
   ) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      const userId = Number(params['id']);
-      this.user = this.userService.getUserById(userId);
-      //  Asset 
-      if (this.user) {
-        this.user.photoUrl = "/assets/debug/user1.jpeg";
-      }
-    });
+      this.dinerUser = this.userService.getDinnerUserById();
   }
   
   buttonPressOnMatchCard(likeOrDislike: any): void { 
     this.isSwiped = true;
     if(likeOrDislike === 'like') {
       this.directionOfCard = 'right';
-      if (this.user) {
-        this.userService.likeUser(this.user.id);
+      if (this.dinerUser) {
+        this.userService.likeUser(this.dinerUser.id);
         this.getNextUser();
       }
     } else if (likeOrDislike === 'dislike') {
       this.directionOfCard = 'left';
-      if (this.user) {
-        this.userService.dislikeUser(this.user.id);
+      if (this.dinerUser) {
+        this.userService.dislikeUser(this.dinerUser.id);
         this.getNextUser();
       }
-
     }
-
   }
 
   private getNextUser(): void {
-    this.resetSwipe();
-    this.user = this.userService.getCurrentUser();
+    this.resetSwipeLocation();
+    this.dinerUser = this.userService.getCurrentDinerUser();
   }
 
-  resetSwipe() {
+  resetSwipeLocation() {
     if (this.isSwiped) {
       this.isResetting = true;
       setTimeout(() => {
         this.isResetting = false;
         this.isSwiped = false;
         this.directionOfCard = null;
-      }, 500); // Adjust the timeout duration to match your transition duration
+      }, 500);
     }
   }
-
 }

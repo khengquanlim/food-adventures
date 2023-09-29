@@ -1,17 +1,17 @@
 /* Add your styles for the card component here */
-.card {
+.user-match-card {
     max-width: 600px;
     margin: 0 auto;
     position: absolute;
     border: 1px solid #ccc;
     border-radius: 5px;
     top: 40%;
-    left: 42%;
+    left: 35%;
     padding: 10px;
     text-align: center;
+    transition: transform 0.3s ease-in-out;
     display: flex; /* Use flexbox for the layout */
     justify-content: space-between; /* Space the columns evenly */
-    transition: transform 0.3s ease-in-out;
   }
 
 
@@ -20,64 +20,68 @@
   flex-basis: 48%; /* Adjust the width of the columns as needed */
 }
 
-  .card img {
-    width: 100%;
-    max-height: 200px;
-    border-radius: 5px;
-    margin-bottom: 10px;
-  }
-  
-  .card h2 {
-    font-size: 18px;
-    margin-bottom: 5px;
-  }
-  
-  
-  
-  .card p {
-    font-size: 14px;
-    margin-bottom: 10px;
-  }
-  
-  .card button {
-    display: block;
-    width: 100%;
-    padding: 8px 0;
-    margin-top: 10px;
-    border: none;
-    background-color: #ff585d;
-    color: #fff;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 5px;
-  }
-  
-  .card button:hover {
-    background-color: #ff474c;
-  }
-  
-  .card button:last-child {
-    background-color: #ccc;
-    color: #333;
-  }
-  
-  .card button:last-child:hover {
-    background-color: #bbb;
-  }
+.user-match-card img {
+  width: 100%;
+  max-height: 200px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
 
-  /* Apply styles for swiped state */
-  .card.swipedLeft {    
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-  }
+.user-match-card h2 {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
 
-  /* Apply styles for swiped right state */
-  .card.swipedRight {
-    transform: translateX(100%); /* Move the card to the right when swiped right */
-  }
 
-  /* Apply styles for not swiped state */
-  .card.notSwiped {
-    transform: translateX(0); /* Return the card to its initial position */
-  }
+
+.user-match-card p {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.user-match-card .like-button {
+  display: block;
+  width: 100%;
+  padding: 8px 0;
+  margin-top: 10px;
+  border: none;
+  background-color: #ff585d;
+  color: #140d0d;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.user-match-card .dislike-button {
+  display: block;
+  width: 100%;
+  padding: 8px 0;
+  margin-top: 10px;
+  border: none;
+  background-color: #bbb;
+  color: #0e0909;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.user-match-card .like-button:hover{
+  background-color: #ff474c;
+}
+.user-match-card .dislike-button:hover{
+  background-color: #8d8d8d;
+}
+
+.user-match-card.swipedLeft {    
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.user-match-card.swipedRight {
+  transform: translateX(100%);
+}
+
+.user-match-card.notSwiped {
+  transform: translateX(0);
+}
