@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { UserService } from './../../core/services/user.service';
-import { User } from './../../core/models/user.model';
+import { DinerUserService } from '../../core/services/dinerUser.service';
+import { DinerUser } from '../../core/models/dinerUser.model';
 
 interface ChatMessage {
   sender: string;
@@ -13,16 +13,16 @@ interface ChatMessage {
   styleUrls: ['./matches.component.css']
 })
 export class MatchesComponent implements OnInit {
-  matchedUsers: User[] = [];
-  activeUser: User | undefined;
+  matchedUsers: DinerUser[] = [];
+  activeUser: DinerUser | undefined;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: DinerUserService) { }
 
   ngOnInit(): void {
-    this.matchedUsers = this.userService.getMatchedUsers();
+    this.matchedUsers = this.userService.getMatchedDinerUsers();
   }
 
-  showChat(user: User): void {
+  showChat(user: DinerUser): void {
     this.activeUser = user;
   }
 

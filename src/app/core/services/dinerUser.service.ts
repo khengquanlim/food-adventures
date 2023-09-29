@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { User } from './../models/user.model';
+import { DinerUser } from '../models/dinerUser.model';
 
 @Injectable({
     providedIn: 'root'
   })
-  export class UserService {
-    private users: User[] = [
+  export class DinerUserService {
+    private dinerUsers: DinerUser[] = [
       {
         id: 1,
         name: 'John Doe',
@@ -24,63 +24,63 @@ import { User } from './../models/user.model';
     ];
   
     //Hardcode 1 or 2 (user ID) for now
-    private likedUserIds: number[] = [1,2];
-    private dislikedUserIds: number[] = [];
-    private currentUserIndex = 0;
+    private likedDinerUserIds: number[] = [1,2];
+    private dislikedDinerUserIds: number[] = [];
+    private currentDinerUserIndex = 0;
   
-    getUsers(): User[] {
-      return this.users;
+    getDinerUsers(): DinerUser[] {
+      return this.dinerUsers;
     }
   
-    getUserById(userId: number): User | undefined {
-      return this.users.find(user => user.id === userId);
+    getDinerUserById(dinerUserId: number): DinerUser | undefined {
+      return this.dinerUsers.find(dinerUser => dinerUser.id === dinerUserId);
     }
   
-    getCurrentUser(): User | undefined {
-      return this.users[this.currentUserIndex];
+    getCurrentDinerUser(): DinerUser | undefined {
+      return this.dinerUsers[this.currentDinerUserIndex];
     }
   
     // Assuming you have a method to handle matching users
     // For simplicity, this example just returns the first two users as matches
 
-    getMatchedUsers(): User[] {
-      const matchedUsers = this.users.filter(user => this.likedUserIds.includes(user.id));
-      return matchedUsers;
+    getMatchedDinerUsers(): DinerUser[] {
+      const matchedDinerUsers = this.dinerUsers.filter(dinerUser => this.likedDinerUserIds.includes(dinerUser.id));
+      return matchedDinerUsers;
     }
   
-    likeUser(userId: number): void {
-      if (!this.likedUserIds.includes(userId)) {
-        this.likedUserIds.push(userId);
-        console.log(`You liked user with ID ${userId}.`);
+    likeDinerUser(dinerUserId: number): void {
+      if (!this.likedDinerUserIds.includes(dinerUserId)) {
+        this.likedDinerUserIds.push(dinerUserId);
+        console.log(`You liked user with ID ${dinerUserId}.`);
   
         // Update the index to show the next user after liking/disliking
-        this.currentUserIndex++;
+        this.currentDinerUserIndex++;
       }
   
       // Handle cases where there are no more users to display
-      if (this.currentUserIndex >= this.users.length) {
+      if (this.currentDinerUserIndex >= this.dinerUsers.length) {
         console.log('No more users to display.');
         // You can choose to redirect the user or show a message indicating that there are no more users.
         // For this example, we'll just reset the index to show the first user again.
-        this.currentUserIndex = 0;
+        this.currentDinerUserIndex = 0;
       }
     }
   
-    dislikeUser(userId: number): void {
-      if (!this.dislikedUserIds.includes(userId)) {
-        this.dislikedUserIds.push(userId);
-        console.log(`You disliked user with ID ${userId}.`);
+    dislikeDinerUser(userDinerId: number): void {
+      if (!this.dislikedDinerUserIds.includes(userDinerId)) {
+        this.dislikedDinerUserIds.push(userDinerId);
+        console.log(`You disliked user with ID ${userDinerId}.`);
   
         // Update the index to show the next user after liking/disliking
-        this.currentUserIndex++;
+        this.currentDinerUserIndex++;
       }
   
       // Handle cases where there are no more users to display
-      if (this.currentUserIndex >= this.users.length) {
+      if (this.currentDinerUserIndex >= this.dinerUsers.length) {
         console.log('No more users to display.');
         // You can choose to redirect the user or show a message indicating that there are no more users.
         // For this example, we'll just reset the index to show the first user again.
-        this.currentUserIndex = 0;
+        this.currentDinerUserIndex = 0;
       }
     }
   }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { UserService } from './../../core/services/user.service';
-import { User } from './../../core/models/user.model';
+import { DinerUserService } from '../../core/services/dinerUser.service';
+import { DinerUser } from '../../core/models/dinerUser.model';
 
 @Component({
   selector: 'app-swipe',
@@ -9,23 +9,23 @@ import { User } from './../../core/models/user.model';
   styleUrls: ['./swipe.component.css']
 })
 export class SwipeComponent implements OnInit {
-  user: User | undefined;
+  user: DinerUser | undefined;
 
   constructor(
     private route: ActivatedRoute,
-    private userService: UserService
+    private userService: DinerUserService
   ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       const userId = Number(params['id']);
-      this.user = this.userService.getUserById(userId);
+      this.user = this.userService.getDinerUserById(userId);
     });
   }
 
   like(): void {
     if (this.user) {
-      this.userService.likeUser(this.user.id);
+      this.userService.likeDinerUser(this.user.id);
       // Fetch the next user after liking
       this.getNextUser();
     }
@@ -33,14 +33,14 @@ export class SwipeComponent implements OnInit {
 
   dislike(): void {
     if (this.user) {
-      this.userService.dislikeUser(this.user.id);
+      this.userService.dislikeDinerUser(this.user.id);
       // Fetch the next user after disliking
       this.getNextUser();
     }
   }
 
   private getNextUser(): void {
-    this.user = this.userService.getCurrentUser();
+    this.user = this.userService.getCurrentDinerUser();
   }
 
 }

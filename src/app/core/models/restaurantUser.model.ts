@@ -1,4 +1,4 @@
-export interface User {
+export interface RestaurantUser {
     id: number;
     name: string;
     photoUrl: string;
