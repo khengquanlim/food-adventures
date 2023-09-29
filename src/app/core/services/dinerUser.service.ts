@@ -4,7 +4,7 @@ import { DinerUser } from '../models/dinerUser.model';
 @Injectable({
     providedIn: 'root'
   })
-  export class DinnerUserService {
+  export class DinerUserService {
     private dinerUsers: DinerUser[] = [
       {
         id: 1,
@@ -24,22 +24,22 @@ import { DinerUser } from '../models/dinerUser.model';
   
     private likedDinerUserIds: number[] = [];
     private matchedDinerUsers: DinerUser[] = [];
-    private dislikedDinnerUserIds: number[] = [];
-    private currentDinnerUserIndex = 0;
+    private dislikedDinerUserIds: number[] = [];
+    private currentDinerUserIndex = 0;
   
-    getDinnerUsers(): DinerUser[] {
+    getDinerUsers(): DinerUser[] {
       return this.dinerUsers;
     }
   
-    getDinnerUserById(): DinerUser | undefined {
+    getDinerUserById(): DinerUser | undefined {
       return this.dinerUsers[0];
     }
   
     getCurrentDinerUser(): DinerUser {
-      return this.dinerUsers[this.currentDinnerUserIndex];
+      return this.dinerUsers[this.currentDinerUserIndex];
     }
 
-    getMatchedDinnerUsers(): DinerUser[] {
+    getMatchedDinerUsers(): DinerUser[] {
       const matchedDinerUsers = this.dinerUsers.filter(dinerUser => this.likedDinerUserIds.includes(dinerUser.id));
       return matchedDinerUsers;
     }
@@ -59,25 +59,25 @@ import { DinerUser } from '../models/dinerUser.model';
           console.log("MATCHHH")
           this.addMatchedUser(likedDinerUser);
         }
-        this.currentDinnerUserIndex++;
+        this.currentDinerUserIndex++;
       }
       this.checkEndOfMatchingUsers();
     }
   
     dislikeUser(dinerUserId: number): void {
-      if (!this.dislikedDinnerUserIds.includes(dinerUserId)) {
-        this.dislikedDinnerUserIds.push(dinerUserId);
+      if (!this.dislikedDinerUserIds.includes(dinerUserId)) {
+        this.dislikedDinerUserIds.push(dinerUserId);
         console.log(`You disliked user with ID ${dinerUserId}.`);
   
-        this.currentDinnerUserIndex++;
+        this.currentDinerUserIndex++;
       }
       this.checkEndOfMatchingUsers();
     }
 
     checkEndOfMatchingUsers(): void {
-      if (this.currentDinnerUserIndex >= this.dinerUsers.length) {
+      if (this.currentDinerUserIndex >= this.dinerUsers.length) {
         console.log('No more users to display.');
-        this.currentDinnerUserIndex = -1;
+        this.currentDinerUserIndex = -1;
       }
 
     }

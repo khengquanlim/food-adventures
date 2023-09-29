@@ -1,5 +1,5 @@
 /* Add your styles for the card component here */
-.user-match-card {
+.restaurant-user-match-card {
     max-width: 600px;
     margin: 0 auto;
     position: absolute;
@@ -20,26 +20,26 @@
   flex-basis: 48%; /* Adjust the width of the columns as needed */
 }
 
-.user-match-card img {
+.restaurant-user-match-card img {
   width: 100%;
   max-height: 200px;
   border-radius: 5px;
   margin-bottom: 10px;
 }
 
-.user-match-card h2 {
+.restaurant-user-match-card h2 {
   font-size: 18px;
   margin-bottom: 5px;
 }
 
 
 
-.user-match-card p {
+.restaurant-user-match-card p {
   font-size: 14px;
   margin-bottom: 10px;
 }
 
-.user-match-card .like-button {
+.restaurant-user-match-card .like-button {
   display: block;
   width: 100%;
   padding: 8px 0;
@@ -52,7 +52,7 @@
   border-radius: 5px;
 }
 
-.user-match-card .dislike-button {
+.restaurant-user-match-card .dislike-button {
   display: block;
   width: 100%;
   padding: 8px 0;
@@ -65,23 +65,23 @@
   border-radius: 5px;
 }
 
-.user-match-card .like-button:hover{
+.restaurant-user-match-card .like-button:hover{
   background-color: #ff474c;
 }
-.user-match-card .dislike-button:hover{
+.restaurant-user-match-card .dislike-button:hover{
   background-color: #8d8d8d;
 }
 
-.user-match-card.swipedLeft {    
+.restaurant-user-match-card.swipedLeft {    
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
 }
 
-.user-match-card.swipedRight {
+.restaurant-user-match-card.swipedRight {
   transform: translateX(100%);
 }
 
-.user-match-card.notSwiped {
+.restaurant-user-match-card.notSwiped {
   transform: translateX(0);
 }

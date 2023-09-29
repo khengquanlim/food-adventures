@@ -1,15 +1,15 @@
-<div class="user-match-card" [ngClass]="{ 'swipedLeft': directionOfCard === 'left', 'swipedRight': directionOfCard === 'right' }" *ngIf="restaurantUser">
+<div class="restaurant-user-match-card" [ngClass]="{ 'swipedLeft': directionOfCard === 'left', 'swipedRight': directionOfCard === 'right' }" *ngIf="restaurantUser">
   <div class="left-column">
-    <img [src]="restaurantUser.photoUrl" alt="User Photo">
+    <img [src]="restaurantUser.photoUrl" alt="Restaurant User Photo">
     <button class="dislike-button" (click)="buttonPressOnMatchCard('dislike')">Dislike</button>
   </div>
   <div class="right-column">
-    <img [src]="restaurantUser.photoUrl" alt="User Photo">
+    <img [src]="restaurantUser.photoUrl" alt="Restaurant User Photo">
     <button class="like-button" (click)="buttonPressOnMatchCard('like')">Like</button>
 
   </div>
 </div>
-<div class="user-match-card" *ngIf="!restaurantUser">
+<div class="restaurant-user-match-card" *ngIf="!restaurantUser">
   HAHA
 
 </div>

@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { DinnerUserService } from '../../core/services/dinerUser.service';
+import { DinerUserService } from '../../core/services/dinerUser.service';
 import { DinerUser } from '../../core/models/dinerUser.model';
 
 interface ChatMessage {

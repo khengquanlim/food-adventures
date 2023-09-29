@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
 import { ActivatedRoute } from '@angular/router';
-import { DinnerUserService } from '../../core/services/dinerUser.service';
+import { RestaurantUserService } from '../../core/services/restaurantUser.service';
+import { RestaurantUser } from '../../core/models/restaurantUser.model';
+
+import { DinerUserService } from '../../core/services/dinerUser.service';
 import { DinerUser } from '../../core/models/dinerUser.model';
 
 @Component({
@@ -23,15 +26,18 @@ export class SwipeComponent implements OnInit {
   isSwiped = false;
   isResetting = false;
   directionOfCard: "left" | 'right' | null = null;
+  restaurantUser: RestaurantUser | undefined;
   dinerUser: DinerUser | undefined;
 
   constructor(
     private route: ActivatedRoute,
-    private userService: DinnerUserService
+    private restaurantService: RestaurantUserService,
+    private dinerService: DinerUserService
   ) { }
 
   ngOnInit(): void {
-      this.dinerUser = this.userService.getDinnerUserById();
+      this.restaurantUser = this.restaurantService.getRestaurantUserById();
+      this.dinerUser = this.dinerService.getDinerUserById();
   }
   
   buttonPressOnMatchCard(likeOrDislike: any): void { 
@@ -39,21 +45,21 @@ export class SwipeComponent implements OnInit {
     if(likeOrDislike === 'like') {
       this.directionOfCard = 'right';
       if (this.dinerUser) {
-        this.userService.likeUser(this.dinerUser.id);
-        this.getNextUser();
+        this.dinerService.likeUser(this.dinerUser.id);
+        this.getNextRestaurantUser();
       }
     } else if (likeOrDislike === 'dislike') {
       this.directionOfCard = 'left';
       if (this.dinerUser) {
-        this.userService.dislikeUser(this.dinerUser.id);
-        this.getNextUser();
+        this.dinerService.dislikeUser(this.dinerUser.id);
+        this.getNextRestaurantUser();
       }
     }
   }
 
-  private getNextUser(): void {
+  private getNextRestaurantUser(): void {
     this.resetSwipeLocation();
-    this.dinerUser = this.userService.getCurrentDinerUser();
+    this.restaurantUser = this.restaurantService.getCurrentRestaurantUser();
   }
 
   resetSwipeLocation() {
