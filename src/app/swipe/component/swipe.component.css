@@ -1,14 +1,25 @@
 /* Add your styles for the card component here */
 .card {
-    max-width: 300px;
-    margin: 20px auto;
+    max-width: 600px;
+    margin: 0 auto;
+    position: absolute;
     border: 1px solid #ccc;
     border-radius: 5px;
+    top: 40%;
+    left: 42%;
     padding: 10px;
     text-align: center;
+    display: flex; /* Use flexbox for the layout */
+    justify-content: space-between; /* Space the columns evenly */
     transition: transform 0.3s ease-in-out;
   }
-  
+
+
+.left-column,
+.right-column {
+  flex-basis: 48%; /* Adjust the width of the columns as needed */
+}
+
   .card img {
     width: 100%;
     max-height: 200px;
@@ -20,6 +31,8 @@
     font-size: 18px;
     margin-bottom: 5px;
   }
+  
+  
   
   .card p {
     font-size: 14px;
@@ -53,8 +66,10 @@
   }
 
   /* Apply styles for swiped state */
-  .card.swipedLeft {
-    transform: translateX(-100%); /* Move the card to the left when swiped left */
+  .card.swipedLeft {    
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
   }
 
   /* Apply styles for swiped right state */

@@ -21,6 +21,7 @@ import { User } from './../../core/models/user.model';
 })
 export class SwipeComponent implements OnInit {
   isSwiped = false;
+  isResetting = false;
   directionOfCard: "left" | 'right' | null = null;
   user: User | undefined;
 
@@ -33,6 +34,10 @@ export class SwipeComponent implements OnInit {
     this.route.params.subscribe(params => {
       const userId = Number(params['id']);
       this.user = this.userService.getUserById(userId);
+      //  Asset 
+      if (this.user) {
+        this.user.photoUrl = "/assets/debug/user1.jpeg";
+      }
     });
   }
   
@@ -56,7 +61,19 @@ export class SwipeComponent implements OnInit {
   }
 
   private getNextUser(): void {
+    this.resetSwipe();
     this.user = this.userService.getCurrentUser();
+  }
+
+  resetSwipe() {
+    if (this.isSwiped) {
+      this.isResetting = true;
+      setTimeout(() => {
+        this.isResetting = false;
+        this.isSwiped = false;
+        this.directionOfCard = null;
+      }, 500); // Adjust the timeout duration to match your transition duration
+    }
   }
 
 }
