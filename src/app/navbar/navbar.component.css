@@ -11,8 +11,10 @@ body {
     left: 0;
     background-color: #fff;
     overflow-x: hidden;
-    padding-top: 20px;
-    border-right: 2px solid lightgray;
+    /* padding-top: 20px; */
+    /* border-right: 2px solid lightgray; */
+        box-shadow: 0 0 30px lightgray;
+
 
     display: flex; /* Use Flexbox for layout */
     flex-direction: column; /* Stack items vertically */
@@ -26,11 +28,14 @@ body {
     text-decoration: none;
     font-size: 25px;
     color: #818181;
+    /* color:blue; */
     display: block;
   }
   
   .sidenav a:hover {
-    color: #f1f1f1;
+    /* color: #f1f1f1; */
+    color:blue;
+
   }
   
   .main {

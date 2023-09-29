@@ -1,3 +1,10 @@
+.profileContainer{
+    display: grid;
+    /* grid-template-columns: 20% 80%; Set column widths to 40% and 60% */
+    grid-template-columns: minmax(20%, 1fr) minmax(80%, 4fr);
+    width: 100%;  
+}
+
 .profile-picture img{
     border-radius:100px;
     height: 100px;
@@ -6,9 +13,9 @@
 
 .profile{
     /* text-align:center; */
-    border-right: 2px solid lightgray;
     height: 100vh;
-    overflow-y:auto;
+    display: grid;
+    grid-template-rows: 10% 20% 70%;
 }
 
 .profile-picture{
@@ -20,6 +27,29 @@
 }
 .profile p{
     font-size:medium;
+}
+
+.profile a{
+    color: #818181;
+}
+.profile-info input{
+    padding:10px;
+    /* border:0; */
+    /* background-color:rgba(239, 239, 239, 0.7); */
+    width: -webkit-fill-available;
+}
+
+.feed{
+    /* flex: 60%; */
+    /* height: 100vh; */
+    border-left: 2px solid lightgray;
+
+
+}
+
+
+.profile a:hover{
+    color:blue;
 }
 
 .edit,
@@ -48,6 +78,7 @@
     position: absolute; /* Position the button absolutely within the container */
     top: 0; /* Align to the top */
     right: 0;
+    margin-top:20px;
 }
 
 .edit-button button:hover{
@@ -62,3 +93,22 @@
 .label-input{
     padding-bottom:30px;
 }
+
+.center-image-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Adjust as needed */
+  }
+  
+.enabled-input {
+    background-color:rgba(239, 239, 239, 0.7);
+    border:0;
+
+  }
+  
+  .disabled-input {
+    background-color:rgba(239, 239, 239, 0.3);
+    border:1px solid black;
+}
+  
