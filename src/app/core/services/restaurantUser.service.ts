@@ -48,10 +48,10 @@ import { RestaurantUser } from '../models/restaurantUser.model';
       return matchedRestaurantUsers;
     }
   
-    likeRestaurantUser(userRestaurantId: number): void {
-      if (!this.likedRestaurantUserIds.includes(userRestaurantId)) {
-        this.likedRestaurantUserIds.push(userRestaurantId);
-        console.log(`You liked user with ID ${userRestaurantId}.`);
+    likeRestaurantUser(restaurantUserId: number): void {
+      if (!this.likedRestaurantUserIds.includes(restaurantUserId)) {
+        this.likedRestaurantUserIds.push(restaurantUserId);
+        console.log(`You liked user with ID ${restaurantUserId}.`);
   
         // Update the index to show the next user after liking/disliking
         this.currentRestaurantUserIndex++;
@@ -66,10 +66,10 @@ import { RestaurantUser } from '../models/restaurantUser.model';
       }
     }
   
-    dislikeRestaurantUser(userRestaurantId: number): void {
-      if (!this.dislikedRestaurantUserIds.includes(userRestaurantId)) {
-        this.dislikedRestaurantUserIds.push(userRestaurantId);
-        console.log(`You disliked user with ID ${userRestaurantId}.`);
+    dislikeRestaurantUser(restaurantUserId: number): void {
+      if (!this.dislikedRestaurantUserIds.includes(restaurantUserId)) {
+        this.dislikedRestaurantUserIds.push(restaurantUserId);
+        console.log(`You disliked user with ID ${restaurantUserId}.`);
   
         // Update the index to show the next user after liking/disliking
         this.currentRestaurantUserIndex++;
