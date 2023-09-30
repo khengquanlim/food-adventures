@@ -46,14 +46,14 @@ export class SwipeComponent implements OnInit {
     this.isSwiped = true;
     if(likeOrDislike === 'like') {
       this.directionOfCard = 'right';
-      if (this.dinerUser) {
-        this.dinerService.likeUser(this.dinerUser.id);
+      if (this.restaurantUser) {
+        this.restaurantService.likeUser(this.restaurantUser.id);
         this.getNextRestaurantUser();
       }
     } else if (likeOrDislike === 'dislike') {
       this.directionOfCard = 'left';
-      if (this.dinerUser) {
-        this.dinerService.dislikeUser(this.dinerUser.id);
+      if (this.restaurantUser) {
+        this.restaurantService.dislikeUser(this.restaurantUser.id);
         this.getNextRestaurantUser();
       }
     }
@@ -62,7 +62,6 @@ export class SwipeComponent implements OnInit {
   private getNextRestaurantUser(): void {
     this.resetSwipeLocation();
     this.restaurantUser = this.restaurantService.getCurrentRestaurantUser();
-    console.log("this.resutaurantUser", this.restaurantUser)
   }
 
   resetSwipeLocation() {

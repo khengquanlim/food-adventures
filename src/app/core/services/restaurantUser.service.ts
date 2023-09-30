@@ -19,6 +19,7 @@ import { RestaurantUser } from "../models/restaurantUser.model"
       {
         id: 2,
         name: 'TacoBell',
+        profilePicUrl: '/assets/debug/user2.jpg',
         foodPicsUrl: ['/assets/debug/food4.jpg', '/assets/debug/food5.jpg', '/assets/debug/food6.jpg'],
         location: 'Jurong East',
         pricePerPax: '$20/pax',
@@ -54,6 +55,7 @@ import { RestaurantUser } from "../models/restaurantUser.model"
     }
   
     likeUser(RestaurantUserId: number): void {
+      
       const currentRestaurantUserId = this.getCurrentRestaurantUser()?.id;
       if (!this.likedRestaurantUserIds.includes(RestaurantUserId)) {
         this.likedRestaurantUserIds.push(RestaurantUserId);
