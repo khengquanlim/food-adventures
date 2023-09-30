@@ -8,16 +8,21 @@ import { RestaurantUser } from "../models/restaurantUser.model"
     private RestaurantUsers: RestaurantUser[] = [
       {
         id: 1,
-        name: 'John Doe',
-        photoUrl: '/assets/debug/user1.jpeg',
-        bio: 'Hi, I am John. Nice to meet you!',
+        name: 'Genki Sushi',
+        profilePicUrl: '/assets/debug/user1.jpeg',
+        foodPicsUrl: ['/assets/debug/food1.jpg', '/assets/debug/food2.jpg', '/assets/debug/food3.jpg', '/assets/debug/food4.jpg'],
+        location: 'Yishun',
+        pricePerPax: '$40/pax',
+        rating: '4.1',
         likeId: []
       },
       {
         id: 2,
-        name: 'Jane Smith',
-        photoUrl: '/assets/debug/user2.jpg',
-        bio: 'Hey, I am Jane. Let\'s have a great conversation!',
+        name: 'TacoBell',
+        foodPicsUrl: ['/assets/debug/food4.jpg', '/assets/debug/food5.jpg', '/assets/debug/food6.jpg'],
+        location: 'Jurong East',
+        pricePerPax: '$20/pax',
+        rating: '6.9',
         likeId: []
       },
     ];

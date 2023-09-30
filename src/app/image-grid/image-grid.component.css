@@ -1,0 +1,20 @@
+/* Set a fixed height for the grid items to make them square */
+.grid-item {
+    position: relative;
+  }
+  
+  /* Ensure images fill the square grid item */
+  .grid-item img {
+    width: 150px;
+    height: 150px;
+    vertical-align: top;
+  }
+  
+  /* Style the grid container */
+  .image-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--columns, 5), minmax(100px, 293px));
+    justify-content: center;
+    grid-gap: 28px;
+  }
+  

@@ -8,6 +8,8 @@ import { RestaurantUser } from '../../core/models/restaurantUser.model';
 import { DinerUserService } from '../../core/services/dinerUser.service';
 import { DinerUser } from '../../core/models/dinerUser.model';
 
+import { ImageGridComponent } from 'src/app/image-grid/image-grid.component';
+
 @Component({
   selector: 'app-swipe',
   templateUrl: './swipe.component.html',
@@ -60,6 +62,7 @@ export class SwipeComponent implements OnInit {
   private getNextRestaurantUser(): void {
     this.resetSwipeLocation();
     this.restaurantUser = this.restaurantService.getCurrentRestaurantUser();
+    console.log("this.resutaurantUser", this.restaurantUser)
   }
 
   resetSwipeLocation() {

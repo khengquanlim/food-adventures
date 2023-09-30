@@ -1,12 +1,13 @@
 /* Add your styles for the card component here */
 .restaurant-user-match-card {
-    max-width: 600px;
+    width: 1200px;
+    height: 600px;
     margin: 0 auto;
     position: absolute;
     border: 1px solid #ccc;
     border-radius: 5px;
-    top: 40%;
-    left: 35%;
+    top: 25%;
+    left: 25%;
     padding: 10px;
     text-align: center;
     transition: transform 0.3s ease-in-out;
@@ -14,15 +15,34 @@
     justify-content: space-between; /* Space the columns evenly */
   }
 
+.container {
+  width: 600px;
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid #ccc;
+  border-radius: 20px; /* Adjust the border radius as needed to create the desired curve */
+  overflow: hidden; /* Ensure the rounded corners are visible */
+}
 
 .left-column,
 .right-column {
+  padding: 20px; /* Add padding to create some space between the columns and the curved border */
   flex-basis: 48%; /* Adjust the width of the columns as needed */
 }
 
+.left-inner-column,
+.right-inner-column,
+.middle-inner-column {
+  flex-basis: 30%; /* Adjust the width of the columns as needed */
+}
+
+.inner-column {
+  display: flex;
+}
+
 .restaurant-user-match-card img {
-  width: 100%;
-  max-height: 200px;
+  width: 600px;
+  height: 300px;
   border-radius: 5px;
   margin-bottom: 10px;
 }
