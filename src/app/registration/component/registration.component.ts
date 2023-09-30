@@ -1,26 +1,80 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.css']
 })
-export class RegistrationComponent {
+export class RegistrationComponent implements OnInit {
+  registrationForm!: FormGroup;
+  // isFormDisabled: boolean = true; //Initialize to true to disable the form initially
 
-  userType!: string;
-  name!: string;
-  email!: string;
-  password!: string;
-  confirmPassword!: string;
-  errorMsg: string = '';
+  constructor(private fb: FormBuilder) { }
 
-  constructor() {}
-
-  onSubmit() {
-    //validation and registration logic
+  ngOnInit(): void {
+    this.registrationForm = this.fb.group({
+      userType: ['', [Validators.required, this.userTypeValidator]], 
+      registeredUserName: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      confirmPassword: ['', Validators.required],
+    }, { validator: this.passwordMatchValidator });
   }
 
+  userTypeValidator(control: AbstractControl): { [key: string]: boolean } | null {
+    const userType = control.value;
+    if (userType === 'diner' || userType === 'restaurantOwner') {
+      console.log("select diner or restaurantOwner");
+      return null; 
+    } else {
+      console.log("userTypeInvalid");
+      return { 'userTypeInvalid': true }; 
+    }
+  }
+
+  // ngOnInit(): void {
+  //   this.registrationForm = this.fb.group({
+  //     userType: ['', Validators.required], 
+  //     registeredUserName: ['', Validators.required],
+  //     email: ['', [Validators.required, Validators.email]],
+  //     password: ['', [Validators.required, Validators.minLength(8)]],
+  //     confirmPassword: ['', Validators.required],
+  //   }, { validator: this.passwordMatchValidator });
+  // }
+  
+  passwordMatchValidator(control: AbstractControl): { [key: string]: boolean } | null {
+    const password = control.get('password')?.value;
+    const confirmPassword = control.get('confirmPassword')?.value;
+    return password === confirmPassword ? null : { 'passwordMismatch': true };
+  }
+
+  onSubmitRegisterForm() {
+    // this.isFormDisabled = true;
+    if (this.registrationForm.valid) {
+      console.log(this.registrationForm.value);
+      console.log("submitted");
+      // this.isFormDisabled = false;
+    }
+  }
+
+  get userType() {
+    return this.registrationForm.get('userType');
+  }
+
+  get registeredUserName() {
+    return this.registrationForm.get('registeredUserName');
+  }
+
+  get email() {
+    return this.registrationForm.get('email');
+  }
+
+  get password() {
+    return this.registrationForm.get('password');
+  }
+
+  get confirmPassword() {
+    return this.registrationForm.get('confirmPassword');
+  }
 }
-
-
