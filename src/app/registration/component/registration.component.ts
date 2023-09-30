@@ -13,7 +13,7 @@ export class RegistrationComponent {
   email!: string;
   password!: string;
   confirmPassword!: string;
-  errorMessage: string = '';
+  errorMsg: string = '';
 
   constructor() {}
 

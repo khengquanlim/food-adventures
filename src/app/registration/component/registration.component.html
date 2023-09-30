@@ -1,28 +1,28 @@
 <div class="registration-form">
   <h2>Registration</h2>
   <form (ngSubmit)="onSubmit()">
-    <div class="form-group">
+    <div class="loginFormGroup">
       <label for="userType">User Type:</label>
       <input type="radio" name="userType" value="diner" [(ngModel)]="userType" required> Diner
       <input type="radio" name="userType" value="restaurantOwner" [(ngModel)]="userType"> Restaurant Owner
     </div>
-    <div class="form-group">
+    <div class="loginFormGroup">
       <label for="name">Name</label>
-      <input type="text" name="name" [(ngModel)]="name" required>
+      <input class="registeredName" type="text" name="name" [(ngModel)]="name" required>
     </div>
-    <div class="form-group">
+    <div class="loginFormGroup">
       <label for="email">Email</label>
       <input type="email" name="email" [(ngModel)]="email" required>
     </div>
-    <div class="form-group">
+    <div class="loginFormGroup">
       <label for="password">Password</label>
       <input type="password" name="password" [(ngModel)]="password" required>
     </div>
-    <div class="form-group">
+    <div class="loginFormGroup">
       <label for="confirmPassword">Confirm Password</label>
       <input type="password" name="confirmPassword" [(ngModel)]="confirmPassword" required>
     </div>
     <button type="submit">Register</button>
   </form>
-  <div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
+  <div class="registerErrorMsg" *ngIf="errorMsg">{{ errorMsg }}</div>
 </div>

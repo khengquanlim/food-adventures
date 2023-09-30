@@ -1,5 +1,3 @@
-
-
    .registration-form {
     max-width: 400px;
     margin: 0 auto;
@@ -15,7 +13,7 @@
     flex-direction: column;
   }
   
-  .form-group {
+  .loginFormGroup {
     margin-bottom: 15px;
   }
   
@@ -23,7 +21,7 @@
     font-weight: bold;
   }
   
-  input[type="text"],
+  .registeredName,
   input[type="email"],
   input[type="password"] {
     padding: 10px;
@@ -31,7 +29,7 @@
     border-radius: 5px;
     font-size: 16px;
   }
-  
+
   button {
     background-color: #007bff;
     color: #fff;
@@ -42,7 +40,7 @@
     cursor: pointer;
   }
   
-  .error-message {
+  .registerErrorMsg {
     color: red;
     margin-top: 10px;
   }
