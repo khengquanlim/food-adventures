@@ -14,7 +14,7 @@ import { RestaurantUser } from "../models/restaurantUser.model"
         location: 'Yishun',
         pricePerPax: '$40/pax',
         rating: '4.1',
-        likeId: []
+        likeIdList: []
       },
       {
         id: 2,
@@ -24,7 +24,7 @@ import { RestaurantUser } from "../models/restaurantUser.model"
         location: 'Jurong East',
         pricePerPax: '$20/pax',
         rating: '6.9',
-        likeId: []
+        likeIdList: []
       },
     ];
   
@@ -62,7 +62,7 @@ import { RestaurantUser } from "../models/restaurantUser.model"
         console.log(`You liked user with ID ${RestaurantUserId}.`);
 
         const likedRestaurantUser = this.RestaurantUsers.find((RestaurantUser) => RestaurantUser.id === RestaurantUserId);
-        if (likedRestaurantUser && likedRestaurantUser.likeId.includes(currentRestaurantUserId)) {
+        if (likedRestaurantUser && likedRestaurantUser.likeIdList.includes(currentRestaurantUserId)) {
           console.log("MATCHHH")
           this.addMatchedUser(likedRestaurantUser);
         }
@@ -70,11 +70,34 @@ import { RestaurantUser } from "../models/restaurantUser.model"
       }
       this.checkEndOfMatchingRestaurantUsers();
     }
-  
-    dislikeUser(RestaurantUserId: number): void {
-      if (!this.dislikedRestaurantUserIds.includes(RestaurantUserId)) {
-        this.dislikedRestaurantUserIds.push(RestaurantUserId);
-        console.log(`You disliked user with ID ${RestaurantUserId}.`);
+
+    addUserToLikeList(dinerUserId: number): boolean {
+      const currentRestaurantUser = this.getCurrentRestaurantUser();
+      const isDinerInCurrentRestaurantUserLikedList = this.compareCurrentUserToLikedIdList(dinerUserId, this.getCurrentRestaurantUser().likeIdList);
+      if(currentRestaurantUser && !isDinerInCurrentRestaurantUserLikedList) {
+        if (this.getCurrentRestaurantUser().likeIdList.includes(dinerUserId)) {
+          console.log(`You like user with ID ${dinerUserId}.`);
+          return false;
+        } else {
+          this.getCurrentRestaurantUser().likeIdList.push(dinerUserId);
+          return true;
+        }
+      }
+      return true;
+    }
+
+    compareCurrentUserToLikedIdList(currentDinerUserId: number, currentRestaurantLikeIdList: number[]): boolean {
+      if (!this.getCurrentRestaurantUser().likeIdList.includes(currentDinerUserId)) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    dislikeUser(dinerUserId: number): void {
+      if (!this.dislikedRestaurantUserIds.includes(dinerUserId)) {
+        this.dislikedRestaurantUserIds.push(dinerUserId);
+        console.log(`You disliked user with ID ${dinerUserId}.`);
   
         this.currentRestaurantUserIndex++;
       }

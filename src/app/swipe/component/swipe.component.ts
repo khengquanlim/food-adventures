@@ -47,8 +47,22 @@ export class SwipeComponent implements OnInit {
     if(likeOrDislike === 'like') {
       this.directionOfCard = 'right';
       if (this.restaurantUser) {
-        this.restaurantService.likeUser(this.restaurantUser.id);
-        this.getNextRestaurantUser();
+        if(this.dinerUser) {
+          const isDinerAddedToUserLikedList = this.restaurantService.addUserToLikeList(this.dinerUser.id);
+          if(!isDinerAddedToUserLikedList) {
+            console.log("Do a compare between current restaurant user like id list with current diner user id")
+            setTimeout(() => {
+            }, 500);
+          } else {
+            this.restaurantService.likeUser(this.restaurantUser.id);
+            setTimeout(() => {
+              this.isResetting = false;
+              this.isSwiped = false;
+              this.directionOfCard = null;
+            }, 500);
+            this.getNextRestaurantUser();
+          }
+        }
       }
     } else if (likeOrDislike === 'dislike') {
       this.directionOfCard = 'left';
