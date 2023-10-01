@@ -8,7 +8,6 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
 })
 export class RegistrationComponent implements OnInit {
   registrationForm!: FormGroup;
-  // isFormDisabled: boolean = true; //Initialize to true to disable the form initially
 
   constructor(private fb: FormBuilder) { }
 
@@ -32,16 +31,6 @@ export class RegistrationComponent implements OnInit {
       return { 'userTypeInvalid': true }; 
     }
   }
-
-  // ngOnInit(): void {
-  //   this.registrationForm = this.fb.group({
-  //     userType: ['', Validators.required], 
-  //     registeredUserName: ['', Validators.required],
-  //     email: ['', [Validators.required, Validators.email]],
-  //     password: ['', [Validators.required, Validators.minLength(8)]],
-  //     confirmPassword: ['', Validators.required],
-  //   }, { validator: this.passwordMatchValidator });
-  // }
   
   passwordMatchValidator(control: AbstractControl): { [key: string]: boolean } | null {
     const password = control.get('password')?.value;
@@ -50,11 +39,10 @@ export class RegistrationComponent implements OnInit {
   }
 
   onSubmitRegisterForm() {
-    // this.isFormDisabled = true;
     if (this.registrationForm.valid) {
+      this.registrationForm.reset();
       console.log(this.registrationForm.value);
       console.log("submitted");
-      // this.isFormDisabled = false;
     }
   }
 

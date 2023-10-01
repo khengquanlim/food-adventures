@@ -33,6 +33,17 @@ input[type="password"] {
   cursor: pointer;
 }
 
+.registerBtn[disabled] {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #ccc; 
+  cursor: not-allowed;
+  color: #888; 
+  pointer-events: none; 
+
+}
+
 .registerErrorMsg {
   color: #ff0000;
   font-size: 14px;
