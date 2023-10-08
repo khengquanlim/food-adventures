@@ -14,14 +14,21 @@
     display: flex; /* Use flexbox for the layout */
     justify-content: space-between; /* Space the columns evenly */
   }
-
+  .restaurant-user-match-card-container {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.3s ease-out;
+  }
+  
 .container {
-  width: 600px;
+  width: 1200px;
   display: flex;
   justify-content: space-between;
   border: 1px solid #ccc;
-  border-radius: 20px; /* Adjust the border radius as needed to create the desired curve */
-  overflow: hidden; /* Ensure the rounded corners are visible */
+  border-radius: 20px;
+  overflow: hidden;
+  height: 100%;
+  transition: transform 0.3s ease-out;
 }
 
 .left-column,
@@ -38,6 +45,8 @@
 
 .inner-column {
   display: flex;
+  justify-content: space-between; /* Space the inner columns evenly */
+
 }
 
 .restaurant-user-match-card img {
@@ -85,6 +94,12 @@
   border-radius: 5px;
 }
 
+/* Styles for the 'match' state */
+.restaurant-user-match-card.match {
+  opacity: 0; /* Make the card invisible during the match animation */
+  transform: scale(0.5); /* Scale down the card when there's a match */
+}
+
 .restaurant-user-match-card .like-button:hover{
   background-color: #ff474c;
 }
@@ -104,4 +119,23 @@
 
 .restaurant-user-match-card.notSwiped {
   transform: translateX(0);
+}
+.match-container {
+  /* Adjust the styles for the match-container to override the original container */
+  z-index: 1; /* Set a higher z-index to place it above */
+  background-color: rgba(255, 255, 255, 0.9); /* Add a background color to make it more visible */
+  position: absolute; /* Position it within the card */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.match-message {
+  font-size: 16px;
+  color: #333; /* Customize the color as needed */
 }

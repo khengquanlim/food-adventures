@@ -1,23 +1,27 @@
 <div class="restaurant-user-match-card" [ngClass]="{ 'swipedLeft': directionOfCard === 'left', 'swipedRight': directionOfCard === 'right' }" *ngIf="restaurantUser">
-  <div class="container">
-    <div class="left-column">
-      <app-image-grid [images]="restaurantUser.foodPicsUrl" [numberOfColumns]="2" [imageWidth]="'250px'" [imageHeight]="'210px'"></app-image-grid>
-      <button class="like-button" (click)="buttonPressOnMatchCard('like')">Like</button>
-      <button class="dislike-button" (click)="buttonPressOnMatchCard('dislike')">Dislike</button>
-    </div>
-  </div>
-  <div class="container">
-    <div class="right-column">
-      <img [src]="restaurantUser.profilePicUrl" alt="Restaurant User Photo">
-      <h2> {{ restaurantUser.name }}</h2>
-  
-      <div class="inner-column">
-        <div class="left-inner-column"> {{ restaurantUser.location}}</div>
-        <div class="middle-inner-column"> {{ restaurantUser.pricePerPax}}</div>
-        <div class="right-inner-column"> {{ restaurantUser.rating}}</div>
+  <!-- <div class="restaurant-user-match-card-container" [@swipeAnimation]="directionOfCard"> -->
+    <div class="container" [@swipeAnimation]="directionOfCard">
+      <div class="left-column">
+        <app-image-grid [images]="restaurantUser.foodPicsUrl" [numberOfColumns]="2" [imageWidth]="'250px'" [imageHeight]="'210px'"></app-image-grid>
+        <button class="like-button" (click)="buttonPressOnMatchCard('like')">Like</button>
+        <button class="dislike-button" (click)="buttonPressOnMatchCard('dislike')">Dislike</button>
+      </div>
+      <div class="right-column">
+        <img [src]="restaurantUser.profilePicUrl" alt="Restaurant User Photo">
+        <h2> {{ restaurantUser.name }}</h2>
+    
+        <div class="inner-column">
+          <div class="left-inner-column"> {{ restaurantUser.location}}</div>
+          <div class="middle-inner-column"> {{ restaurantUser.pricePerPax}}</div>
+          <div class="right-inner-column"> {{ restaurantUser.rating}}</div>
+        </div>
       </div>
     </div>
+    <div class="match-container" *ngIf="directionOfCard === 'match'"> 
+      <p class="match-message">You have matched with ID: {{ dinerUser?.id }}</p>
+  
     </div>
+  <!-- </div> -->
 </div>
 <div class="restaurant-user-match-card" *ngIf="!restaurantUser">
   <div class="container">

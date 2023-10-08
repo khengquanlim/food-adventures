@@ -19,15 +19,17 @@ import { ImageGridComponent } from 'src/app/image-grid/image-grid.component';
       state('notSwiped', style({ transform: 'translateX(0)' })),
       state('swipedRight', style({ transform: 'translateX(100%)' })),
       state('swipedLeft', style({ transform: 'translateX(-100%)' })),
+      state('match', style({ opacity: 0, transform: 'scale(0.5)' })),
       transition('notSwiped <=> swipedLeft', animate('300ms ease-out')),
       transition('notSwiped <=> swipedRight', animate('300ms ease-out')),
+      transition('* <=> match', animate('500ms ease-in-out'))
     ]),
   ],
 })
 export class SwipeComponent implements OnInit {
   isSwiped = false;
   isResetting = false;
-  directionOfCard: "left" | 'right' | null = null;
+  directionOfCard: "left" | 'right' | 'match' | null = null;
   restaurantUser: RestaurantUser | undefined;
   dinerUser: DinerUser | undefined;
 
@@ -48,13 +50,14 @@ export class SwipeComponent implements OnInit {
       this.directionOfCard = 'right';
       if (this.restaurantUser) {
         if(this.dinerUser) {
-          const isDinerAddedToUserLikedList = this.restaurantService.addUserToLikeList(this.dinerUser.id);
-          if(!isDinerAddedToUserLikedList) {
-            console.log("Do a compare between current restaurant user like id list with current diner user id")
-            setTimeout(() => {
-            }, 500);
+          const isAnotherDinerInUserLikedList = this.restaurantService.compareCurrentUserToLikedIdList(this.dinerUser.id, this.restaurantUser.likeIdList);
+          console.log("isAnotherDinerInUserLikedList", isAnotherDinerInUserLikedList)
+          this.restaurantService.likeUser(this.restaurantUser.id, this.dinerUser.id);
+          console.log("this.restaurantUser.likeIdList", this.restaurantUser.likeIdList)
+          if(isAnotherDinerInUserLikedList) {
+            console.log("Match")
+            this.directionOfCard = 'match';
           } else {
-            this.restaurantService.likeUser(this.restaurantUser.id);
             setTimeout(() => {
               this.isResetting = false;
               this.isSwiped = false;
