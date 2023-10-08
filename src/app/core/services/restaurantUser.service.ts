@@ -54,40 +54,41 @@ import { RestaurantUser } from "../models/restaurantUser.model"
       this.matchedRestaurantUsers.push(RestaurantUser);
     }
   
-    likeUser(RestaurantUserId: number): void {
+    likeUser(RestaurantUserId: number, dinerUserId: number): void {
       
       const currentRestaurantUserId = this.getCurrentRestaurantUser()?.id;
+      const likedRestaurantUser = this.RestaurantUsers.find((RestaurantUser) => RestaurantUser.id === RestaurantUserId);
       if (!this.likedRestaurantUserIds.includes(RestaurantUserId)) {
-        this.likedRestaurantUserIds.push(RestaurantUserId);
+        // this.likedRestaurantUserIds.push(RestaurantUserId);
         console.log(`You liked user with ID ${RestaurantUserId}.`);
 
-        const likedRestaurantUser = this.RestaurantUsers.find((RestaurantUser) => RestaurantUser.id === RestaurantUserId);
-        if (likedRestaurantUser && likedRestaurantUser.likeIdList.includes(currentRestaurantUserId)) {
-          console.log("MATCHHH")
+        if (likedRestaurantUser && !likedRestaurantUser.likeIdList.includes(currentRestaurantUserId)) {
           this.addMatchedUser(likedRestaurantUser);
         }
         this.currentRestaurantUserIndex++;
+      } else {
+        console.log("likedRestaurantUser.likeIdList", this.RestaurantUsers[this.currentRestaurantUserIndex].likeIdList)
       }
       this.checkEndOfMatchingRestaurantUsers();
     }
 
-    addUserToLikeList(dinerUserId: number): boolean {
-      const currentRestaurantUser = this.getCurrentRestaurantUser();
-      const isDinerInCurrentRestaurantUserLikedList = this.compareCurrentUserToLikedIdList(dinerUserId, this.getCurrentRestaurantUser().likeIdList);
-      if(currentRestaurantUser && !isDinerInCurrentRestaurantUserLikedList) {
-        if (this.getCurrentRestaurantUser().likeIdList.includes(dinerUserId)) {
-          console.log(`You like user with ID ${dinerUserId}.`);
-          return false;
-        } else {
-          this.getCurrentRestaurantUser().likeIdList.push(dinerUserId);
-          return true;
-        }
-      }
-      return true;
-    }
+    // addUserToLikeList(dinerUserId: number): boolean {
+    //   const currentRestaurantUser = this.getCurrentRestaurantUser();
+    //   const isDinerInCurrentRestaurantUserLikedList = this.compareCurrentUserToLikedIdList(dinerUserId, this.getCurrentRestaurantUser().likeIdList);
+    //   if(currentRestaurantUser && !isDinerInCurrentRestaurantUserLikedList) {
+    //     if (this.getCurrentRestaurantUser().likeIdList.includes(dinerUserId)) {
+    //       console.log(`You like user with ID ${dinerUserId}.`);
+    //       return false;
+    //     } else {
+    //       this.getCurrentRestaurantUser().likeIdList.push(dinerUserId);
+    //       return true;
+    //     }
+    //   }
+    //   return true;
+    // }
 
     compareCurrentUserToLikedIdList(currentDinerUserId: number, currentRestaurantLikeIdList: number[]): boolean {
-      if (!this.getCurrentRestaurantUser().likeIdList.includes(currentDinerUserId)) {
+      if (this.getCurrentRestaurantUser().likeIdList.length != 0 && !this.getCurrentRestaurantUser().likeIdList.includes(currentDinerUserId)) {
         return true;
       } else {
         return false;
