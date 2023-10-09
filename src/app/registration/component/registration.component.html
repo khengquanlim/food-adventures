@@ -1,1 +1,43 @@
-<p>registration works!</p>
+<div class="registerForm">
+  <h2>Registration</h2>
+  <form [formGroup]="registrationForm" (ngSubmit)="onSubmitRegisterForm()">
+    <div class="registerFormGroup">
+      <label>User Type</label>
+      <div>
+        <label>
+          <input type="radio" formControlName="userType" value="diner"> Diner
+        </label>
+        <label>
+          <input type="radio" formControlName="userType" value="restaurantOwner"> Restaurant Owner
+        </label>
+      </div>
+      <div *ngIf="registrationForm.get('userType')?.hasError('required') && registrationForm.get('userType')?.touched && registrationForm.hasError('userTypeInvalid')" class="registerErrorMsg">Please select a user type</div>
+    </div>
+    <div class="registerFormGroup">
+      <label>Username</label>
+      <input class="registeredUsername" type="text" formControlName="registeredUserName">
+      <div *ngIf="registeredUserName?.hasError('required') && registeredUserName?.touched" class="registerErrorMsg">Name is required</div>
+    </div>
+    <div class="registerFormGroup">
+      <label>Email</label>
+      <input type="email" formControlName="email">
+      <div *ngIf="email?.hasError('required') && email?.touched" class="registerErrorMsg">Email is required</div>
+      <div *ngIf="email?.hasError('email') && email?.touched" class="registerErrorMsg">Invalid email format</div>
+    </div>
+    <div class="registerFormGroup">
+      <label>Password</label>
+      <input type="password" formControlName="password">
+      <div *ngIf="password?.hasError('required') && password?.touched" class="registerErrorMsg">Password is required</div>
+      <div *ngIf="password?.hasError('minlength') && password?.touched" class="registerErrorMsg">Password must be at least 8 characters</div>
+    </div>
+    <div class="registerFormGroup">
+      <label>Confirm Password</label>
+      <input type="password" formControlName="confirmPassword">
+      <div *ngIf="confirmPassword?.hasError('required') && confirmPassword?.touched" class="registerErrorMsg">Confirm Password is required</div>
+      <div *ngIf="registrationForm?.hasError('passwordMismatch')" class="registerErrorMsg">Passwords must match</div>
+    </div>
+    <button class="registerBtn" type="submit" [disabled]="registrationForm.invalid">Register</button>
+    <!-- For debug -->
+    <p>Form Valid: {{ registrationForm.valid }}</p>
+  </form>
+</div>
