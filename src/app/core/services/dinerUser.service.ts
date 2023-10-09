@@ -11,14 +11,16 @@ import { DinerUser } from '../models/dinerUser.model';
         name: 'John Doe',
         photoUrl: '/assets/debug/user1.jpg',
         bio: 'Hi, I am John. Nice to meet you!',
-        likeId: []
+        likeId: [],
+        matchedId: [2]
       },
       {
         id: 2,
         name: 'Jane Smith',
         photoUrl: '/assets/debug/user2.jpg',
         bio: 'Hey, I am Jane. Let\'s have a great conversation!',
-        likeId: []
+        likeId: [],
+        matchedId: [1]
       },
     ];
   

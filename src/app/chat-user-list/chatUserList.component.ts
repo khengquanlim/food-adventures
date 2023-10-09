@@ -9,11 +9,27 @@ import { DinerUser } from '../core/models/dinerUser.model';
   styleUrls: ['./chatUserList.component.css'],
 })
 export class ChatUserListComponent {
-  @Input() dinerUsers: DinerUser[] = [];
+  @Input() dinerUsers: DinerUser[] = [];  
+  @Input() matchedUserIds: number[] = [];
   @Output() userSelected = new EventEmitter<DinerUser>();
   selectedUser: DinerUser | null = null;
-  
+  filteredDinerUsers: DinerUser[] = [];
+
+  constructor() {
+  }
+
+  ngOnInit() {
+    this.filterDinerUsersBasedOnMatchedId();
+  }
+
   selectUser(user: DinerUser) {
     this.userSelected.emit(user);
   }
+
+  filterDinerUsersBasedOnMatchedId() {
+    this.filteredDinerUsers = this.dinerUsers.filter((user) =>
+      this.matchedUserIds.includes(user.id)
+    );
+  }
+
 }

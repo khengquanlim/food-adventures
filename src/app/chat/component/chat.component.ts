@@ -41,8 +41,6 @@ export class ChatComponent implements OnInit {
   sendMessage() {
     if (this.newMessage.trim() !== '') {
       if (this.selectedUser) {
-        console.log("?")
-        // Create a new chat message
         const message: ChatMessage = {
           senderId: this.currentDinerUser.id,
           receiverId: this.selectedUser.id,
@@ -69,10 +67,7 @@ export class ChatComponent implements OnInit {
   }
   
   openChatWithUser(user: DinerUser) {
-    // Handle user selection and open a chat window with the selected user
     this.selectedUser = user;
-    // You can initialize the chat messages for the selected user here
     this.messages = this.chatMessageService.getMessagesForUser(user.id);
-    // For example: this.messages = fetchMessagesForUser(user.id);
   }
 }

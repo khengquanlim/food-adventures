@@ -1,6 +1,6 @@
 <div class="chat-container">
   <div class="user-list-container">
-    <app-chat-user-list [dinerUsers]="dinerUsers" (userSelected)="openChatWithUser($event)"></app-chat-user-list>
+    <app-chat-user-list [dinerUsers]="dinerUsers" [matchedUserIds]="currentDinerUser.matchedId" (userSelected)="openChatWithUser($event)"></app-chat-user-list>
   </div>
   <div class="chat-window" *ngIf="selectedUser"  [@slideIn]="selectedUser ? 'in' : 'out'">
     <div class="chat-header">

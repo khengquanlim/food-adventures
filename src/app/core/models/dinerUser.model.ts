@@ -4,5 +4,6 @@ export interface DinerUser {
     photoUrl?: string;
     bio: string;
     likeId: number[];
+    matchedId: number[];
     // Add more properties as needed
   }
