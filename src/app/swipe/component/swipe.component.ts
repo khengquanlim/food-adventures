@@ -76,7 +76,7 @@ export class SwipeComponent implements OnInit {
     }
   }
 
-  private getNextRestaurantUser(): void {
+  getNextRestaurantUser(): void {
     this.resetSwipeLocation();
     this.restaurantUser = this.restaurantService.getCurrentRestaurantUser();
   }

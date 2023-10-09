@@ -1,6 +1,5 @@
 <div class="restaurant-user-match-card" [ngClass]="{ 'swipedLeft': directionOfCard === 'left', 'swipedRight': directionOfCard === 'right' }" *ngIf="restaurantUser">
-  <!-- <div class="restaurant-user-match-card-container" [@swipeAnimation]="directionOfCard"> -->
-    <div class="container" [@swipeAnimation]="directionOfCard">
+    <div class="center-container" [@swipeAnimation]="directionOfCard">
       <div class="left-column">
         <app-image-grid [images]="restaurantUser.foodPicsUrl" [numberOfColumns]="2" [imageWidth]="'250px'" [imageHeight]="'210px'"></app-image-grid>
         <button class="like-button" (click)="buttonPressOnMatchCard('like')">Like</button>
@@ -18,15 +17,18 @@
       </div>
     </div>
     <div class="match-container" *ngIf="directionOfCard === 'match'"> 
-      <p class="match-message">You have matched with ID: {{ dinerUser?.id }}</p>
+      <p class="match-message">You have matched with name: {{dinerUser?.name}}</p>
+      <p class="match-message">Would you like to chat with {{dinerUser?.name}} <button class="chat-button" routerLink="/chat">Continue to Chat</button> </p>
+      <p class="match-message">Continue with matching other users? <button class="swipe-button" (click)="getNextRestaurantUser()" >Continue with Swiping</button></p>
   
     </div>
-  <!-- </div> -->
 </div>
 <div class="restaurant-user-match-card" *ngIf="!restaurantUser">
   <div class="container">
-    <h2> You have reached the end of all restaurants</h2>
-    <p> Please wait and meanwhile go enjoy the rest of the webapp</p>
+    <h2 class="align-center-text"> You have reached the end of all restaurants 
+      <p> Please wait and meanwhile go enjoy the rest of the webapp</p>
+    </h2>
+    
   </div>
 
 </div>

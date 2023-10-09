@@ -9,12 +9,12 @@ import { RestaurantUser } from "../models/restaurantUser.model"
       {
         id: 1,
         name: 'Genki Sushi',
-        profilePicUrl: '/assets/debug/user1.jpeg',
+        profilePicUrl: '/assets/debug/user1.jpg',
         foodPicsUrl: ['/assets/debug/food1.jpg', '/assets/debug/food2.jpg', '/assets/debug/food3.jpg', '/assets/debug/food4.jpg'],
         location: 'Yishun',
         pricePerPax: '$40/pax',
         rating: '4.1',
-        likeIdList: []
+        likeIdList: [1]
       },
       {
         id: 2,

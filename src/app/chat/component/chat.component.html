@@ -1,15 +1,20 @@
 <div class="chat-container">
-  <div class="chat-messages">
-    <div class="message" *ngFor="let message of chatMessages" [ngClass]="{'sent-message': message.sender === 'You', 'received-message': message.sender !== 'You'}">
-      <div class="message-content">
-        <span class="sender-name">{{ message.sender }}:</span>
-        <span>{{ message.content }}</span>
+  <div class="user-list-container">
+    <app-chat-user-list [dinerUsers]="dinerUsers" (userSelected)="openChatWithUser($event)"></app-chat-user-list>
+  </div>
+  <div class="chat-window" *ngIf="selectedUser">
+    <div class="chat-header">
+      Chat with {{ selectedUser.name }}
+    </div>
+    <div class="chat-messages">
+      <div class="message" *ngFor="let message of messages">
+        <div class="message-sender">{{ message.sender }}</div>
+        <div class="message-text">{{ message.text }}</div>
       </div>
     </div>
-  </div>
-
-  <div class="form-container">
-    <input type="text" [(ngModel)]="newMessage" name="message" placeholder="Type your message..." />
-    <button class="send-button" (click)="sendMessage()">Send</button>
+    <div class="chat-input">
+      <input type="text" [(ngModel)]="newMessage" (keyup.enter)="sendMessage()" placeholder="Type your message..." />
+      <button (click)="sendMessage()">Send</button>
+    </div>
   </div>
 </div>

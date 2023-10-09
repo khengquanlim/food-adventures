@@ -13,20 +13,20 @@ interface ChatMessage {
   styleUrls: ['./matches.component.css']
 })
 export class MatchesComponent implements OnInit {
-  matchedUsers: DinerUser[] = [];
-  activeUser: DinerUser | undefined;
+  // matchedUsers: DinerUser[] = [];
+  // activeUser: DinerUser | undefined;
 
   constructor(private userService: DinerUserService) { }
 
   ngOnInit(): void {
-    this.matchedUsers = this.userService.getMatchedDinerUsers();
-  }
+  //   this.matchedUsers = this.userService.getMatchedDinerUsers();
+  // }
 
-  showChat(user: DinerUser): void {
-    this.activeUser = user;
-  }
+  // showChat(user: DinerUser): void {
+  //   this.activeUser = user;
+  // }
 
-  hideChat(): void {
-    this.activeUser = undefined;
+  // hideChat(): void {
+  //   this.activeUser = undefined;
   }
 }
