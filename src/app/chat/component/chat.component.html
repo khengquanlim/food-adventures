@@ -2,19 +2,22 @@
   <div class="user-list-container">
     <app-chat-user-list [dinerUsers]="dinerUsers" (userSelected)="openChatWithUser($event)"></app-chat-user-list>
   </div>
-  <div class="chat-window" *ngIf="selectedUser">
+  <div class="chat-window" *ngIf="selectedUser"  [@slideIn]="selectedUser ? 'in' : 'out'">
     <div class="chat-header">
+      <img [src]="selectedUser.photoUrl" alt="{{ selectedUser.name }}" />
       Chat with {{ selectedUser.name }}
     </div>
-    <div class="chat-messages">
+    <div class="chat-messages" #chatMessagesContainer>
       <div class="message" *ngFor="let message of messages">
-        <div class="message-sender">{{ message.sender }}</div>
-        <div class="message-text">{{ message.text }}</div>
+        <div class="message-sender">{{ message.senderId === currentDinerUser.id ? 'You' : selectedUser.name }}</div>
+        <div class="message-text">{{ message.content }}</div>
       </div>
     </div>
-    <div class="chat-input">
-      <input type="text" [(ngModel)]="newMessage" (keyup.enter)="sendMessage()" placeholder="Type your message..." />
-      <button (click)="sendMessage()">Send</button>
+    <div class="chat-input-container">
+      <div class="chat-input">
+        <input type="text" [(ngModel)]="newMessage" (keyup.enter)="sendMessage()" placeholder="Type your message..." />
+        <button (click)="sendMessage()">Send</button>
+      </div>
     </div>
   </div>
 </div>

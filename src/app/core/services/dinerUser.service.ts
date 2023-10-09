@@ -9,7 +9,7 @@ import { DinerUser } from '../models/dinerUser.model';
       {
         id: 1,
         name: 'John Doe',
-        photoUrl: '/assets/debug/user1.jpeg',
+        photoUrl: '/assets/debug/user1.jpg',
         bio: 'Hi, I am John. Nice to meet you!',
         likeId: []
       },
