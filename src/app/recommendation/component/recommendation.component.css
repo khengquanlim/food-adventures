@@ -1,13 +1,12 @@
-/* Header Styles */
 .recommendationHeader {
   text-align: center;
   background-color: #93d074;
-  color: #fff; /* Text color */
+  color: #fff;
   padding: 20px;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px; /* Add margin at the bottom to separate it from the container */
+  margin-bottom: 20px; 
 }
 
 .recommendationHeader h1 {
@@ -15,7 +14,6 @@
   margin: 0;
 }
 
-/* Container Styles */
 .recommendationContainer {
   display: flex;
   flex-direction: column;
@@ -29,7 +27,7 @@
   max-width: 600px;
   width: 100%;
   margin: 0 auto;
-  margin-top: 20px; /* Add margin at the top to separate it from the header *//* Adjust the margin-top to create space between the header and container */
+  margin-top: 20px; 
 }
 
 .leftSection {
