@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { DinerUserService } from '../../core/services/dinerUser.service';
-import { User } from '../../core/models/dinerUser.model';
+import { DinerUser } from '../../core/models/dinerUser.model';
 
 interface ChatMessage {
   sender: string;
@@ -13,7 +13,9 @@ interface ChatMessage {
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnChanges {
-  @Input() matchedUser!: User;
+  private matchedUser = {
+    name: "John"
+  }
   chatMessages: ChatMessage[] = [];
   newMessage: string = '';
 
