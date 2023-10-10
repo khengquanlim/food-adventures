@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { RestaurantUser } from "../models/restaurantUser.model"
+import { DinerUser } from '../models/dinerUser.model';
 
 @Injectable({
     providedIn: 'root'
@@ -14,17 +15,37 @@ import { RestaurantUser } from "../models/restaurantUser.model"
         location: 'Yishun',
         pricePerPax: '$40/pax',
         rating: '4.1',
-        likeIdList: [1]
-      },
+        dinerLikesIdList: [2]
+      }, //new restaurant --> Both user ID do not exist in dinerLikeIdList > Sure > Pass the RestaurantUser / to chat
       {
         id: 2,
         name: 'TacoBell',
         profilePicUrl: '/assets/debug/user2.jpg',
-        foodPicsUrl: ['/assets/debug/food4.jpg', '/assets/debug/food5.jpg', '/assets/debug/food6.jpg'],
+        foodPicsUrl: ['/assets/debug/food5.jpg', '/assets/debug/food6.jpg'],
         location: 'Jurong East',
         pricePerPax: '$20/pax',
         rating: '6.9',
-        likeIdList: []
+        dinerLikesIdList: []
+      },
+      {
+        id: 3,
+        name: 'Cooking Empire',
+        profilePicUrl: '/assets/debug/user3.jpg',
+        foodPicsUrl: ['/assets/debug/food4.jpg', '/assets/debug/food2.jpg', '/assets/debug/food3.jpg'],
+        location: 'Insane food here!',
+        pricePerPax: '$20/pax',
+        rating: '6.9',
+        dinerLikesIdList: []
+      },
+      {
+        id: 4,
+        name: 'Chinese meow',
+        profilePicUrl: '/assets/debug/user4.jpg',
+        foodPicsUrl: ['/assets/debug/food4.jpg', '/assets/debug/food5.jpg', '/assets/debug/food6.jpg'],
+        location: 'Traditional and modern chinese cooking!',
+        pricePerPax: '$20/pax',
+        rating: '6.9',
+        dinerLikesIdList: []
       },
     ];
   
@@ -50,25 +71,25 @@ import { RestaurantUser } from "../models/restaurantUser.model"
       return matchedRestaurantUsers;
     }
 
-    addMatchedUser(RestaurantUser: RestaurantUser): void {
-      this.matchedRestaurantUsers.push(RestaurantUser);
+    addDinerUserToCurrentRestaurantUserLikesIdList(likedRestaurantUser: RestaurantUser, dinerUserId: number): void {
+      likedRestaurantUser.dinerLikesIdList.push(dinerUserId)
     }
   
-    likeUser(RestaurantUserId: number, dinerUserId: number): void {
+    likeUser(RestaurantUserId: number, dinerUser: DinerUser): void {
       
       const currentRestaurantUserId = this.getCurrentRestaurantUser()?.id;
       const likedRestaurantUser = this.RestaurantUsers.find((RestaurantUser) => RestaurantUser.id === RestaurantUserId);
-      if (!this.likedRestaurantUserIds.includes(RestaurantUserId)) {
-        // this.likedRestaurantUserIds.push(RestaurantUserId);
+      if(likedRestaurantUser) {
         console.log(`You liked user with ID ${RestaurantUserId}.`);
 
-        if (likedRestaurantUser && !likedRestaurantUser.likeIdList.includes(currentRestaurantUserId)) {
-          this.addMatchedUser(likedRestaurantUser);
+        if (likedRestaurantUser && !likedRestaurantUser.dinerLikesIdList.includes(dinerUser.id)) {
+          this.addDinerUserToCurrentRestaurantUserLikesIdList(likedRestaurantUser, dinerUser.id);
         }
         this.currentRestaurantUserIndex++;
       } else {
-        console.log("likedRestaurantUser.likeIdList", this.RestaurantUsers[this.currentRestaurantUserIndex].likeIdList)
+        console.log("likedRestaurantUser.likeIdList", this.RestaurantUsers[this.currentRestaurantUserIndex].dinerLikesIdList)
       }
+      console.log("this.currentRestaurantUserIndex", this.currentRestaurantUserIndex)
       this.checkEndOfMatchingRestaurantUsers();
     }
 
@@ -87,12 +108,23 @@ import { RestaurantUser } from "../models/restaurantUser.model"
     //   return true;
     // }
 
-    compareCurrentUserToLikedIdList(currentDinerUserId: number, currentRestaurantLikeIdList: number[]): boolean {
-      if (this.getCurrentRestaurantUser().likeIdList.length != 0 && !this.getCurrentRestaurantUser().likeIdList.includes(currentDinerUserId)) {
+    compareCurrentDinerUserToRestaurantDinerLikesIdList(currentDinerUserId: number, currentRestaurantLikeIdList: number[]): boolean {
+      const currentDinerLikesIdListLength = this.getCurrentRestaurantUser().dinerLikesIdList.length;
+      if (currentDinerLikesIdListLength != 0 && !this.getCurrentRestaurantUser().dinerLikesIdList.includes(currentDinerUserId)) {
         return true;
       } else {
         return false;
       }
+    }
+
+    getOtherDinerUserIdFromRestaurantDinerLikesIdList(currentDinerUser: DinerUser, currentRestaurantLikeIdList: number[]): number {
+      console.log("currentRestaurantLikeIdList", currentRestaurantLikeIdList)
+      for (const dinerUserId of currentRestaurantLikeIdList) {
+        if (!currentDinerUser.matchedId.includes(dinerUserId) && dinerUserId != currentDinerUser.id) {
+          return dinerUserId;
+        }
+      }
+      return 0;
     }
 
     dislikeUser(dinerUserId: number): void {
@@ -102,6 +134,7 @@ import { RestaurantUser } from "../models/restaurantUser.model"
   
         this.currentRestaurantUserIndex++;
       }
+      console.log("this.currentRestaurantUserIndex", this.currentRestaurantUserIndex)
       this.checkEndOfMatchingRestaurantUsers();
     }
 
@@ -110,6 +143,5 @@ import { RestaurantUser } from "../models/restaurantUser.model"
         console.log('No more users to display.');
         this.currentRestaurantUserIndex = -1;
       }
-
     }
   }

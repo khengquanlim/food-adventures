@@ -11,7 +11,7 @@ import { DinerUser } from '../models/dinerUser.model';
         name: 'John Doe',
         photoUrl: '/assets/debug/user1.jpg',
         bio: 'Hi, I am John. Nice to meet you!',
-        likeId: [],
+        likeId: [2],
         matchedId: [2]
       },
       {
@@ -19,8 +19,24 @@ import { DinerUser } from '../models/dinerUser.model';
         name: 'Jane Smith',
         photoUrl: '/assets/debug/user2.jpg',
         bio: 'Hey, I am Jane. Let\'s have a great conversation!',
-        likeId: [],
+        likeId: [1],
         matchedId: [1]
+      },
+      {
+        id: 3,
+        name: 'Cooking Empire',
+        photoUrl: '/assets/debug/user3.jpg',
+        bio: 'Insane food here!',
+        likeId: [],
+        matchedId: []
+      },
+      {
+        id: 4,
+        name: 'Chinese meow',
+        photoUrl: '/assets/debug/user4.jpg',
+        bio: 'Traditional and modern chinese cooking!',
+        likeId: [1],
+        matchedId: []
       },
     ];
   
@@ -33,8 +49,8 @@ import { DinerUser } from '../models/dinerUser.model';
       return this.dinerUsers;
     }
   
-    getDinerUserById(): DinerUser | undefined {
-      return this.dinerUsers[0];
+    getDinerUserById(dinerUserId: number): DinerUser | undefined {
+      return this.dinerUsers.find(user => user.id === dinerUserId);
     }
   
     getCurrentDinerUser(): DinerUser {
@@ -48,6 +64,10 @@ import { DinerUser } from '../models/dinerUser.model';
 
     addMatchedUser(dinerUser: DinerUser): void {
       this.matchedDinerUsers.push(dinerUser);
+    }
+
+    addMatchedIdToCurrentDinerUser(dinerUserId: number): void {
+      this.getCurrentDinerUser().matchedId.push(dinerUserId);
     }
   
     likeUser(dinerUserId: number): void {

@@ -17,8 +17,8 @@
       </div>
     </div>
     <div class="match-container" *ngIf="directionOfCard === 'match'"> 
-      <p class="match-message">You have matched with name: {{dinerUser?.name}}</p>
-      <p class="match-message">Would you like to chat with {{dinerUser?.name}} <button class="chat-button" routerLink="/chat">Continue to Chat</button> </p>
+      <p class="match-message">You have matched with name: {{matchedDinerUser?.name}}</p>
+      <p class="match-message">Would you like to chat with {{matchedDinerUser?.name}} <button class="chat-button" routerLink="/chat">Continue to Chat</button> </p>
       <p class="match-message">Continue with matching other users? <button class="swipe-button" (click)="getNextRestaurantUser()" >Continue with Swiping</button></p>
   
     </div>

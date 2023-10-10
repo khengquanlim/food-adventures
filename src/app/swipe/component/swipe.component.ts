@@ -32,6 +32,7 @@ export class SwipeComponent implements OnInit {
   directionOfCard: "left" | 'right' | 'match' | null = null;
   restaurantUser: RestaurantUser | undefined;
   dinerUser: DinerUser | undefined;
+  matchedDinerUser: DinerUser | undefined;
 
   constructor(
     private route: ActivatedRoute,
@@ -41,22 +42,39 @@ export class SwipeComponent implements OnInit {
 
   ngOnInit(): void {
       this.restaurantUser = this.restaurantService.getRestaurantUserById();
-      this.dinerUser = this.dinerService.getDinerUserById();
+      this.dinerUser = this.dinerService.getDinerUserById(1);
   }
-  
+
   buttonPressOnMatchCard(likeOrDislike: any): void { 
     this.isSwiped = true;
     if(likeOrDislike === 'like') {
       this.directionOfCard = 'right';
       if (this.restaurantUser) {
         if(this.dinerUser) {
-          const isAnotherDinerInUserLikedList = this.restaurantService.compareCurrentUserToLikedIdList(this.dinerUser.id, this.restaurantUser.likeIdList);
-          console.log("isAnotherDinerInUserLikedList", isAnotherDinerInUserLikedList)
-          this.restaurantService.likeUser(this.restaurantUser.id, this.dinerUser.id);
-          console.log("this.restaurantUser.likeIdList", this.restaurantUser.likeIdList)
+          const isAnotherDinerInUserLikedList = 
+          this.restaurantService.compareCurrentDinerUserToRestaurantDinerLikesIdList(this.dinerUser.id, this.restaurantUser.dinerLikesIdList);
+          
+          this.restaurantService.likeUser(this.restaurantUser.id, this.dinerUser);
           if(isAnotherDinerInUserLikedList) {
             console.log("Match")
-            this.directionOfCard = 'match';
+            const anotherDinerUserIdThatMatchedCurrentDinerUser = 
+            this.restaurantService.getOtherDinerUserIdFromRestaurantDinerLikesIdList(this.dinerUser, this.restaurantUser.dinerLikesIdList);
+            console.log("this.anotherDinerUserIdThatMatchedCurrentDinerUser", anotherDinerUserIdThatMatchedCurrentDinerUser)
+            this.dinerService.addMatchedIdToCurrentDinerUser(anotherDinerUserIdThatMatchedCurrentDinerUser);
+            this.matchedDinerUser = this.dinerService.getDinerUserById(anotherDinerUserIdThatMatchedCurrentDinerUser);
+            console.log("this.matchedDinerUser", this.matchedDinerUser)
+
+            const isMatchWithNewUser = anotherDinerUserIdThatMatchedCurrentDinerUser === 0 ? false : true;
+            if(isMatchWithNewUser) {
+              this.directionOfCard = 'match';
+            } else {
+              setTimeout(() => {
+                this.isResetting = false;
+                this.isSwiped = false;
+                this.directionOfCard = null;
+              }, 500);
+              this.getNextRestaurantUser();
+            }
           } else {
             setTimeout(() => {
               this.isResetting = false;
@@ -78,6 +96,7 @@ export class SwipeComponent implements OnInit {
 
   getNextRestaurantUser(): void {
     this.resetSwipeLocation();
+    // ensure dinerUser never like before --> Get NEW restaurant
     this.restaurantUser = this.restaurantService.getCurrentRestaurantUser();
   }
 
