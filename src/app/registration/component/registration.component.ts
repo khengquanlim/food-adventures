@@ -18,6 +18,7 @@ export class RegistrationComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', Validators.required],
+      birthdate: ['', Validators.required],
     }, { validator: this.passwordMatchValidator });
   }
 
@@ -40,11 +41,22 @@ export class RegistrationComponent implements OnInit {
 
   onSubmitRegisterForm() {
     if (this.registrationForm.valid) {
-      this.registrationForm.reset();
-      console.log(this.registrationForm.value);
-      console.log("submitted");
+      const birthdateControl = this.registrationForm.get('birthdate');
+      if (birthdateControl) {
+        const birthdate = new Date(birthdateControl.value);
+        const today = new Date();
+        const age = today.getFullYear() - birthdate.getFullYear();
+  
+        if (age < 18) {
+          alert('You must be at least 18 years old to register.');
+        } else {
+          this.registrationForm.reset();
+          console.log(this.registrationForm.value);
+          console.log("submitted");
+        }
+      }
     }
-  }
+  }  
 
   get userType() {
     return this.registrationForm.get('userType');
@@ -64,5 +76,9 @@ export class RegistrationComponent implements OnInit {
 
   get confirmPassword() {
     return this.registrationForm.get('confirmPassword');
+  }
+
+  get birthdate() {
+    return this.registrationForm.get('birthdate');
   }
 }
