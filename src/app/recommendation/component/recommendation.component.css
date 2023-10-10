@@ -7,7 +7,7 @@
   }
   
   /* Recommendation Container */
-  .recommendation-container {
+  .recommendationContainer {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -22,27 +22,27 @@
   }
   
   /* Left Section (Restaurant Image) */
-  .left-section {
+  .leftSection {
     flex: 1;
     margin-right: 20px;
   }
   
-  .restaurant-image {
+  .restaurantImage {
     max-width: 100%;
     height: auto;
   }
   
   /* Right Section (Restaurant Name and Action Buttons) */
-  .right-section {
+  .rightSection {
     flex: 2;
   }
   
-  .restaurant-name {
+  .restaurantName {
     font-size: 24px;
     margin-bottom: 10px;
   }
   
-  .action-buttons {
+  .actionBtns {
     display: flex;
     gap: 10px;
   }
@@ -55,12 +55,12 @@
     font-size: 18px;
   }
   
-  .sure-button {
+  .sureButton {
     background-color: #4CAF50;
     color: #fff;
   }
   
-  .no-button {
+  .noBtn {
     background-color: #FF5722;
     color: #fff;
   }
