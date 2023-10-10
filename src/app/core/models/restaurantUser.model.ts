@@ -6,6 +6,6 @@ export interface RestaurantUser {
     location: string;
     pricePerPax: string;
     rating: string;
-    likeIdList: number[];
+    dinerLikesIdList: number[];
     // Add more properties as needed
   }
