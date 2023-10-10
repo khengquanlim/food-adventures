@@ -11,32 +11,32 @@ import { DinerUser } from '../models/dinerUser.model';
         name: 'John Doe',
         photoUrl: '/assets/debug/user1.jpg',
         bio: 'Hi, I am John. Nice to meet you!',
-        likeId: [2],
-        matchedId: [2]
+        likeRestaurantUserIdList: [1],
+        matchedDinerUserIdList: []
       },
       {
         id: 2,
         name: 'Jane Smith',
         photoUrl: '/assets/debug/user2.jpg',
         bio: 'Hey, I am Jane. Let\'s have a great conversation!',
-        likeId: [1],
-        matchedId: [1]
+        likeRestaurantUserIdList: [],
+        matchedDinerUserIdList: []
       },
       {
         id: 3,
-        name: 'Cooking Empire',
+        name: 'He He',
         photoUrl: '/assets/debug/user3.jpg',
         bio: 'Insane food here!',
-        likeId: [],
-        matchedId: []
+        likeRestaurantUserIdList: [1],
+        matchedDinerUserIdList: []
       },
       {
         id: 4,
-        name: 'Chinese meow',
+        name: 'Chinese Hao',
         photoUrl: '/assets/debug/user4.jpg',
         bio: 'Traditional and modern chinese cooking!',
-        likeId: [1],
-        matchedId: []
+        likeRestaurantUserIdList: [1],
+        matchedDinerUserIdList: []
       },
     ];
   
@@ -67,7 +67,15 @@ import { DinerUser } from '../models/dinerUser.model';
     }
 
     addMatchedIdToCurrentDinerUser(dinerUserId: number): void {
-      this.getCurrentDinerUser().matchedId.push(dinerUserId);
+      this.getCurrentDinerUser().matchedDinerUserIdList.push(dinerUserId);
+    }
+
+    addCurrentUserIdToMatchedDinerUser(matchedDinerUserId: number): void {
+      this.getCurrentDinerUser().matchedDinerUserIdList.push(matchedDinerUserId);
+    }
+
+    addRestaurantUserIdTolikeRestaurantUserIdList(restaurantUserId: number): void {
+      this.getCurrentDinerUser().likeRestaurantUserIdList.push(restaurantUserId);
     }
   
     likeUser(dinerUserId: number): void {
@@ -77,7 +85,7 @@ import { DinerUser } from '../models/dinerUser.model';
         console.log(`You liked user with ID ${dinerUserId}.`);
 
         const likedDinerUser = this.dinerUsers.find((dinerUser) => dinerUser.id === dinerUserId);
-        if (likedDinerUser && likedDinerUser.likeId.includes(currentDinerUserId)) {
+        if (likedDinerUser && likedDinerUser.likeRestaurantUserIdList.includes(currentDinerUserId)) {
           console.log("MATCHHH")
           this.addMatchedUser(likedDinerUser);
         }

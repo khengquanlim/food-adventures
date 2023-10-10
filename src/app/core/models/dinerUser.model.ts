@@ -3,7 +3,7 @@ export interface DinerUser {
     name: string;
     photoUrl?: string;
     bio: string;
-    likeId: number[];
-    matchedId: number[];
+    likeRestaurantUserIdList: number[];
+    matchedDinerUserIdList: number[];
     // Add more properties as needed
   }

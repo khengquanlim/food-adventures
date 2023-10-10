@@ -15,8 +15,8 @@ import { DinerUser } from '../models/dinerUser.model';
         location: 'Yishun',
         pricePerPax: '$40/pax',
         rating: '4.1',
-        dinerLikesIdList: [2]
-      }, //new restaurant --> Both user ID do not exist in dinerLikeIdList > Sure > Pass the RestaurantUser / to chat
+        dinerLikesIdList: []
+      }, 
       {
         id: 2,
         name: 'TacoBell',
@@ -35,7 +35,7 @@ import { DinerUser } from '../models/dinerUser.model';
         location: 'Insane food here!',
         pricePerPax: '$20/pax',
         rating: '6.9',
-        dinerLikesIdList: []
+        dinerLikesIdList: [3]
       },
       {
         id: 4,
@@ -50,7 +50,6 @@ import { DinerUser } from '../models/dinerUser.model';
     ];
   
     private likedRestaurantUserIds: number[] = [];
-    private matchedRestaurantUsers: RestaurantUser[] = [];
     private dislikedRestaurantUserIds: number[] = [];
     private currentRestaurantUserIndex = 0;
   
@@ -87,26 +86,9 @@ import { DinerUser } from '../models/dinerUser.model';
         }
         this.currentRestaurantUserIndex++;
       } else {
-        console.log("likedRestaurantUser.likeIdList", this.RestaurantUsers[this.currentRestaurantUserIndex].dinerLikesIdList)
       }
-      console.log("this.currentRestaurantUserIndex", this.currentRestaurantUserIndex)
       this.checkEndOfMatchingRestaurantUsers();
     }
-
-    // addUserToLikeList(dinerUserId: number): boolean {
-    //   const currentRestaurantUser = this.getCurrentRestaurantUser();
-    //   const isDinerInCurrentRestaurantUserLikedList = this.compareCurrentUserToLikedIdList(dinerUserId, this.getCurrentRestaurantUser().likeIdList);
-    //   if(currentRestaurantUser && !isDinerInCurrentRestaurantUserLikedList) {
-    //     if (this.getCurrentRestaurantUser().likeIdList.includes(dinerUserId)) {
-    //       console.log(`You like user with ID ${dinerUserId}.`);
-    //       return false;
-    //     } else {
-    //       this.getCurrentRestaurantUser().likeIdList.push(dinerUserId);
-    //       return true;
-    //     }
-    //   }
-    //   return true;
-    // }
 
     compareCurrentDinerUserToRestaurantDinerLikesIdList(currentDinerUserId: number, currentRestaurantLikeIdList: number[]): boolean {
       const currentDinerLikesIdListLength = this.getCurrentRestaurantUser().dinerLikesIdList.length;
@@ -120,7 +102,7 @@ import { DinerUser } from '../models/dinerUser.model';
     getOtherDinerUserIdFromRestaurantDinerLikesIdList(currentDinerUser: DinerUser, currentRestaurantLikeIdList: number[]): number {
       console.log("currentRestaurantLikeIdList", currentRestaurantLikeIdList)
       for (const dinerUserId of currentRestaurantLikeIdList) {
-        if (!currentDinerUser.matchedId.includes(dinerUserId) && dinerUserId != currentDinerUser.id) {
+        if (!currentDinerUser.matchedDinerUserIdList.includes(dinerUserId) && dinerUserId != currentDinerUser.id) {
           return dinerUserId;
         }
       }
