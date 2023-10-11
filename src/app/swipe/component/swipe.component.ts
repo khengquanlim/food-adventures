@@ -17,30 +17,30 @@ export class SwipeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      const userId = Number(params['id']);
-      this.user = this.userService.getUserById(userId);
-    });
+    // this.route.params.subscribe(params => {
+    //   const userId = Number(params['id']);
+    //   this.user = this.userService.getUserById(userId);
+    // });
   }
 
   like(): void {
-    if (this.user) {
-      this.userService.likeUser(this.user.id);
-      // Fetch the next user after liking
-      this.getNextUser();
-    }
+//     if (this.user) {
+//       this.userService.likeUser(this.user.id);
+//       // Fetch the next user after liking
+//       this.getNextUser();
+//     }
   }
 
   dislike(): void {
-    if (this.user) {
-      this.userService.dislikeUser(this.user.id);
-      // Fetch the next user after disliking
-      this.getNextUser();
-    }
+//     if (this.user) {
+//       this.userService.dislikeUser(this.user.id);
+//       // Fetch the next user after disliking
+//       this.getNextUser();
+//     }
   }
 
   private getNextUser(): void {
-    this.user = this.userService.getCurrentUser();
+//     this.user = this.userService.getCurrentUser();
   }
 
 }

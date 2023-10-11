@@ -34,7 +34,7 @@
                                 <div class="col text-center">
                                     <img *ngIf="!editMode" [src]="user.profilePictureUrl" alt="User Profile Picture">
                                     <!-- Add file upload input for changing profile picture when in edit mode -->
-                                    <input *ngIf="editMode" type="file" (change)="onProfilePictureChange($event)">
+                                    <input *ngIf="editMode" type="file" (change)="onProfilePictureChange($event)" accept="image/*">
                                 </div>
                                 
                         </div>
@@ -65,7 +65,7 @@
                                 </div>
                                 <div class="col-md-m6">
                                     <div class="label-input">
-                                        <input class="form-control" id="profileAge" type="text" [(ngModel)]="profileAge" name="age" [disabled]="!editMode" [class.enabled-input]="!editMode"
+                                        <input class="form-control" id="profileAge" type="text" [(ngModel)]="user.age" name="age" [disabled]="!editMode" [class.enabled-input]="!editMode"
                                         [class.disabled-input]="editMode">
                                     </div>
                                 </div>
@@ -80,7 +80,22 @@
                                 </div>
                                 <div class="col-md-m6">
                                     <div class="label-input">
-                                        <input class="form-control" id="profileGender" type="text" [(ngModel)]="profileGender" name="gender" [disabled]="!editMode" [class.enabled-input]="!editMode"
+                                        <input class="form-control" id="profileGender" type="text" [(ngModel)]="user.gender" name="gender" [disabled]="!editMode" [class.enabled-input]="!editMode"
+                                        [class.disabled-input]="editMode">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="label">
+                                        <label style="margin-top:10px">
+                                            Bio
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-m6">
+                                    <div class="label-input">
+                                        <input class="form-control" id="profileBio" type="text" [(ngModel)]="user.bio" name="gender" [disabled]="!editMode" [class.enabled-input]="!editMode"
                                         [class.disabled-input]="editMode">
                                     </div>
                                 </div>
@@ -97,9 +112,21 @@
                     <div class="feed">
                         <div style="text-align: center; padding-top:30px; font-size:larger">
                             <label >My Food Feed</label>
+                            
+                            <!-- <div class="col-md-6">
+                                <input type="file" (change)="onFeedChanged($event)" accept="image/*">
+                        
+                            </div>
+                            <div class="col-md-6">
+                                <input type="button" (click)="onFeedUpload()" value="upload">
+                            </div>
+
+                            <button (click)="addPhoto($event)">
+                                <a class="material-icons">plus</a>
+                            </button> -->
                         </div>
                         <div class="center-image-grid">
-                            <app-image-grid [images]="imageUrls" [numberOfColumns]="numberOfColumns"></app-image-grid> <!-- Example: Display 4 columns -->
+                            <app-image-grid [images]="imageUrls" [numberOfColumns]="numberOfColumns"></app-image-grid>
                         </div>
 
                             

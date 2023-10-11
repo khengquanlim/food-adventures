@@ -19,7 +19,7 @@ export class MatchesComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
-    this.matchedUsers = this.userService.getMatchedUsers();
+    // this.matchedUsers = this.userService.getMatchedUsers();
   }
 
   showChat(user: User): void {

@@ -16,6 +16,8 @@ import { UserProfileComponent } from './profile/user-profile/component/user-prof
 import { LoginComponent } from './login/component/login.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ImageGridComponent } from './image-grid/image-grid.component';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import { ImageGridComponent } from './image-grid/image-grid.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

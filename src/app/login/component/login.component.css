@@ -76,7 +76,7 @@
     color: white;
     width:;
     /* box-shadow: 0 0 20px rgba(104, 85, 224, 0.6); */
-    background-color: rgba(0,0,255,0.5);
+    background-color: rgbap(0,0,255,0.5);
   }
   
 
