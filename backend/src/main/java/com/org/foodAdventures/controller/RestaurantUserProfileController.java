@@ -1,0 +1,40 @@
+package com.org.foodAdventures.controller;
+
+import com.org.foodAdventures.common.*;
+import com.org.foodAdventures.entity.*;
+import com.org.foodAdventures.service.*;
+
+import org.apache.coyote.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.*;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+public class RestaurantUserProfileController {
+    @Autowired
+    private RestaurantUserProfileService restaurantUserProfileService;
+
+    private static final Logger log = LoggerFactory.getLogger(RestaurantUserProfileController.class);
+
+    @RequestMapping(value="/getAllRestaurantProfile", method= RequestMethod.GET)
+    public ResponseEntity<JsonWrapperObject> getAllRestaurantProfile() {
+        log.info("restaurant user profile controller get all restaurant profile");
+        JsonWrapperObject response = new JsonWrapperObject();
+        try {
+            List<RestaurantUserProfile> restaurantUserProfiles = restaurantUserProfileService.getAllRestaurantProfile();
+            log.info("successfully retrieve restaurant user profiles = {}", restaurantUserProfiles);
+            response.setStatus(CommonConstant.SUCCESS);
+            response.setData(restaurantUserProfiles);
+            return ResponseEntity.ok(response);
+        } catch(Exception e) {
+            log.info("error in retrieving all restaurant user profiles: {}", e.getMessage());
+            response.setStatus(CommonConstant.FAILURE);
+            response.setDescription(e.getMessage());
+            return ResponseEntity.ok(response);
+        }
+    }
+}

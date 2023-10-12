@@ -15,7 +15,7 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
     private static final String UPLOAD_DIR = "/path/to/your/photo/directory";
-     private final Logger log = LoggerFactory.getLogger(UserService.class);
+    private final Logger log = LoggerFactory.getLogger(UserService.class);
 
     public List<User> getAllUsers() {
         return userRepository.getAllUsers();
