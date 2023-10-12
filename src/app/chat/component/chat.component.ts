@@ -13,7 +13,7 @@ interface ChatMessage {
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnChanges {
-  @Input() matchedUser!: User;
+  @Input() matchedUser!: DinerUser;
   chatMessages: ChatMessage[] = [];
   newMessage: string = '';
 
