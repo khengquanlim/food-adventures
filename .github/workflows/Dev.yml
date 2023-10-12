@@ -17,7 +17,7 @@ jobs:
 
       - run: npm install -g npm@8.12.1
       - run: npm update
-      - run: Start-Process ng build, --prod
+      - run: npm run build -- --prod
       - name: Run a one-line script
         run: echo Hello, world!
 
