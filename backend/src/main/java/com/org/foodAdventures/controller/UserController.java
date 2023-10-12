@@ -1,23 +1,45 @@
 package com.org.foodAdventures.controller;
 
+import com.org.foodAdventures.common.*;
+import com.org.foodAdventures.entity.*;
 import com.org.foodAdventures.service.*;
 
+import org.apache.coyote.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.*;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 
 @RestController
-@RequestMapping("/api/users")
+//@RequestMapping("/api/users")
 public class UserController {
+
     @Autowired
     private UserService userService;
+
+    private static final Logger log = LoggerFactory.getLogger(UserController.class);
+
+    @RequestMapping(value="/getAllUsers", method= RequestMethod.GET)
+    public ResponseEntity<JsonWrapperObject> getAllUsers() {
+        log.info("user controller get all users");
+        JsonWrapperObject response = new JsonWrapperObject();
+        try {
+            List<User> users = userService.getAllUsers();
+            log.info("successfully retrieve users = {}", users);
+            response.setStatus(CommonConstant.SUCCESS);
+            response.setData(users);
+            return ResponseEntity.ok(response);
+        } catch(Exception e) {
+            log.info("error in retrieving all users: {}", e.getMessage());
+            response.setStatus(CommonConstant.FAILURE);
+            response.setDescription(e.getMessage());
+            return ResponseEntity.ok(response);
+        }
+    }
 
     //user details
     // @PostMapping("/{userId}/updateDetails")

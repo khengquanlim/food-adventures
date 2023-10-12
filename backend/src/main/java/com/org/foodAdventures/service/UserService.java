@@ -1,22 +1,25 @@
 package com.org.foodAdventures.service;
 
+import com.org.foodAdventures.entity.User;
+import com.org.foodAdventures.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
-import org.springframework.web.multipart.MultipartFile;
 
-//import com.org.foodAdventures.repository.UserRepository;
-
-// import org.slf4j.logger;
-// import org.slf4j.LoggerFactory;
+ import org.slf4j.Logger;
+ import org.slf4j.LoggerFactory;
 
 @Service
 public class UserService {
-//    @Autowired
-//    private UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
     private static final String UPLOAD_DIR = "/path/to/your/photo/directory";
-    // private final Logger log - LoggerFactory.getLogger(UserService.class);
+     private final Logger log = LoggerFactory.getLogger(UserService.class);
+
+    public List<User> getAllUsers() {
+        return userRepository.getAllUsers();
+    }
 
     // @Transactional
     // public void updateUserDetails(String username, Integer age, String gender, String profilePic, String bio) {

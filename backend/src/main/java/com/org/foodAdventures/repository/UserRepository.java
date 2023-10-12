@@ -15,9 +15,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long>{
-    @Query(value = "select u from T_USER u", nativeQuery = true)
-    public List<User> getAllUser();
+public interface UserRepository extends JpaRepository<User, String>{
+    @Query(value = "select * from T_USER", nativeQuery = true)
+    List<User> getAllUsers();
 // extends JpaRepository<User, Long> {
     // Define custom query methods if needed
     // @Query(nativeQuery = true, value="SELECT p FROM TB_PHOTO p WHERE p.user.id = :username")
