@@ -3,13 +3,10 @@ package com.org.foodAdventures.entity;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.sql.Timestamp;
-import javax.persistence.*;
+import jakarta.persistence.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-import javax.persistence.Entity;
-// import javax.persistence.Id;
 
-import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -20,13 +17,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @DynamicUpdate
 public class BookingDetails implements java.io.Serializable{
 
+    @Id
     private Integer bookingDetailsId;
     private Integer restaurantId;
     private Timestamp diningDateTime;
     private String bookedBy;
     private String bookedFor;
     private Integer contactNo;
-    
+
     @JsonIgnore
     private Timestamp createdDttm;
 
@@ -109,7 +107,7 @@ public class BookingDetails implements java.io.Serializable{
     public String toString(){
         return "Booking Details: bookingDetailsId = " + bookingDetailsId
         + ",restaurantId = "+ restaurantId
-        + ",bookedBy ="+ bookedBy 
+        + ",bookedBy ="+ bookedBy
         +",bookedFor = "+ bookedFor
         +",diningDateTime = "+diningDateTime
         +", contactNo = " +contactNo

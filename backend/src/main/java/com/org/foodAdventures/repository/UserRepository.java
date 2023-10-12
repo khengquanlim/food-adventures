@@ -1,7 +1,10 @@
 package com.org.foodAdventures.repository;
 
+import com.org.foodAdventures.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import java.math.*;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,7 +15,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 @Repository
-public interface UserRepository {
+public interface UserRepository extends JpaRepository<User, Long>{
+    @Query(value = "select u from T_USER u", nativeQuery = true)
+    public List<User> getAllUser();
 // extends JpaRepository<User, Long> {
     // Define custom query methods if needed
     // @Query(nativeQuery = true, value="SELECT p FROM TB_PHOTO p WHERE p.user.id = :username")
@@ -40,7 +45,7 @@ public interface UserRepository {
     // void insertPhoto(
     //     @Param("username") String username, // Assuming userId is a Long
     //     @Param("photoUrl") MultipartFile photoUrl // Assuming photoUrl is a String
-        
+
     // );
 
     // Optional<ImageModel> findByName(String name);

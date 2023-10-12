@@ -1,20 +1,25 @@
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+package com.org.foodAdventures.entity;
+
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.data.relational.core.mapping.Table;
+import jakarta.persistence.*;
 
 @Entity
-public class User {
+@Table("T_USER")
+@DynamicInsert
+@DynamicUpdate
+public class User implements java.io.Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    // private Long id;
-    
+    private Long id;
+
     private String username;
     private int age;
     private String gender;
     private String profilePictureUrl;
     private String bio;
-    
+
     // Getters and setters
     public String getUsername(){
         return username;

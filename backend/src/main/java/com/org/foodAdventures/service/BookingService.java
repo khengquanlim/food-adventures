@@ -1,3 +1,5 @@
+package com.org.foodAdventures.service;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -8,7 +10,7 @@ import com.org.foodAdventures.repository.BookingDetailsRepository;
 import com.org.foodAdventures.entity.BookingDetails;
 
 
-// import org.slf4j.logger;
+// import org.slf4j.Logger;
 // import org.slf4j.LoggerFactory;
 
 @Service
@@ -17,7 +19,7 @@ public class BookingService {
     private BookingDetailsRepository bookingRepository;
     private static final String UPLOAD_DIR = "/path/to/your/photo/directory";
     // private final Logger log - LoggerFactory.getLogger(UserService.class);
-    
+
     @Transactional
     public List<BookingDetails> getBookingDetailsByUsername(String bookedBy) {
         // log.info("update user details");
@@ -53,7 +55,7 @@ public class BookingService {
 
     //         // Return the URL of the stored photo
     //         return "/uploads/" + filename; // Modify this URL as needed
-            
+
     //     } catch (IOException e) {
     //         throw new RuntimeException("Failed to store photo: " + e.getMessage());
     //     }
@@ -63,7 +65,7 @@ public class BookingService {
     // public List<User> getUserDetails(String username) {
     //     return userRepository.getUserDetails(username);
     // }
-    
+
     // public List<Photo> getPhotoFeed(String username) {
     //     return userRepository.getPhotoFeed(username);
     // }
@@ -107,6 +109,6 @@ public class BookingService {
 
 
 
-    
-    
+
+
 }

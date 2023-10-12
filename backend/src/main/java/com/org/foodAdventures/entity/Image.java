@@ -3,27 +3,28 @@ package com.org.foodAdventures.entity;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.sql.Timestamp;
-import javax.persistence.*;
+
+import jakarta.persistence.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.envers.NotAudited;
 
-import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
 @Entity
 @Table("T_IMAGE")
 @DynamicInsert
 @DynamicUpdate
-public class Image implements java.io.Serializable{
+public class Image implements java.io.Serializable {
 
-    
-    protected Integer imageId;
+    @Id
+    @Column(name="IMAGE_ID", unique = true, nullable = false, precision = 20, scale = 0)
+    Integer imageId;
     protected String imageName;
-    
+
     protected byte[] imageByte;
-    
+
     protected String imageType;
     protected String username;
     protected String restaurantId;
@@ -33,9 +34,8 @@ public class Image implements java.io.Serializable{
     @JsonIgnore
     protected Timestamp createdDttm;
 
-    
-    @Id
-    @Column(name="IMAGE_ID", unique = true, nullable = false, precision = 20, scale = 0)
+
+//    @Id
     public Integer getImageId(){
         return imageId;
     }
@@ -81,7 +81,7 @@ public class Image implements java.io.Serializable{
         this.imageType = imageType;
     }
 
-    
+
 
     @Column(name = "USER_TYPE", length = 50, nullable = false)
     public String getUserType(){
@@ -119,9 +119,9 @@ public class Image implements java.io.Serializable{
     public void setImageByte(byte[] imageByte){
         this.imageByte = imageByte;
     }
-    
 
-    
+
+
 
     public String toString(){
         return "Image Details: imageId = " + imageId+ ",imageName = "+ imageName+ ",imageType ="+ imageType + ", imageByte = "+ imageByte + ",username = "+ username+ ",userType = "+ userType+",usageType = "+usageType+", createdDttm ="+createdDttm;
@@ -137,7 +137,6 @@ public class Image implements java.io.Serializable{
     //     this.userType = userType;
     //     this.usageType = usageType;
     //     this.createdDttm = createdDttm;
-
     // }
 
 }

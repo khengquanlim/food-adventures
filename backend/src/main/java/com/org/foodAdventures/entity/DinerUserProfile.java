@@ -2,16 +2,12 @@ package com.org.foodAdventures.entity;
 
 import java.util.Date;
 import java.sql.Timestamp;
-import javax.persistence.*;
+import jakarta.persistence.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.envers.NotAudited;
-import javax.persistence.Entity;
-// import javax.persistence.Id;
 
-import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
 @Entity
@@ -20,7 +16,8 @@ import org.springframework.data.relational.core.mapping.Table;
 @DynamicUpdate
 public class DinerUserProfile implements java.io.Serializable{
 
-    
+
+    @Id
     private Integer userId;
     private String username;
     private Integer age;
@@ -32,8 +29,8 @@ public class DinerUserProfile implements java.io.Serializable{
     private Timestamp createdDttm;
     @JsonIgnore
     private Timestamp updatedDttm;
-    
-    
+
+
     @Id
     @Column(name="DINER_USER_PROFILE_ID", unique = true, nullable = false)
     public Integer getUserId(){
@@ -43,7 +40,7 @@ public class DinerUserProfile implements java.io.Serializable{
     public void setUserId(Integer userId){
         this.userId = userId;
     }
-    
+
     @Column(name="USERNAME", length = 50, unique = true, nullable = false)
     public String getUsername(){
         return username;

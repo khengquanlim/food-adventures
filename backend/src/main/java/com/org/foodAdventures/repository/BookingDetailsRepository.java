@@ -9,12 +9,11 @@ import java.math.BigDecimal;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.data.repository.CrudRepository;
 
 import com.org.foodAdventures.entity.BookingDetails;
 
 @Repository
-public interface BookingDetailsRepository extends JpaRepository<BookingDetails,BigDecimal>{
+public interface BookingDetailsRepository extends JpaRepository<BookingDetails,Integer>{
 
     @Query(value = "select * from t_booking_details u where ((u.bookedBy = :bookedBy ) OR (u.bookedFor = :bookedBy))", nativeQuery = true)
     public List<BookingDetails> getBookingDetailsByUsername(
@@ -28,7 +27,7 @@ public interface BookingDetailsRepository extends JpaRepository<BookingDetails,B
         @Param("bookedBy") String bookedBy,
         @Param("bookedFor") String bookedFor,
         @Param("contactNo") String contactNo
-        
+
     );
 
 }

@@ -15,25 +15,25 @@ import com.org.foodAdventures.entity.Image;
 
 
 @Repository
-public interface ImageRepository extends JpaRepository<Image,BigDecimal>{
+public interface ImageRepository extends JpaRepository<Image,Integer>{
 
-    @Query(value = "select * from t_image u where u.username=:username and u.userType = :usertype and u.usageType = :usageType", nativeQuery = true)
-    public List<Image> getImage(
-        @Param("username") String username,
-        @Param("userType") String userType,
-        @Param("usageType") String usageType
-    );
-
-    @Modifying
-    @Query(nativeQuery = true, value = "INSERT INTO t_image (imageName, imageType, imageByte, username, userType, usageType) values (:imageName, :imageType, :imageByte, :username, :userType, :usageType) ")
-    void insertImage(
-        @Param("imageName") String imageName,
-        @Param("imageType") String imageType,
-        @Param("imageByte") byte[] imageByte,
-        @Param("username") String username,
-        @Param("userType") String userType,
-        @Param("usageType") String usageType
-
-    );
+//    @Query(value = "select * from t_image u where u.username=:username and u.userType = :usertype and u.usageType = :usageType", nativeQuery = true)
+//    public List<Image> getImage(
+//        @Param("username") String username,
+//        @Param("userType") String userType,
+//        @Param("usageType") String usageType
+//    );
+//
+//    @Modifying
+//    @Query(nativeQuery = true, value = "INSERT INTO t_image (imageName, imageType, imageByte, username, userType, usageType) values (:imageName, :imageType, :imageByte, :username, :userType, :usageType) ")
+//    void insertImage(
+//        @Param("imageName") String imageName,
+//        @Param("imageType") String imageType,
+//        @Param("imageByte") byte[] imageByte,
+//        @Param("username") String username,
+//        @Param("userType") String userType,
+//        @Param("usageType") String usageType
+//
+//    );
 
 }
