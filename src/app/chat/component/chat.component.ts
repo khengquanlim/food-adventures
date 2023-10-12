@@ -44,6 +44,8 @@ export class ChatComponent implements OnInit {
         const message: ChatMessage = {
           senderId: this.currentDinerUser.id,
           receiverId: this.selectedUser.id,
+          //TODO: Add this.matchedRestaurant.id
+          restaurantId: 1,
           content: this.newMessage,
           timestamp: new Date(),
         };

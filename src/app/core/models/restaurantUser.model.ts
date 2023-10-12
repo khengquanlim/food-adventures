@@ -7,5 +7,6 @@ export interface RestaurantUser {
     pricePerPax: string;
     rating: string;
     dinerLikesIdList: number[];
+    toRecommendDinerUserIdPairList?: number[];
     // Add more properties as needed
   }

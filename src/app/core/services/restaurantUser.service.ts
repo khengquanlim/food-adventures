@@ -15,7 +15,7 @@ import { DinerUser } from '../models/dinerUser.model';
         location: 'Yishun',
         pricePerPax: '$40/pax',
         rating: '4.1',
-        dinerLikesIdList: []
+        dinerLikesIdList: [2]
       }, 
       {
         id: 2,
@@ -25,7 +25,7 @@ import { DinerUser } from '../models/dinerUser.model';
         location: 'Jurong East',
         pricePerPax: '$20/pax',
         rating: '6.9',
-        dinerLikesIdList: []
+        dinerLikesIdList: [2]
       },
       {
         id: 3,

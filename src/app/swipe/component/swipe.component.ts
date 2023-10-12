@@ -57,13 +57,10 @@ export class SwipeComponent implements OnInit {
           this.restaurantService.likeUser(this.restaurantUser.id, this.dinerUser);
           this.dinerService.addRestaurantUserIdTolikeRestaurantUserIdList(this.restaurantUser.id);
           if(isAnotherDinerInUserLikedList) {
-            console.log("Match")
             const anotherDinerUserIdThatMatchedCurrentDinerUser = 
             this.restaurantService.getOtherDinerUserIdFromRestaurantDinerLikesIdList(this.dinerUser, this.restaurantUser.dinerLikesIdList);
-            console.log("this.anotherDinerUserIdThatMatchedCurrentDinerUser", anotherDinerUserIdThatMatchedCurrentDinerUser)
             this.dinerService.addMatchedIdToCurrentDinerUser(anotherDinerUserIdThatMatchedCurrentDinerUser);
             this.matchedDinerUser = this.dinerService.getDinerUserById(anotherDinerUserIdThatMatchedCurrentDinerUser);
-            console.log("this.matchedDinerUser", this.matchedDinerUser)
 
             const isMatchWithNewUser = anotherDinerUserIdThatMatchedCurrentDinerUser === 0 ? false : true;
             if(isMatchWithNewUser) {

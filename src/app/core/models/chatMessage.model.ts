@@ -1,6 +1,7 @@
 export interface ChatMessage {
     senderId: number;
     receiverId: number;
-    content: string;
+    restaurantId: number;
+    content?: string;
     timestamp: Date;
   }
