@@ -16,7 +16,8 @@ jobs:
         uses: actions/setup-node@v3
 
       - run:  npm install -g npm@10.2.0
-      - run:  ng build --prod      
+      - run:  npm i -g @angular/cli
+      - run:  ng build --prod
       - name: Run a one-line script
         run: echo Hello, world!
 
