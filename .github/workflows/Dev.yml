@@ -15,10 +15,9 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v3
 
-      - run:  npm install -g npm@10.2.0
-      - run:  npm i -g @angular/cli
-      - run:  npm uninstall @angular-devkit/build-angular     
-      - run:  npm install @angular-devkit/build-angular   
+      - run:  npm install -g npm@8.12.1
+      - run:  npm i -g @angular/cli@15.1.4
+ 
       - run:  ng build --prod
       - name: Run a one-line script
         run: echo Hello, world!
