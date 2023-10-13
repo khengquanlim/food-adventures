@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: 'restaurant-profile', component: RestaurantOwnerProfileComponent },
   { path: 'matches', component: MatchesComponent },
   { path: 'chat', component: ChatComponent },
-  { path: 'swipe/:id', component: SwipeComponent },
+  { path: 'swipe', component: SwipeComponent },
   { path: 'recommend', component: RecommendationComponent },
 ];
 @NgModule({

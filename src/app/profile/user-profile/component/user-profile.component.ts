@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Photo } from 'src/app/core/models/photo.model';
-import { UserService } from 'src/app/core/services/user.service';
+import { DinerUserService } from 'src/app/core/services/dinerUser.service';
 import { ImageGridComponent } from 'src/app/image-grid/image-grid.component';
 
 
@@ -11,7 +11,7 @@ import { ImageGridComponent } from 'src/app/image-grid/image-grid.component';
 })
 export class UserProfileComponent implements OnInit {
 
-  constructor(private userService : UserService) {}
+  constructor(private userService : DinerUserService) {}
 
   user: any = {};
   imageUrls: string[] = [];

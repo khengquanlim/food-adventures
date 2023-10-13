@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { DinerUser } from '../models/dinerUser.model';
 import { Photo } from '../models/photo.model';
-import { HttpClient } from '@angular/common/http'; 
-import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http'; 
+import { Observable, catchError, map, of, switchMap } from 'rxjs';
+import {from} from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
   })
   export class DinerUserService {
+    
     private dinerUsers: DinerUser[] = [
       {
         id: 1,
@@ -27,12 +29,16 @@ import { Observable } from 'rxjs';
     ];
     constructor(private http: HttpClient) {}
 
-    private baseUrl = '/api/users';
+    private baseUrl = 'http://localhost:8080/foodAdventures';
     //Hardcode 1 or 2 (user ID) for now
     private likedDinerUserIds: number[] = [1,2];
     private dislikedDinerUserIds: number[] = [];
     private currentDinerUserIndex = 0;
-  
+    
+    getAllUsers(): Observable<any> {
+      return this.http.get('http://localhost:8080/foodAdventures/getAllUsers');
+    }
+
     getDinerUsers(): DinerUser[] {
       return this.dinerUsers;
     }

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DinerUserService } from '../../core/services/dinerUser.service';
 import { DinerUser } from '../../core/models/dinerUser.model';
-
 @Component({
   selector: 'app-swipe',
   templateUrl: './swipe.component.html',
@@ -10,6 +9,7 @@ import { DinerUser } from '../../core/models/dinerUser.model';
 })
 export class SwipeComponent implements OnInit {
   user: DinerUser | undefined;
+  dinerUsers: DinerUser[] | undefined;
 
   constructor(
     private route: ActivatedRoute,
@@ -21,6 +21,15 @@ export class SwipeComponent implements OnInit {
       const userId = Number(params['id']);
       this.user = this.userService.getDinerUserById(userId);
     });
+    this.userService.getAllUsers().subscribe(
+      (data) => {
+        this.dinerUsers = data; // Assuming the response is an array of users
+        console.log("Users", this.dinerUsers);
+      },
+      (error) => {
+        console.error('Error fetching data:', error);
+      }
+    );
   }
 
   like(): void {
