@@ -1,1 +1,29 @@
-/* You can add global styles to this file, and also import other style files */
+.content {
+    padding-left: 70px; /* Adjust the value to match your navbar height */
+  }
+  
+  .sidenav {
+    /* Your existing styles for the sidebar */
+    width: 60px;
+    background-color: #333;
+    color: #ffffff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  
+  .sidenav a {
+    /* Your existing styles for sidebar links */
+    padding: 20px 0;
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    font-size: 24px;
+  }
+  

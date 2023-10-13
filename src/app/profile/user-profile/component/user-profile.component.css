@@ -1,0 +1,114 @@
+.profileContainer{
+    display: grid;
+    /* grid-template-columns: 20% 80%; Set column widths to 40% and 60% */
+    grid-template-columns: minmax(20%, 1fr) minmax(80%, 4fr);
+    width: 100%;  
+}
+
+.profile-picture img{
+    border-radius:100px;
+    height: 100px;
+    width: 100px;
+}
+
+.profile{
+    /* text-align:center; */
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 10% 20% 70%;
+}
+
+.profile-picture{
+    text-align: center;
+}
+
+.profile h1{
+    font-size:medium;
+}
+.profile p{
+    font-size:medium;
+}
+
+.profile a{
+    color: #818181;
+}
+.profile-info input{
+    padding:10px;
+    /* border:0; */
+    /* background-color:rgba(239, 239, 239, 0.7); */
+    width: -webkit-fill-available;
+}
+
+.feed{
+    /* flex: 60%; */
+    /* height: 100vh; */
+    border-left: 2px solid lightgray;
+
+
+}
+
+
+.profile a:hover{
+    color:blue;
+}
+
+.edit,
+.profile-picture,
+.profile-info,
+.empty{
+    flex: 1; /* Distribute available space equally among the rows */
+    padding: 20px; /* Add spacing between rows (adjust as needed) */
+    /* border: 1px solid #ccc; */
+}
+
+.edit {
+    display: flex;
+    align-items: flex-start; /* Align items to the top */
+    justify-content: space-between; /* Add space between items (right-align) */
+    position:relative;
+}
+
+/* Style the "Edit" button */
+.edit-button button {
+    background-color: transparent; /* Make the button background transparent */
+    border: none; /* Remove borders */
+    cursor: pointer; /* Add a pointer cursor */
+    padding: 10px 15px; /* Add padding (adjust as needed) */
+    margin: 5px;
+    position: absolute; /* Position the button absolutely within the container */
+    top: 0; /* Align to the top */
+    right: 0;
+    margin-top:20px;
+}
+
+.edit-button button:hover{
+    color: pink; /* Make the button background transparent */
+    
+}
+
+.label{
+    padding-bottom:10px;
+}
+
+.label-input{
+    padding-bottom:30px;
+}
+
+.center-image-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Adjust as needed */
+  }
+  
+.enabled-input {
+    background-color:rgba(239, 239, 239, 0.7);
+    border:0;
+
+  }
+  
+  .disabled-input {
+    background-color:rgba(239, 239, 239, 0.3);
+    border:1px solid black;
+}
+  
