@@ -27,12 +27,13 @@ export class SwipeComponent implements OnInit {
   isSwiped = false;
   isResetting = false;
   directionOfCard: "left" | 'right' | 'match' | null = null;
-  restaurantUser: RestaurantUser | undefined;
+  restaurantUser?: any;
   dinerUser: DinerUser | undefined;
   matchedDinerUser: DinerUser | undefined;
   
   user: DinerUser | undefined;
   dinerUsers: DinerUser[] | undefined;
+  restaurantUsers?: any[];
 
   constructor(
     private route: ActivatedRoute,
@@ -47,19 +48,21 @@ export class SwipeComponent implements OnInit {
       const userId = Number(params['id']);
       this.user = this.dinerService.getDinerUserById(userId);
     });
-    this.dinerService.getAllUsers().subscribe(
-      (data) => {
-        this.dinerUsers = data; // Assuming the response is an array of users
-        console.log("data", data);
+    this.dinerService.getAllDinerUserProfile().subscribe(
+      (response) => {
+        this.dinerUsers = response.data; // Assuming the response is an array of users
       },
       (error) => {
         console.error('Error fetching data:', error);
       }
     );
-    this.dinerService.getAllDinerUserProfile().subscribe(
-      (data) => {
-        this.dinerUsers = data; // Assuming the response is an array of users
-        console.log("data", data);
+    this.restaurantService.getAllRestaurantUserProfile().subscribe(
+      (response) => {
+        this.restaurantUsers = response.data; // Assuming the response is an array of users
+        console.log("this.restaurantUsers", this.restaurantUsers);
+        if(this.restaurantUsers) {
+          this.restaurantUser = this.restaurantUsers[0];
+        }
       },
       (error) => {
         console.error('Error fetching data:', error);
@@ -85,9 +88,11 @@ export class SwipeComponent implements OnInit {
             this.matchedDinerUser = this.dinerService.getDinerUserById(anotherDinerUserIdThatMatchedCurrentDinerUser);
 
             const isMatchWithNewUser = anotherDinerUserIdThatMatchedCurrentDinerUser === 0 ? false : true;
+            console.log("Come herasdasd ")
             if(isMatchWithNewUser) {
               this.directionOfCard = 'match';
             } else {
+              console.log("Come here ???")
               setTimeout(() => {
                 this.isResetting = false;
                 this.isSwiped = false;
@@ -96,6 +101,7 @@ export class SwipeComponent implements OnInit {
               this.getNextRestaurantUser();
             }
           } else {
+            console.log("Come here ")
             setTimeout(() => {
               this.isResetting = false;
               this.isSwiped = false;

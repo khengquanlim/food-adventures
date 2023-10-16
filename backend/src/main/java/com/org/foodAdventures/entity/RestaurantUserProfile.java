@@ -30,6 +30,15 @@ public class RestaurantUserProfile implements java.io.Serializable{
     @Column(name="BIOGRAPHY", nullable = false)
     private String bio;
 
+    @Column(name="RATING", nullable = false)
+    private String rating;
+
+    @Column(name="PRICE_PER_PAX", nullable = false)
+    private String pricePerPax;
+
+    @Column(name="LOCATION", nullable = false)
+    private String location;
+
     @Column(name="BOOKING_URL", nullable = false)
     private String bookingUrl;
 
@@ -79,6 +88,30 @@ public class RestaurantUserProfile implements java.io.Serializable{
 
     public void setBio(String bio) {
         this.bio = bio;
+    }
+    
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
+    }
+
+    public String getPricePerPax() {
+        return pricePerPax;
+    }
+
+    public void setPricePerPax(String pricePerPax) {
+        this.pricePerPax = pricePerPax;
+    }
+    
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public String getBookingUrl() {

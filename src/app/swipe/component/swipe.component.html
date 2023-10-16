@@ -7,12 +7,13 @@
       </div>
       <div class="right-column">
         <img [src]="restaurantUser.profilePicUrl" alt="Restaurant User Photo">
-        <h2> {{ restaurantUser.name }}</h2>
+        <h1> {{ restaurantUser.restaurantName }}</h1>
+        <h2> {{ restaurantUser.bio }}</h2>
     
         <div class="inner-column">
           <div class="left-inner-column"> {{ restaurantUser.location}}</div>
-          <div class="middle-inner-column"> {{ restaurantUser.pricePerPax}}</div>
-          <div class="right-inner-column"> {{ restaurantUser.rating}}</div>
+          <div class="middle-inner-column"> ${{ restaurantUser.pricePerPax}}</div>
+          <div class="right-inner-column"> {{ restaurantUser.rating}}/5.0</div>
         </div>
       </div>
     </div>

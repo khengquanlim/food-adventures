@@ -1,5 +1,6 @@
 package com.org.foodAdventures.service;
 
+import com.org.foodAdventures.entity.Message;
 import com.org.foodAdventures.entity.RestaurantUserProfile;
 import com.org.foodAdventures.repository.RestaurantUserProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,5 +20,9 @@ public class RestaurantUserProfileService {
 
     public List<RestaurantUserProfile> getAllRestaurantProfile() {
         return restaurantUserProfileRepository.getAllRestaurantUserProfiles();
+    }
+
+    public RestaurantUserProfile getRestaurantProfileById(Integer restaurantUserProfileId) {
+        return restaurantUserProfileRepository.getRestaurantProfileById(restaurantUserProfileId);
     }
 }

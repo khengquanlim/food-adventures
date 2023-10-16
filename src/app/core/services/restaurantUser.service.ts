@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { RestaurantUser } from "../models/restaurantUser.model"
 import { DinerUser } from '../models/dinerUser.model';
+import { HttpClient, HttpHeaders } from '@angular/common/http'; 
+import { Observable, catchError, map, of, switchMap } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -52,13 +54,20 @@ import { DinerUser } from '../models/dinerUser.model';
     private likedRestaurantUserIds: number[] = [];
     private dislikedRestaurantUserIds: number[] = [];
     private currentRestaurantUserIndex = 0;
+
+    constructor(private http: HttpClient) {}
   
     getRestaurantUsers(): RestaurantUser[] {
       return this.RestaurantUsers;
     }
+    
+    getAllRestaurantUserProfile(): Observable<any> {
+      return this.http.get('http://localhost:8080/foodAdventures/getAllRestaurantProfile');
+    }
   
-    getRestaurantUserById(): RestaurantUser | undefined {
-      return this.RestaurantUsers[0];
+    getRestaurantUserById(): Observable<any> {
+      // return this.RestaurantUsers[0];
+      return this.http.get('http://localhost:8080/foodAdventures/getRestaurantProfileById');
     }
   
     getCurrentRestaurantUser(): RestaurantUser {
