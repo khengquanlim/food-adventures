@@ -1,1 +1,32 @@
-<p>login works!</p>
+<div class="container">
+    
+      <div class="formLeft">
+        <!-- Image on the left -->
+        <img src="assets\images\adventureguy.png" height="33rem" />
+      </div>
+      <div class="formRight">
+        <!-- Form on the right -->
+        
+        <form (ngSubmit)="onSubmit()">
+          
+          <div class="form">
+            
+            <h2 style="color:blue">Login</h2>
+            
+            <div>
+              <input type="text" id="username" name="username" class="form-control" [(ngModel)]="model.username" placeholder="Email" required/>
+            </div>
+            
+            <div>
+              <input type="password" id="password" name="password" class="form-control" [(ngModel)]="model.password" placeholder="Password" required/>
+            </div>
+            
+            <div>
+              <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+
+          </div>
+        </form>
+      </div>
+
+  </div>

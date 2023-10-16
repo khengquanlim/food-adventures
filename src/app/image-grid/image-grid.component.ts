@@ -27,5 +27,4 @@ export class ImageGridComponent implements OnInit {
   ngOnInit(): void {
   } 
 
-  // numberOfColumns= 3;
 }

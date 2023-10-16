@@ -7,9 +7,6 @@ import { RestaurantUser } from '../../core/models/restaurantUser.model';
 
 import { DinerUserService } from '../../core/services/dinerUser.service';
 import { DinerUser } from '../../core/models/dinerUser.model';
-
-import { ImageGridComponent } from 'src/app/image-grid/image-grid.component';
-
 @Component({
   selector: 'app-swipe',
   templateUrl: './swipe.component.html',
@@ -33,6 +30,9 @@ export class SwipeComponent implements OnInit {
   restaurantUser: RestaurantUser | undefined;
   dinerUser: DinerUser | undefined;
   matchedDinerUser: DinerUser | undefined;
+  
+  user: DinerUser | undefined;
+  dinerUsers: DinerUser[] | undefined;
 
   constructor(
     private route: ActivatedRoute,
@@ -41,8 +41,21 @@ export class SwipeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-      this.restaurantUser = this.restaurantService.getRestaurantUserById();
-      this.dinerUser = this.dinerService.getDinerUserById(1);
+      // this.restaurantUser = this.restaurantService.getRestaurantUserById();
+      // this.dinerUser = this.dinerService.getDinerUserById(1);
+    this.route.params.subscribe(params => {
+      const userId = Number(params['id']);
+      this.user = this.dinerService.getDinerUserById(userId);
+    });
+    this.dinerService.getAllUsers().subscribe(
+      (data) => {
+        this.dinerUsers = data; // Assuming the response is an array of users
+        console.log("Users", this.dinerUsers);
+      },
+      (error) => {
+        console.error('Error fetching data:', error);
+      }
+    );
   }
 
   buttonPressOnMatchCard(likeOrDislike: any): void { 
