@@ -16,4 +16,8 @@ public interface MessageRepository extends JpaRepository<Message, BigDecimal> {
     List<Message> getAllMessagesBySenderIdAndReceiverId(
         @Param("senderId") String senderId,
         @Param("receiverId") String receiverId);
+
+    @Query(value = "select * from T_MESSAGE where SENDER_ID =:senderId order by CRT_TS desc", nativeQuery = true)
+    List<Message> getAllMessagesBySenderId(
+        @Param("senderId") String senderId);
 }

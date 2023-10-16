@@ -21,4 +21,8 @@ public class ChatService {
         return messageRepository.getAllMessagesBySenderIdAndReceiverId(senderId, receiverId);
     }
 
+    public List<Message> getChatBySender(String senderId) {
+        return messageRepository.getAllMessagesBySenderId(senderId);
+    }
+
 }

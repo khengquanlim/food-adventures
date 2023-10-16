@@ -49,7 +49,6 @@ public class DinerUserProfile implements java.io.Serializable{
     public void setUsername(String username){
         this.username = username;
     }
-
     @Column(name = "AGE", nullable = false)
     public Integer getAge(){
         return age;

@@ -50,7 +50,16 @@ export class SwipeComponent implements OnInit {
     this.dinerService.getAllUsers().subscribe(
       (data) => {
         this.dinerUsers = data; // Assuming the response is an array of users
-        console.log("Users", this.dinerUsers);
+        console.log("data", data);
+      },
+      (error) => {
+        console.error('Error fetching data:', error);
+      }
+    );
+    this.dinerService.getAllDinerUserProfile().subscribe(
+      (data) => {
+        this.dinerUsers = data; // Assuming the response is an array of users
+        console.log("data", data);
       },
       (error) => {
         console.error('Error fetching data:', error);

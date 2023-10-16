@@ -57,6 +57,10 @@ import {from} from 'rxjs';
     getAllUsers(): Observable<any> {
       return this.http.get('http://localhost:8080/foodAdventures/getAllUsers');
     }
+    
+    getAllDinerUserProfile(): Observable<any> {
+      return this.http.get('http://localhost:8080/foodAdventures/getAllDinerUserProfile');
+    }
 
     getDinerUsers(): DinerUser[] {
       return this.dinerUsers;
