@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+
+import * as bcrypt from 'bcryptjs';
 
 @Component({
   selector: 'app-registration',
@@ -9,7 +12,7 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
 export class RegistrationComponent implements OnInit {
   registrationForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private http: HttpClient) { }
 
   ngOnInit(): void {
     this.registrationForm = this.fb.group({
@@ -42,6 +45,8 @@ export class RegistrationComponent implements OnInit {
   onSubmitRegisterForm() {
     if (this.registrationForm.valid) {
       const birthdateControl = this.registrationForm.get('birthdate');
+      const password = this.registrationForm.get('password')?.value;
+
       if (birthdateControl) {
         const birthdate = new Date(birthdateControl.value);
         const today = new Date();
@@ -49,7 +54,33 @@ export class RegistrationComponent implements OnInit {
   
         if (age < 18) {
           alert('You must be at least 18 years old to register.');
+          this.registrationForm.reset();
         } else {
+          if (password) {
+            bcrypt.hash(password, 10, (err, hash) => {
+              if (err) {
+                console.error('Password hashing error: ', err);
+              } else {
+                const formData = {
+                  userType: this.userType?.value,
+                  registeredUserName: this.registeredUserName?.value,
+                  email: this.email?.value,
+                  password: hash, 
+                  birthdate: this.birthdate?.value,
+                  age: age, 
+                };
+        
+                this.http.post('/register', formData).subscribe(
+                  (response) => {
+                    console.log('Registration successful:', response);
+                  },
+                  (error) => {
+                    console.error('Registration error:', error);
+                  }
+                );
+              }
+            });
+          }
           this.registrationForm.reset();
           console.log(this.registrationForm.value);
           console.log("submitted");
