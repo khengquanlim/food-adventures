@@ -111,4 +111,9 @@ public class UserController {
 	// return ResponseEntity.status(HttpStatus.OK);
 	// }
 
+    @PostMapping("/register")
+    public User saveUserRegistration(@Valid @RequestBody UserRegisterRequest userRegisterRequest) {
+        log.info("User Registration Creation: {}", userRegisterRequest);
+        return userService.saveUserRegistration(userRegisterRequest);
+    }
 }

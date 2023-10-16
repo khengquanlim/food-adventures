@@ -5,15 +5,20 @@ import com.org.foodAdventures.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import java.util.List;
 
- import org.slf4j.Logger;
- import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Service
 public class UserService {
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
     private static final String UPLOAD_DIR = "/path/to/your/photo/directory";
     private final Logger log = LoggerFactory.getLogger(UserService.class);
 
@@ -107,6 +112,21 @@ public class UserService {
 	// 	return outputStream.toByteArray();
 	// }
 
+    public User saveUserRegistration(UserRegisterRequest userRegisterRequest) {
+        String hashedPassword = passwordEncoder.encode(userRegisterRequest.getPassword());
+        User user = new User();
+        user.setUserId(userRegisterRequest.getuserId)
+        user.setUserType(userRegisterRequest.getUserType());
+        user.setPwdHash(hashedPassword);
+        user.setAge(userRegisterRequest.getAge());
+        user.setEmail(userRegisterRequest.getEmail());
+//        user.setLastOnline();
+//        user.setCreatedTs();
+//        user.setUpdatedTsTs();
+
+        LOG.debug("saveUserRegistration: {}", user);
+        return userRepository.save(user);
+    }
 
 
 
