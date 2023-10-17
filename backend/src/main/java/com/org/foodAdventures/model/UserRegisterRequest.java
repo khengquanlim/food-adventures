@@ -11,13 +11,13 @@ import lombok.ToString;
 public class UserRegisterRequest implements Serializable {
 
     @JsonProperty("userId")
-    private int userId;
+    private String userId;
 
     @JsonProperty("userType")
     private int userType;
 
-    @JsonProperty("birthdate")
-    private int birthdate;
+    @JsonProperty("age")
+    private int age;
 
     @JsonProperty("email")
     private int email;

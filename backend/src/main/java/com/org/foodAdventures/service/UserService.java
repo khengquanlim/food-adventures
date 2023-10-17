@@ -114,21 +114,20 @@ public class UserService {
 
     public User saveUserRegistration(UserRegisterRequest userRegisterRequest) {
         String hashedPassword = passwordEncoder.encode(userRegisterRequest.getPassword());
+        Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
+
         User user = new User();
         user.setUserId(userRegisterRequest.getuserId)
         user.setUserType(userRegisterRequest.getUserType());
         user.setPwdHash(hashedPassword);
         user.setAge(userRegisterRequest.getAge());
         user.setEmail(userRegisterRequest.getEmail());
-//        user.setLastOnline();
-//        user.setCreatedTs();
-//        user.setUpdatedTsTs();
+        user.setLastOnline(currentTimestamp);
+        user.setCreatedTs(currentTimestamp);
+        user.setUpdatedTs(currentTimestamp);
 
         LOG.debug("saveUserRegistration: {}", user);
         return userRepository.save(user);
     }
-
-
-
 
 }
