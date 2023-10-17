@@ -6,7 +6,7 @@
         <button class="dislike-button" (click)="buttonPressOnMatchCard('dislike')">Dislike</button>
       </div>
       <div class="right-column">
-        <img [src]="restaurantUser.profilePicUrl" alt="Restaurant User Photo">
+        <img *ngIf="currentRestaurantUser" [src]="'data:image/jpeg;base64,' + currentRestaurantUser[0].imageByte" alt="Restaurant User Photo" id="restaurantImage">
         <h1> {{ restaurantUser.restaurantName }}</h1>
         <h2> {{ restaurantUser.bio }}</h2>
     

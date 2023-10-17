@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ElementRef, Renderer2 } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
 import { ActivatedRoute } from '@angular/router';
@@ -34,35 +35,54 @@ export class SwipeComponent implements OnInit {
   user: DinerUser | undefined;
   dinerUsers: DinerUser[] | undefined;
   restaurantUsers?: any[];
+  currentRestaurantUser?: any;
+
+  imageBytes: Uint8Array | undefined;
 
   constructor(
     private route: ActivatedRoute,
     private restaurantService: RestaurantUserService,
-    private dinerService: DinerUserService
+    private dinerService: DinerUserService,
+    private el: ElementRef, 
+    private renderer: Renderer2,
+    private sanitizer: DomSanitizer
   ) { }
 
   ngOnInit(): void {
-      // this.restaurantUser = this.restaurantService.getRestaurantUserById();
-      // this.dinerUser = this.dinerService.getDinerUserById(1);
+    const RESTAURANT_USER_TYPE = 'restaurant';
     this.route.params.subscribe(params => {
       const userId = Number(params['id']);
       this.user = this.dinerService.getDinerUserById(userId);
     });
     this.dinerService.getAllDinerUserProfile().subscribe(
       (response) => {
-        this.dinerUsers = response.data; // Assuming the response is an array of users
+        this.dinerUsers = response.data;
       },
       (error) => {
         console.error('Error fetching data:', error);
       }
     );
+    
     this.restaurantService.getAllRestaurantUserProfile().subscribe(
       (response) => {
-        this.restaurantUsers = response.data; // Assuming the response is an array of users
+        this.restaurantUsers = response.data;
         console.log("this.restaurantUsers", this.restaurantUsers);
         if(this.restaurantUsers) {
           this.restaurantUser = this.restaurantUsers[0];
-        }
+          this.restaurantService.getAllRestaurantUserImagesByUsernameAndUserType(this.restaurantUser.userId, RESTAURANT_USER_TYPE).subscribe(
+            (response) => {
+              console.log("this.restaurantUser", this.restaurantUser);
+              console.log("Response.data for image", response.data)
+              this.currentRestaurantUser = response.data;
+              if (this.currentRestaurantUser && this.currentRestaurantUser.length > 0) {
+                this.loadImage();
+              }
+            },
+            (error) => {
+              console.error('Error fetching data:', error);
+            }
+          )
+      }
       },
       (error) => {
         console.error('Error fetching data:', error);
@@ -70,6 +90,21 @@ export class SwipeComponent implements OnInit {
     );
   }
 
+  loadImage(): void {
+    console.log("Come here")
+    const imageByte = this.currentRestaurantUser[0].imageByte;
+    const blob = new Blob([imageByte], { type: 'image/jpeg' });
+    const imageUrl = URL.createObjectURL(blob);
+  
+    // Get a reference to the <img> element by its ID
+    const img = this.el.nativeElement.querySelector('#restaurantImage');
+  
+    console.log("img", img)
+    if (img) {
+      // Use Renderer2 to set the src attribute
+      this.renderer.setAttribute(img, 'src', imageUrl);
+    }
+  }
   buttonPressOnMatchCard(likeOrDislike: any): void { 
     this.isSwiped = true;
     if(likeOrDislike === 'like') {
@@ -135,5 +170,15 @@ export class SwipeComponent implements OnInit {
         this.directionOfCard = null;
       }, 500);
     }
+  }
+
+  displayImage(): any {
+    if (this.currentRestaurantUser.imageByte) {
+      const arrayBufferView = new Uint8Array(this.currentRestaurantUser.imageByte);
+      const blob = new Blob([arrayBufferView], { type: 'image/jpeg' });
+      const imageUrl = URL.createObjectURL(blob);
+      return this.sanitizer.bypassSecurityTrustUrl(imageUrl);
+    }
+    return '';
   }
 }

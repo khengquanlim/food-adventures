@@ -64,6 +64,12 @@ import { Observable, catchError, map, of, switchMap } from 'rxjs';
     getAllRestaurantUserProfile(): Observable<any> {
       return this.http.get('http://localhost:8080/foodAdventures/getAllRestaurantProfile');
     }
+    
+    getAllRestaurantUserImagesByUsernameAndUserType(username: string, userType: string): Observable<any> {
+      console.log("username", username)
+      console.log("userType", userType)
+      return this.http.get(`http://localhost:8080/foodAdventures/getAllRestaurantImages?username=${username}&userType=${userType}`);
+    }
   
     getRestaurantUserById(): Observable<any> {
       // return this.RestaurantUsers[0];
