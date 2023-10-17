@@ -17,7 +17,7 @@ export class RegistrationComponent implements OnInit {
   ngOnInit(): void {
     this.registrationForm = this.fb.group({
       userType: ['', [Validators.required, this.userTypeValidator]], 
-      registeredUserName: ['', Validators.required],
+      userId: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', Validators.required],
@@ -31,7 +31,6 @@ export class RegistrationComponent implements OnInit {
       console.log("select diner or restaurantOwner");
       return null; 
     } else {
-      console.log("userTypeInvalid");
       return { 'userTypeInvalid': true }; 
     }
   }
@@ -63,16 +62,16 @@ export class RegistrationComponent implements OnInit {
               } else {
                 const formData = {
                   userType: this.userType?.value,
-                  registeredUserName: this.registeredUserName?.value,
+                  userId: this.userId?.value,
                   email: this.email?.value,
                   password: hash, 
-                  birthdate: this.birthdate?.value,
                   age: age, 
                 };
-        
+                console.log('formData:', formData);
                 this.http.post('/register', formData).subscribe(
                   (response) => {
                     console.log('Registration successful:', response);
+                    this.registrationForm.reset();
                   },
                   (error) => {
                     console.error('Registration error:', error);
@@ -81,7 +80,6 @@ export class RegistrationComponent implements OnInit {
               }
             });
           }
-          this.registrationForm.reset();
           console.log(this.registrationForm.value);
           console.log("submitted");
         }
@@ -93,8 +91,8 @@ export class RegistrationComponent implements OnInit {
     return this.registrationForm.get('userType');
   }
 
-  get registeredUserName() {
-    return this.registrationForm.get('registeredUserName');
+  get userId() {
+    return this.registrationForm.get('userId');
   }
 
   get email() {
