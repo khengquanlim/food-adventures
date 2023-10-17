@@ -18,6 +18,9 @@ public class RestaurantUserProfile implements java.io.Serializable{
     @Column(name="RESTAURANT_USER_PROFILE_ID", unique = true, nullable = false)
     private BigDecimal restaurantUserProfileId;
 
+    @Column(name="USER_ID", nullable = false)
+    private String userId;
+
     @Column(name="RESTAURANT_NAME", nullable = false)
     private String restaurantName;
 
@@ -56,6 +59,14 @@ public class RestaurantUserProfile implements java.io.Serializable{
 
     public void setRestaurantUserProfileId(BigDecimal restaurantUserProfileId) {
         this.restaurantUserProfileId = restaurantUserProfileId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getRestaurantName() {
@@ -138,9 +149,10 @@ public class RestaurantUserProfile implements java.io.Serializable{
         this.updatedTs = updatedTs;
     }
 
-    public RestaurantUserProfile(BigDecimal restaurantUserProfileId, String restaurantName, String restaurantOwnerName, String foodOptionsTag, String bio, String bookingUrl, Timestamp createdTs, Timestamp updatedTs) {
+    public RestaurantUserProfile(BigDecimal restaurantUserProfileId, String userId, String restaurantName, String restaurantOwnerName, String foodOptionsTag, String bio, String bookingUrl, Timestamp createdTs, Timestamp updatedTs) {
         super();
         this.restaurantUserProfileId = restaurantUserProfileId;
+        this.userId = userId;
         this.restaurantName = restaurantName;
         this.restaurantOwnerName = restaurantOwnerName;
         this.foodOptionsTag = foodOptionsTag;
@@ -158,6 +170,7 @@ public class RestaurantUserProfile implements java.io.Serializable{
     public String toString() {
         return "RestaurantUserProfile{" +
             "restaurantUserProfileId=" + restaurantUserProfileId +
+            ", userId='" + userId + '\'' +
             ", restaurantName='" + restaurantName + '\'' +
             ", restaurantOwnerName='" + restaurantOwnerName + '\'' +
             ", foodOptionsTag='" + foodOptionsTag + '\'' +
