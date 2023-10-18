@@ -1,35 +1,35 @@
 <div class="restaurant-user-match-card" [ngClass]="{ 'swipedLeft': directionOfCard === 'left', 'swipedRight': directionOfCard === 'right' }" *ngIf="restaurantUser">
-    <div class="center-container" [@swipeAnimation]="directionOfCard">
-      <div class="left-column">
-        <app-image-grid [images]="restaurantUser.foodPicsUrl" [numberOfColumns]="2" [imageWidth]="'250px'" [imageHeight]="'210px'"></app-image-grid>
-        <button class="like-button" (click)="buttonPressOnMatchCard('like')">Like</button>
-        <button class="dislike-button" (click)="buttonPressOnMatchCard('dislike')">Dislike</button>
-      </div>
-      <div class="right-column">
-        <img *ngIf="currentRestaurantUser" [src]="'data:image/jpeg;base64,' + currentRestaurantUser[0].imageByte" alt="Restaurant User Photo" id="restaurantImage">
-        <h1> {{ restaurantUser.restaurantName }}</h1>
-        <h2> {{ restaurantUser.bio }}</h2>
-    
-        <div class="inner-column">
-          <div class="left-inner-column"> {{ restaurantUser.location}}</div>
-          <div class="middle-inner-column"> ${{ restaurantUser.pricePerPax}}</div>
-          <div class="right-inner-column"> {{ restaurantUser.rating}}/5.0</div>
-        </div>
-      </div>
+  <div class="center-container" [@swipeAnimation]="directionOfCard">
+    <div class="left-column">
+      <app-image-grid [images]="currentRestaurantUserImagesUrls" [numberOfColumns]="2" [imageWidth]="'250px'" [imageHeight]="'210px'"></app-image-grid>
+      <button class="like-button" (click)="buttonPressOnMatchCard('like')">Like</button>
+      <button class="dislike-button" (click)="buttonPressOnMatchCard('dislike')">Dislike</button>
     </div>
-    <div class="match-container" *ngIf="directionOfCard === 'match'"> 
-      <p class="match-message">You have matched with name: {{matchedDinerUser?.name}}</p>
-      <p class="match-message">Would you like to chat with {{matchedDinerUser?.name}} <button class="chat-button" routerLink="/chat">Continue to Chat</button> </p>
-      <p class="match-message">Continue with matching other users? <button class="swipe-button" (click)="getNextRestaurantUser()" >Continue with Swiping</button></p>
+    <div class="right-column">
+      <img *ngIf="currentRestaurantUserImages" [src]="restaurantProfilePic" alt="Restaurant User Photo" id="restaurantImage">
+      <h1> {{ restaurantUser.restaurantName }}</h1>
+      <h2> {{ restaurantUser.bio }}</h2>
   
+      <div class="inner-column">
+        <div class="left-inner-column"> {{ restaurantUser.location}}</div>
+        <div class="middle-inner-column"> ${{ restaurantUser.pricePerPax}}</div>
+        <div class="right-inner-column"> {{ restaurantUser.rating}}/5.0</div>
+      </div>
     </div>
+  </div>
+  <div class="match-container" *ngIf="directionOfCard === 'match'"> 
+    <p class="match-message">You have matched with name: {{matchedDinerUser?.name}}</p>
+    <p class="match-message">Would you like to chat with {{matchedDinerUser?.name}} <button class="chat-button" routerLink="/chat">Continue to Chat</button> </p>
+    <p class="match-message">Continue with matching other users? <button class="swipe-button" (click)="getNextRestaurantUser()" >Continue with Swiping</button></p>
+
+  </div>
 </div>
 <div class="restaurant-user-match-card" *ngIf="!restaurantUser">
-  <div class="container">
-    <h2 class="align-center-text"> You have reached the end of all restaurants 
-      <p> Please wait and meanwhile go enjoy the rest of the webapp</p>
-    </h2>
-    
-  </div>
+<div class="container">
+  <h2 class="align-center-text"> You have reached the end of all restaurants 
+    <p> Please wait and meanwhile go enjoy the rest of the webapp</p>
+  </h2>
+  
+</div>
 
 </div>
