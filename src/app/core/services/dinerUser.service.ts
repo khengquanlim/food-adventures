@@ -65,8 +65,8 @@ import { Observable } from 'rxjs';
       return this.dinerUsers;
     }
   
-    getDinerUserById(dinerUserId: number): DinerUser | undefined {
-      return this.dinerUsers.find(user => user.id === dinerUserId);
+    getDinerUserProfileByUserId(username: String): Observable<any> {
+      return this.http.get(`http://localhost:8080/foodAdventures/getCurrentDinerUserProfileByUserId?username=${username}`);
     }
   
     getCurrentDinerUser(): DinerUser {

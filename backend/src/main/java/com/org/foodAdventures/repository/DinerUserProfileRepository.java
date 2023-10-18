@@ -18,4 +18,8 @@ public interface DinerUserProfileRepository extends JpaRepository<DinerUserProfi
     @Query(value = "select * from T_DINER_USER_PROFILE", nativeQuery = true)
     List<DinerUserProfile> getAllDinerUsersDetails();
 
+    @Query(value = "select * from T_DINER_USER_PROFILE WHERE USER_ID =:userId", nativeQuery = true)
+    DinerUserProfile getCurrentDinerUsersDetails(
+            @Param("userId") String userId);
+
 }

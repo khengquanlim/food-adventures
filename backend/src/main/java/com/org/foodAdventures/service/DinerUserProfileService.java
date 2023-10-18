@@ -19,4 +19,8 @@ public class DinerUserProfileService {
     public List<DinerUserProfile> getAllDinerUsersDetails() {
         return dinerUserProfileRepository.getAllDinerUsersDetails();
     }
+
+    public DinerUserProfile getCurrentDinerUsersDetails(String username) {
+        return dinerUserProfileRepository.getCurrentDinerUsersDetails(username);
+    }
 }

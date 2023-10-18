@@ -29,11 +29,11 @@ export class SwipeComponent implements OnInit {
   isResetting = false;
   directionOfCard: "left" | 'right' | 'match' | null = null;
   restaurantUser?: any;
-  dinerUser: DinerUser | undefined;
+  dinerUser: any | undefined;
   matchedDinerUser: DinerUser | undefined;
   
   user: DinerUser | undefined;
-  dinerUsers: DinerUser[] | undefined;
+  dinerUsers: any[] | undefined;
   restaurantUsers?: any[];
   currentRestaurantUserImages?: any;
 
@@ -57,7 +57,13 @@ export class SwipeComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       const userId = Number(params['id']);
-      this.user = this.dinerService.getDinerUserById(userId);
+      this.dinerService.getDinerUserProfileByUserId('sky1001').subscribe(
+        (response) => {
+          this.dinerUser = response.data;
+          console.log("this.dinerUser", this.dinerUser)
+        }
+      )
+      console.log("this.dinerUser", this.dinerUser)
     });
     this.getAllDinerUserProfile();
     this.getAllRestaurantUserProfileAndImages();
@@ -129,7 +135,7 @@ export class SwipeComponent implements OnInit {
     if(likeOrDislike === 'like') {
       this.directionOfCard = 'right';
       if (this.restaurantUser) {
-        // if(this.dinerUser) {
+        if(this.dinerUser) {
           // const isAnotherDinerInUserLikedList = 
           // this.restaurantService.compareCurrentDinerUserToRestaurantDinerLikesIdList(this.dinerUser.id, this.restaurantUser.dinerLikesIdList);
           
@@ -162,7 +168,7 @@ export class SwipeComponent implements OnInit {
           //   }, 500);
           //   this.getNextRestaurantUser();
           // }
-        // }
+        }
       }
     } else if (likeOrDislike === 'dislike') {
       this.directionOfCard = 'left';

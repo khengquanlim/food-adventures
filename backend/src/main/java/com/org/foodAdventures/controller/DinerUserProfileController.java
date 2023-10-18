@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.org.foodAdventures.common.CommonConstant;
@@ -37,6 +38,24 @@ public class DinerUserProfileController {
 			return ResponseEntity.ok(response);
 		} catch (Exception e) {
 			log.info("error in retrieving diner users details: {}", e.getMessage());
+			response.setStatus(CommonConstant.FAILURE);
+			response.setDescription(e.getMessage());
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+		}
+	}
+    
+	@RequestMapping(value="/getCurrentDinerUserProfileByUserId", method= RequestMethod.GET)
+	public ResponseEntity<JsonWrapperObject> getCurrentDinerUserProfileByUserId(@RequestParam("username") String username) {
+		log.info("user controller get current diner user details");
+		JsonWrapperObject response = new JsonWrapperObject();
+		try {
+			DinerUserProfile dinerUser = dinerUserProfileService.getCurrentDinerUsersDetails(username);
+			log.info("successfully retrieve current diner user details = {}", dinerUser);
+			response.setStatus(CommonConstant.SUCCESS);
+			response.setData(dinerUser);
+			return ResponseEntity.ok(response);
+		} catch (Exception e) {
+			log.info("error in retrieving current diner user details: {}", e.getMessage());
 			response.setStatus(CommonConstant.FAILURE);
 			response.setDescription(e.getMessage());
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
