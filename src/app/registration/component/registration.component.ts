@@ -56,7 +56,7 @@ export class RegistrationComponent implements OnInit {
           this.registrationForm.reset();
         } else {
           if (password) {
-            bcrypt.hash(password, 10, (err, hash) => {
+            bcrypt.hash(password, 10, (err: Error | null, hash: string | undefined) => {
               if (err) {
                 console.error('Password hashing error: ', err);
               } else {
