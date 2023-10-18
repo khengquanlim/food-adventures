@@ -1,17 +1,12 @@
 package com.org.foodAdventures.entity;
 
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
-import org.springframework.data.relational.core.mapping.Table;
 import jakarta.persistence.*;
 
 import java.sql.*;
 
 @Entity
-@Table("T_USER")
-@DynamicInsert
-@DynamicUpdate
-public class User implements java.io.Serializable{
+@Table(name = "T_USER")
+public class User{
     @Id
     @Column(name="USER_ID", unique = true)
     private String id;

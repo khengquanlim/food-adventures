@@ -5,28 +5,46 @@ import com.org.foodAdventures.model.*;
 import com.org.foodAdventures.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.sql.*;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.transaction.annotation.*;
 
 @Service
 public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-//    @Autowired
-//    private BCryptPasswordEncoder passwordEncoder;
-
     private static final String UPLOAD_DIR = "/path/to/your/photo/directory";
     private final Logger log = LoggerFactory.getLogger(UserService.class);
 
     public List<User> getAllUsers() {
         return userRepository.getAllUsers();
+    }
+
+    public User saveUserRegistration(UserRegisterRequest userRegisterRequest) {
+
+        try{
+            Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
+
+            User user = new User();
+            user.setId(userRegisterRequest.getUserId());
+            user.setUserType(userRegisterRequest.getUserType());
+            user.setPwdHash(userRegisterRequest.getPassword());
+            user.setAge(userRegisterRequest.getAge());
+            user.setEmail(userRegisterRequest.getEmail());
+            user.setLastOnline(currentTimestamp);
+            user.setCreatedTs(currentTimestamp);
+            user.setUpdatedTs(currentTimestamp);
+
+            return userRepository.save(user);
+
+        }catch (Exception e){
+            log.info("Exception: {}", e);
+            return null;
+        }
     }
 
     // @Transactional
@@ -114,49 +132,5 @@ public class UserService {
 	// 	}
 	// 	return outputStream.toByteArray();
 	// }
-
-    @Transactional
-    public User saveUserRegistration(UserRegisterRequest userRegisterRequest) {
-
-        try{
-
-            List<User> allUsers1 = userRepository.getAllUsers();
-            log.info(" "+allUsers1.size());
-
-//        String hashedPassword = passwordEncoder.encode(userRegisterRequest.getPassword());
-            Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
-
-            User user = new User();
-            log.info("userRegisterRequest: {}", userRegisterRequest);
-            log.info("id: {}", userRegisterRequest.getUserId());
-            log.info("userType: {}", userRegisterRequest.getUserType());
-            log.info("pwdHash: {}", userRegisterRequest.getPassword());
-            log.info("age: {}", userRegisterRequest.getAge());
-            log.info("email: {}", userRegisterRequest.getEmail());
-            user.setId(userRegisterRequest.getUserId());
-            user.setUserType(userRegisterRequest.getUserType());
-            user.setPwdHash(userRegisterRequest.getPassword());
-            user.setAge(userRegisterRequest.getAge());
-            user.setEmail(userRegisterRequest.getEmail());
-            user.setLastOnline(currentTimestamp);
-            user.setCreatedTs(currentTimestamp);
-            user.setUpdatedTs(currentTimestamp);
-
-//        log.info("saveUserRegistration: {}", user);
-            User newUser = userRepository.saveAndFlush(user);
-//            userRepository.flush();
-            log.info("newUser: {}", newUser);
-            List<User> allUsers = userRepository.getAllUsers();
-            log.info(" "+allUsers.size());
-
-            return newUser;
-//        return userRepository.save(user);
-
-        }catch (Exception e){
-            log.info("Exception: {}", e);
-        }
-        return null;
-
-    }
 
 }

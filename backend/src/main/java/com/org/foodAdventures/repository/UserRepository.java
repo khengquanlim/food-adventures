@@ -1,23 +1,30 @@
 package com.org.foodAdventures.repository;
 
 import com.org.foodAdventures.entity.User;
-import org.springframework.data.jpa.repository.JpaRepository;
+
+import org.springframework.data.jpa.repository.*;
+import org.springframework.data.repository.query.*;
 import org.springframework.stereotype.Repository;
 
-import java.math.*;
+import java.sql.*;
 import java.util.List;
-import java.util.Optional;
-
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-import org.springframework.web.multipart.MultipartFile;
 
 
 @Repository
-public interface UserRepository extends JpaRepository<User, String>{
+public interface UserRepository extends JpaRepository<User, String> {
     @Query(value = "select * from T_USER", nativeQuery = true)
     List<User> getAllUsers();
+
+    @Query(value="insert into T_USER (USER_ID, PWD_HASH, USER_TYPE, LAST_ONLINE, EMAIL, AGE, CRT_TS, UPD_TS)" +
+        " VALUES (:userId, :pwdHash, :userType, :lastOnline, :email, :age, :crtTs, :updTs);", nativeQuery = true)
+    void saveUser(@Param("userId") String userId,
+                  @Param("pwdHash") String pwdHash,
+                  @Param("userType") String userType,
+                  @Param("lastOnline") Timestamp lastOnline,
+                  @Param("email") String email,
+                  @Param("age") int age,
+                  @Param("crtTs") Timestamp crtTs,
+                  @Param("updTs") Timestamp updTs);
 
     // Define custom query methods if needed
     // @Query(nativeQuery = true, value="SELECT p FROM TB_PHOTO p WHERE p.user.id = :username")

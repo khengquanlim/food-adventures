@@ -82,19 +82,10 @@
 			<version>5.2.3.Final</version>
 		</dependency>
 		<dependency>
-	    	<groupId>org.springframework.boot</groupId>
-	    	<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-		<dependency>
 		    <groupId>javax.servlet</groupId>
 		    <artifactId>javax.servlet-api</artifactId>
 	    	<version>4.0.1</version>
 		</dependency>
-<!--        to solve the CORS policy issue -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
 	</dependencies>
 
 
