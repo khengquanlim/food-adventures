@@ -2,6 +2,7 @@ package com.org.foodAdventures.controller;
 
 import com.org.foodAdventures.common.*;
 import com.org.foodAdventures.entity.*;
+import com.org.foodAdventures.model.*;
 import com.org.foodAdventures.service.*;
 
 import org.apache.coyote.*;
@@ -111,9 +112,10 @@ public class UserController {
 	// return ResponseEntity.status(HttpStatus.OK);
 	// }
 
-    @PostMapping("/register")
-    public User saveUserRegistration(@Valid @RequestBody UserRegisterRequest userRegisterRequest) {
-        log.info("User Registration Creation: {}", userRegisterRequest);
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public User saveUserRegistration(@RequestBody UserRegisterRequest userRegisterRequest) {
+        log.info("User Registration Creation: {}", userRegisterRequest.getUserId());
         return userService.saveUserRegistration(userRegisterRequest);
     }
 }

@@ -2,7 +2,6 @@ package com.org.foodAdventures.entity;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-import org.springframework.boot.test.autoconfigure.data.couchbase.*;
 import org.springframework.data.relational.core.mapping.Table;
 import jakarta.persistence.*;
 
@@ -15,7 +14,6 @@ import java.sql.*;
 public class User implements java.io.Serializable{
     @Id
     @Column(name="USER_ID", unique = true)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
     @Column(name="AGE", nullable = false)
