@@ -95,7 +95,7 @@ import { Observable } from 'rxjs';
     }
   
     likeUser(dinerUserId: number): void {
-      const currentDinerUserId = this.getCurrentDinerUser()?.id;
+      const currentDinerUserId = dinerUserId;
       if (!this.likedDinerUserIds.includes(dinerUserId)) {
         this.likedDinerUserIds.push(dinerUserId);
         console.log(`You liked user with ID ${dinerUserId}.`);
