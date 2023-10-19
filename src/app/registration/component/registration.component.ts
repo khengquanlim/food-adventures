@@ -74,7 +74,7 @@ export class RegistrationComponent implements OnInit {
                   age: age,
                 };
                 console.log('formData:', formData);
-                this.http.post(CommonConstant.baseUrl + '/register', formData).subscribe(
+                this.http.post(CommonConstant.authenticationBaseUrl + '/register', formData).subscribe(
                   (response) => {
                     console.log('Registration successful:', response);
                     this.hasError = false;
@@ -94,7 +94,7 @@ export class RegistrationComponent implements OnInit {
         }
       }
     }
-  }  
+  }
 
   get userType() {
     return this.registrationForm.get('userType');
