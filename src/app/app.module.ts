@@ -14,7 +14,10 @@ import { RegistrationComponent } from './registration/component/registration.com
 import { RestaurantOwnerProfileComponent } from './profile/restaurant-owner-profile/component/restaurant-owner-profile.component';
 import { UserProfileComponent } from './profile/user-profile/component/user-profile.component';
 import { LoginComponent } from './login/component/login.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { ImageGridComponent } from './image-grid/image-grid.component';
 import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -27,14 +30,16 @@ import { HttpClientModule } from '@angular/common/http';
     RecommendationComponent,
     RegistrationComponent,
     RestaurantOwnerProfileComponent,
-    LoginComponent
+    LoginComponent,
+    NavbarComponent,
+    ImageGridComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

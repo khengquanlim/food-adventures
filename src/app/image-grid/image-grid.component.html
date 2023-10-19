@@ -1,0 +1,6 @@
+<div class="image-grid" [style.grid-template-columns]="'repeat(' + numberOfColumns + ', 1fr)'">
+    <!-- <div class="image-grid" [ngStyle]="{'--columns': numberOfColumns}"> -->
+        <div class="grid-item" *ngFor="let image of images" >
+      <img [src]="image" alt="Image" class="square-image">
+    </div>
+  </div>
