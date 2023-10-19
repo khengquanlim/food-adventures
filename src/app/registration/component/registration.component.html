@@ -43,6 +43,9 @@
     </div>
     <button class="registerBtn" type="submit" [disabled]="registrationForm.invalid">Register</button>
     <!-- For debug -->
-    <p>Form Valid: {{ registrationForm.valid }}</p>
+<!--    <p>Form Valid: {{ registrationForm.valid }}</p>-->
+      <div *ngIf = "hasError">
+          UserId has already been registered.
+      </div>
   </form>
 </div>

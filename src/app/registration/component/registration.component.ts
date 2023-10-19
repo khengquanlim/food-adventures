@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-
 import * as bcrypt from 'bcryptjs';
+
+import { CommonConstant } from 'src/app/common/CommonConstant';
 
 @Component({
   selector: 'app-registration',
@@ -11,12 +13,15 @@ import * as bcrypt from 'bcryptjs';
 })
 export class RegistrationComponent implements OnInit {
   registrationForm!: FormGroup;
+  hasError:boolean = false;
 
-  constructor(private fb: FormBuilder, private http: HttpClient) { }
+  constructor(private fb: FormBuilder,
+              private http: HttpClient,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.registrationForm = this.fb.group({
-      userType: ['', [Validators.required, this.userTypeValidator]], 
+      userType: ['', [Validators.required, this.userTypeValidator]],
       userId: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
@@ -29,12 +34,12 @@ export class RegistrationComponent implements OnInit {
     const userType = control.value;
     if (userType === 'diner' || userType === 'restaurantOwner') {
       console.log("select diner or restaurantOwner");
-      return null; 
+      return null;
     } else {
-      return { 'userTypeInvalid': true }; 
+      return { 'userTypeInvalid': true };
     }
   }
-  
+
   passwordMatchValidator(control: AbstractControl): { [key: string]: boolean } | null {
     const password = control.get('password')?.value;
     const confirmPassword = control.get('confirmPassword')?.value;
@@ -50,7 +55,7 @@ export class RegistrationComponent implements OnInit {
         const birthdate = new Date(birthdateControl.value);
         const today = new Date();
         const age = today.getFullYear() - birthdate.getFullYear();
-  
+
         if (age < 18) {
           alert('You must be at least 18 years old to register.');
           this.registrationForm.reset();
@@ -64,17 +69,21 @@ export class RegistrationComponent implements OnInit {
                   userType: this.userType?.value,
                   userId: this.userId?.value,
                   email: this.email?.value,
-                  password: hash, 
-                  age: age, 
+                  password: hash,
+                  age: age,
                 };
                 console.log('formData:', formData);
-                this.http.post('/register', formData).subscribe(
+                this.http.post(CommonConstant.baseUrl + '/register', formData).subscribe(
                   (response) => {
                     console.log('Registration successful:', response);
+                    this.hasError = false;
                     this.registrationForm.reset();
+                    this.router.navigateByUrl('/login');
                   },
                   (error) => {
-                    console.error('Registration error:', error);
+                    console.log('Registration error:', error);
+                    this.hasError = true;
+
                   }
                 );
               }
@@ -85,7 +94,7 @@ export class RegistrationComponent implements OnInit {
         }
       }
     }
-  }  
+  }
 
   get userType() {
     return this.registrationForm.get('userType');

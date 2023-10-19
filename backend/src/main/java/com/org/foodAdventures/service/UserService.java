@@ -29,17 +29,22 @@ public class UserService {
         try{
             Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
 
-            User user = new User();
-            user.setId(userRegisterRequest.getUserId());
-            user.setUserType(userRegisterRequest.getUserType());
-            user.setPwdHash(userRegisterRequest.getPassword());
-            user.setAge(userRegisterRequest.getAge());
-            user.setEmail(userRegisterRequest.getEmail());
-            user.setLastOnline(currentTimestamp);
-            user.setCreatedTs(currentTimestamp);
-            user.setUpdatedTs(currentTimestamp);
+            if (userRepository.getByName(userRegisterRequest.getUserId()) != null) {
+                log.info("User already exists");
+                return null;
+            } else {
+                User user = new User();
+                user.setId(userRegisterRequest.getUserId());
+                user.setUserType(userRegisterRequest.getUserType());
+                user.setPwdHash(userRegisterRequest.getPassword());
+                user.setAge(userRegisterRequest.getAge());
+                user.setEmail(userRegisterRequest.getEmail());
+                user.setLastOnline(currentTimestamp);
+                user.setCreatedTs(currentTimestamp);
+                user.setUpdatedTs(currentTimestamp);
 
-            return userRepository.save(user);
+                return userRepository.save(user);
+            }
 
         }catch (Exception e){
             log.info("Exception: {}", e);

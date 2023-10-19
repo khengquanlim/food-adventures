@@ -26,6 +26,9 @@ public interface UserRepository extends JpaRepository<User, String> {
                   @Param("crtTs") Timestamp crtTs,
                   @Param("updTs") Timestamp updTs);
 
+    @Query(value="select * from T_USER where USER_ID = :username", nativeQuery = true)
+    User getByName(@Param("username") String username);
+
     // Define custom query methods if needed
     // @Query(nativeQuery = true, value="SELECT p FROM TB_PHOTO p WHERE p.user.id = :username")
     // public List<Photo> getPhotoFeed(

@@ -41,6 +41,23 @@ public class UserController {
 		}
 	}
 
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public ResponseEntity<JsonWrapperObject> saveUserRegistration(@RequestBody UserRegisterRequest userRegisterRequest) {
+        log.info("User Registration Creation: {}", userRegisterRequest.getUserId());
+        User user = userService.saveUserRegistration(userRegisterRequest);
+        JsonWrapperObject response = new JsonWrapperObject();
+
+        if(user == null ) {
+            response.setStatus(CommonConstant.FAILURE);
+            response.setDescription("User already exists");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        } else {
+            response.setStatus(CommonConstant.SUCCESS);
+            response.setData(user);
+            return ResponseEntity.ok(response);
+        }
+    }
+
 	// user details
 	// @PostMapping("/{userId}/updateDetails")
 	// public void updateUserDetails(
@@ -113,9 +130,4 @@ public class UserController {
 	// }
 
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public User saveUserRegistration(@RequestBody UserRegisterRequest userRegisterRequest) {
-        log.info("User Registration Creation: {}", userRegisterRequest.getUserId());
-        return userService.saveUserRegistration(userRegisterRequest);
-    }
 }
