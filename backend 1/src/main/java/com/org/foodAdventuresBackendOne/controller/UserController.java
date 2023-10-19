@@ -26,7 +26,7 @@ public class UserController {
 
         if(user == null ) {
             response.setStatus(CommonConstant.FAILURE);
-            response.setDescription("User already exists");
+            response.setDescription("UserId already exists");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         } else {
             response.setStatus(CommonConstant.SUCCESS);

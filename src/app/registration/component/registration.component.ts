@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import * as bcrypt from 'bcryptjs';
 
 import { CommonConstant } from 'src/app/common/CommonConstant';
+import { ModalService} from "../../common/modal.service";
 
 
 @Component({
@@ -14,11 +15,11 @@ import { CommonConstant } from 'src/app/common/CommonConstant';
 })
 export class RegistrationComponent implements OnInit {
   registrationForm!: FormGroup;
-  hasError:boolean = false;
 
   constructor(private fb: FormBuilder,
               private http: HttpClient,
-              private router: Router) { }
+              private router: Router,
+              private modalService: ModalService) { }
 
   ngOnInit(): void {
     this.registrationForm = this.fb.group({
@@ -77,13 +78,13 @@ export class RegistrationComponent implements OnInit {
                 this.http.post(CommonConstant.authenticationBaseUrl + '/register', formData).subscribe(
                   (response) => {
                     console.log('Registration successful:', response);
-                    this.hasError = false;
                     this.registrationForm.reset();
                     this.router.navigateByUrl('/login');
                   },
                   (error) => {
                     console.log('Registration error:', error);
-                    this.hasError = true;
+                    console.log('error msg:', error.error.description);
+                    this.modalService.showModal(error.error.description, '', '');
                   }
                 );
               }
