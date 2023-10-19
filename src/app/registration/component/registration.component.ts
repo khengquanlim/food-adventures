@@ -6,6 +6,7 @@ import * as bcrypt from 'bcryptjs';
 
 import { CommonConstant } from 'src/app/common/CommonConstant';
 
+
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -83,7 +84,6 @@ export class RegistrationComponent implements OnInit {
                   (error) => {
                     console.log('Registration error:', error);
                     this.hasError = true;
-
                   }
                 );
               }
@@ -94,7 +94,7 @@ export class RegistrationComponent implements OnInit {
         }
       }
     }
-  }
+  }  
 
   get userType() {
     return this.registrationForm.get('userType');
