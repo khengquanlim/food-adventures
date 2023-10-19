@@ -4,7 +4,6 @@ import com.org.foodAdventures.common.*;
 import com.org.foodAdventures.entity.*;
 import com.org.foodAdventures.service.*;
 
-import org.apache.coyote.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,5 +53,24 @@ public class RestaurantUserProfileController {
             response.setDescription(e.getMessage());
             return ResponseEntity.ok(response);
         }
+    }
+
+    @RequestMapping(value = "/updateDinerUserLikeListById", method = RequestMethod.POST)
+    public ResponseEntity<?> updateDinerUserLikeList(
+        @RequestParam("dinerUserLikeList") String dinerUserLikeListJson,
+        @RequestParam("restaurantUserProfileId") Integer restaurantUserProfileId) {
+
+        try {
+            RestaurantUserProfile restaurantUserProfile = restaurantUserProfileService.getRestaurantProfileById(
+                    restaurantUserProfileId
+            );
+            log.info("What is inside  = {}", dinerUserLikeListJson);
+            restaurantUserProfile.setDinerUserLikeList(dinerUserLikeListJson);
+            restaurantUserProfileService.updateRestaurantUserProfile(restaurantUserProfile);
+            log.info("Successfully updated restaurant user profiles = {}", restaurantUserProfile);
+        } catch (Exception e) {
+            log.info("error in updating restaurant user profiles: {}", e.getMessage());
+        }
+		return ResponseEntity.ok("Update successful");
     }
 }
