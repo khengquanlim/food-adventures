@@ -23,6 +23,7 @@ public class DinerUserProfile implements java.io.Serializable{
     private Integer age;
     private String gender;
     private String bio;
+    private String matchedDinerUserIdList;
     private String foodPreferencesTag;
 
     @JsonIgnore
@@ -74,6 +75,15 @@ public class DinerUserProfile implements java.io.Serializable{
 
     public void setBio(String bio){
         this.bio = bio;
+    }
+
+    public void setMatchedDinerUserIdList(String matchedDinerUserIdList){
+        this.matchedDinerUserIdList = matchedDinerUserIdList;
+    }
+
+    @Column(name = "MATCHED_DINER_USER_ID_LIST", nullable = false)
+    public String getMatchedDinerUserIdList(){
+        return matchedDinerUserIdList;
     }
 
     @Column(name = "FOOD_PREFERENCES_TAG", length = 10, nullable = false)

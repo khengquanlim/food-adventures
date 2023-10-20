@@ -25,4 +25,8 @@ public class RestaurantUserProfileService {
     public RestaurantUserProfile getRestaurantProfileById(Integer restaurantUserProfileId) {
         return restaurantUserProfileRepository.getRestaurantProfileById(restaurantUserProfileId);
     }
+
+    public RestaurantUserProfile updateRestaurantUserProfile(RestaurantUserProfile restaurantUserProfile) {
+        return restaurantUserProfileRepository.save(restaurantUserProfile);
+    }
 }

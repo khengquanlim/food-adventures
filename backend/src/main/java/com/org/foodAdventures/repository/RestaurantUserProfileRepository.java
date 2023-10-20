@@ -18,8 +18,13 @@ public interface RestaurantUserProfileRepository extends JpaRepository<Restauran
     @Query(value = "select * from T_RESTAURANT_USER_PROFILE", nativeQuery = true)
     public List<RestaurantUserProfile> getAllRestaurantUserProfiles();
 
-    @Query(value = "select * from T_MESSAGE where RESTAURANT_USER_PROFILE_ID =:restaurantUserProfileId order by CRT_TS desc", nativeQuery = true)
+    @Query(value = "select * from T_RESTAURANT_USER_PROFILE where RESTAURANT_USER_PROFILE_ID =:restaurantUserProfileId order by CRT_TS desc", nativeQuery = true)
     RestaurantUserProfile getRestaurantProfileById(
         @Param("restaurantUserProfileId") Integer restaurantUserProfileId);
+
+    @Query(value = "UPDATE T_RESTAURANT_USER_PROFILE SET DINER_USER_LIKE_LIST=:dinerUserLikeList where RESTAURANT_USER_PROFILE_ID =:restaurantUserProfileId", nativeQuery = true)
+    RestaurantUserProfile updateDinerUserLikeListById(
+        @Param("dinerUserLikeList") List<Integer> dinerUserLikeList,
+    	@Param("restaurantUserProfileId") Integer restaurantUserProfileId);
 
 }

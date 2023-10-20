@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { RestaurantUser } from "../models/restaurantUser.model"
 import { DinerUser } from '../models/dinerUser.model';
-import { HttpClient, HttpHeaders } from '@angular/common/http'; 
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http'; 
 import { Observable, catchError, map, of, switchMap } from 'rxjs';
 
 @Injectable({
@@ -70,6 +70,16 @@ import { Observable, catchError, map, of, switchMap } from 'rxjs';
       console.log("userType", userType)
       return this.http.get(`http://localhost:8080/foodAdventures/getAllRestaurantImages?username=${username}&userType=${userType}`);
     }
+    
+    updateDinerUserLikeListByRestaurantUserProfileId(dinerUserLikeList: string, restaurantUserProfileId: number): Observable<any> {
+      const url = `http://localhost:8080/foodAdventures/updateDinerUserLikeListById`;
+
+      const params = new HttpParams()
+      .set('dinerUserLikeList', dinerUserLikeList)
+      .set('restaurantUserProfileId', restaurantUserProfileId);
+  
+      return this.http.post(url, null, { params });
+    };
   
     getRestaurantUserById(): Observable<any> {
       // return this.RestaurantUsers[0];
@@ -105,18 +115,21 @@ import { Observable, catchError, map, of, switchMap } from 'rxjs';
       this.checkEndOfMatchingRestaurantUsers();
     }
 
-    compareCurrentDinerUserToRestaurantDinerLikesIdList(currentDinerUserId: number, currentRestaurantLikeIdList: number[]): boolean {
-      const currentDinerLikesIdListLength = this.getCurrentRestaurantUser().dinerLikesIdList.length;
-      if (currentDinerLikesIdListLength != 0 && !this.getCurrentRestaurantUser().dinerLikesIdList.includes(currentDinerUserId)) {
+    compareCurrentDinerUserToRestaurantDinerLikesIdList(currentDinerUserId: number, currentRestaurantDinerUserLikeList: number[]): boolean {
+      const currentDinerLikesIdList = currentRestaurantDinerUserLikeList;
+      console.log("currentDinerLikesIdList.length!", currentDinerLikesIdList.length)
+      console.log("currentDinerLikesIdList.length!", currentDinerLikesIdList)
+      if (currentDinerLikesIdList.length != 0 && !(currentDinerLikesIdList.includes(currentDinerUserId))) {
+        console.log("Got others in the like id list!")
         return true;
       } else {
         return false;
       }
     }
 
-    getOtherDinerUserIdFromRestaurantDinerLikesIdList(currentDinerUser: DinerUser, currentRestaurantLikeIdList: number[]): number {
-      console.log("currentRestaurantLikeIdList", currentRestaurantLikeIdList)
-      for (const dinerUserId of currentRestaurantLikeIdList) {
+    getOtherDinerUserIdFromRestaurantDinerLikesIdList(currentDinerUser: DinerUser, currentRestaurantDinerUserLikeList: number[]): number {
+      console.log("currentRestaurantDinerUserLikeList", currentRestaurantDinerUserLikeList)
+      for (const dinerUserId of currentRestaurantDinerUserLikeList) {
         if (!currentDinerUser.matchedDinerUserIdList.includes(dinerUserId) && dinerUserId != currentDinerUser.id) {
           return dinerUserId;
         }
@@ -139,6 +152,23 @@ import { Observable, catchError, map, of, switchMap } from 'rxjs';
       if (this.currentRestaurantUserIndex >= this.RestaurantUsers.length) {
         console.log('No more users to display.');
         this.currentRestaurantUserIndex = -1;
+      }
+    }
+
+    convertStringToArray(inputString: String): number[] {
+      if(inputString === null) {
+        return [];
+      } else {
+        // Remove square brackets and any leading/trailing whitespace
+        const cleanedString = inputString.replace(/^\[|\]$/g, '');
+      
+        // Split the cleaned string by commas
+        const stringArray = cleanedString.split(',');
+      
+        // Parse each element into a number and create a number array
+        const numberArray = stringArray.map(element => parseInt(element, 10));
+    
+        return numberArray;
       }
     }
   }

@@ -18,7 +18,6 @@ import com.org.foodAdventures.entity.DinerUserProfile;
 import com.org.foodAdventures.service.DinerUserProfileService;
 
 @RestController
-//@RequestMapping("/api/users")
 public class DinerUserProfileController {
 
 	@Autowired

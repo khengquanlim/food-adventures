@@ -44,6 +44,7 @@ public class Image implements java.io.Serializable {
     protected String usageType;
 
     @JsonIgnore
+    @Column(name = "CRT_TS", length = 50, nullable = false)
     protected Timestamp crtTs;
 
 
