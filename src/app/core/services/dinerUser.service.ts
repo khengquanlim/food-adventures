@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { DinerUser } from '../models/dinerUser.model';
 import { Photo } from '../models/photo.model';
-import { HttpClient } from '@angular/common/http'; 
+import { HttpClient, HttpParams } from '@angular/common/http'; 
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -77,6 +77,16 @@ import { Observable } from 'rxjs';
       const matchedDinerUsers = this.dinerUsers.filter(dinerUser => this.likedDinerUserIds.includes(dinerUser.id));
       return matchedDinerUsers;
     }
+    
+    updateDinerUserLikeListByRestaurantUserProfileId(matchedDinerUserIdList: string, dinerUserProfileId: number): Observable<any> {
+      const url = `http://localhost:8080/foodAdventures/updateMatchedDinerUserListById`;
+
+      const params = new HttpParams()
+      .set('matchedDinerUserIdList', matchedDinerUserIdList)
+      .set('dinerUserProfileId', dinerUserProfileId);
+  
+      return this.http.post(url, null, { params });
+    };
 
     addMatchedUser(dinerUser: DinerUser): void {
       this.matchedDinerUsers.push(dinerUser);

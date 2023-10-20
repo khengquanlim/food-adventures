@@ -68,9 +68,9 @@ public class RestaurantUserProfileController {
             restaurantUserProfile.setDinerUserLikeList(dinerUserLikeListJson);
             restaurantUserProfileService.updateRestaurantUserProfile(restaurantUserProfile);
             log.info("Successfully updated restaurant user profiles = {}", restaurantUserProfile);
+            return ResponseEntity.ok("{\"message\": \"Update successful\"}");
         } catch (Exception e) {
-            log.info("error in updating restaurant user profiles: {}", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred.");
         }
-		return ResponseEntity.ok("Update successful");
     }
 }

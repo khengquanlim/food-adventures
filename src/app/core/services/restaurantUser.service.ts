@@ -123,14 +123,17 @@ import { Observable, catchError, map, of, switchMap } from 'rxjs';
         console.log("Got others in the like id list!")
         return true;
       } else {
+        console.log("Got ME in the like id list!")
         return false;
       }
     }
 
     getOtherDinerUserIdFromRestaurantDinerLikesIdList(currentDinerUser: DinerUser, currentRestaurantDinerUserLikeList: number[]): number {
-      console.log("currentRestaurantDinerUserLikeList", currentRestaurantDinerUserLikeList)
+      console.log("getOtherDinerUserIdFromRestaurantDinerLikesIdList DINERuSER", currentDinerUser)
+
       for (const dinerUserId of currentRestaurantDinerUserLikeList) {
         if (!currentDinerUser.matchedDinerUserIdList.includes(dinerUserId) && dinerUserId != currentDinerUser.id) {
+          console.log("Suc?")
           return dinerUserId;
         }
       }

@@ -30,7 +30,7 @@ export class SwipeComponent implements OnInit {
   directionOfCard: "left" | 'right' | 'match' | null = null;
   restaurantUser?: any;
   dinerUser: any | undefined;
-  matchedDinerUser: DinerUser | undefined;
+  matchedDinerUser: any | undefined;
   
   user: DinerUser | undefined;
   dinerUsers: any[] | undefined;
@@ -57,11 +57,10 @@ export class SwipeComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       const userId = Number(params['id']);
-      this.dinerService.getDinerUserProfileByUserId('sky1001').subscribe(
+      this.dinerService.getDinerUserProfileByUserId('sky1005').subscribe(
         (response) => {
           this.dinerUser = response.data;
           this.convertMatchedDinerUserIdListListToNumberList(this.dinerUser);
-          console.log("this.dinerUser", this.dinerUser)
         }
       )
     });
@@ -73,6 +72,7 @@ export class SwipeComponent implements OnInit {
     this.dinerService.getAllDinerUserProfile().subscribe(
       (response) => {
         this.dinerUsers = response.data;
+        console.log("this.dinerUsers", this.dinerUser)
       },
       (error) => {
         console.error('Error fetching data:', error);
@@ -108,13 +108,13 @@ export class SwipeComponent implements OnInit {
     this.restaurantProfilePic = this.getImageUrls(restaurantProfilePicByte);
     this.currentRestaurantUserImagesUrls = this.getImageUrls(currentRestaurantUserFeedImageByteUrls);
   }
+
   convertDinerUserListListToNumberList(restaurantUsers: any[]) {
     for(const restaurantUser of restaurantUsers!) {
       restaurantUser.dinerUserLikeList = this.restaurantService.convertStringToArray(restaurantUser.dinerUserLikeList)
     }
   }
   convertMatchedDinerUserIdListListToNumberList(dinerUser: any) {
-    //dosomething abt this... refactor
     dinerUser.matchedDinerUserIdList = this.restaurantService.convertStringToArray(dinerUser.matchedDinerUserIdList)
     }
   
@@ -126,39 +126,30 @@ export class SwipeComponent implements OnInit {
         if(this.dinerUser) {
           const isAnotherDinerInUserLikedListAndCurrentUserNeverLikeBeforeCurrentRestaurant = 
           this.restaurantService.compareCurrentDinerUserToRestaurantDinerLikesIdList(this.dinerUser.userId, this.restaurantUser.dinerUserLikeList);
-          console.log("isAnotherDinerInUserLikedListAndCurrentUserNeverLikeBeforeCurrentRestaurant", isAnotherDinerInUserLikedListAndCurrentUserNeverLikeBeforeCurrentRestaurant)
           this.addDinerUserIdToCurrentRestaurantUserLikeList();
-          // this.restaurantService.likeUser(this.restaurantUser.id, this.dinerUser); settle
-          // this.dinerService.addRestaurantUserIdTolikeRestaurantUserIdList(this.restaurantUser.id); settle?
           if(isAnotherDinerInUserLikedListAndCurrentUserNeverLikeBeforeCurrentRestaurant) {
             const anotherDinerUserIdThatMatchedCurrentDinerUser = 
             this.restaurantService.getOtherDinerUserIdFromRestaurantDinerLikesIdList(this.dinerUser, this.restaurantUser.dinerUserLikeList);
-          //   this.dinerService.addMatchedIdToCurrentDinerUser(anotherDinerUserIdThatMatchedCurrentDinerUser);
-          //   this.matchedDinerUser = this.dinerService.getDinerUserById(anotherDinerUserIdThatMatchedCurrentDinerUser);
-            
             const isMatchWithNewUser = anotherDinerUserIdThatMatchedCurrentDinerUser === 0 ? false : true;
-            console.log("isMatchWithNewUser", isMatchWithNewUser)
-            console.log("asdadasdadasdsdad")
             if(isMatchWithNewUser) {
               this.directionOfCard = 'match';
+              this.matchedDinerUser = this.dinerUsers?.find(dinerUser => dinerUser.userId === anotherDinerUserIdThatMatchedCurrentDinerUser);
+              this.addDinerUserIdToCurrentMatchedDinerUserIdList(anotherDinerUserIdThatMatchedCurrentDinerUser);
             } else {
-              console.log("Come here ???")
               setTimeout(() => {
                 this.isResetting = false;
                 this.isSwiped = false;
                 this.directionOfCard = null;
               }, 500);
-              this.addDinerUserIdToCurrentRestaurantUserLikeList();
               this.getNextRestaurantUser();
           } 
         } else {
-          //   console.log("Come here ")
-          //   setTimeout(() => {
-          //     this.isResetting = false;
-          //     this.isSwiped = false;
-          //     this.directionOfCard = null;
-          //   }, 500);
-          //   this.getNextRestaurantUser();
+            setTimeout(() => {
+              this.isResetting = false;
+              this.isSwiped = false;
+              this.directionOfCard = null;
+            }, 500);
+            this.getNextRestaurantUser();
           }
         }
       }
@@ -170,25 +161,46 @@ export class SwipeComponent implements OnInit {
       }
     }
   }
-  addDinerUserIdToCurrentRestaurantUserLikeList(): void {
-    if(this.restaurantUser.dinerUserLikeList === null) {
-      this.restaurantUser.dinerUserLikeList = []
-      console.log("this.restaurantUser.dinerUserLikeList" , this.restaurantUser.dinerUserLikeList)
-    } 
-    this.restaurantUser.dinerUserLikeList.push(this.dinerUser.userId);
-    console.log("this.restaurantUser.dinerUserLikeList", this.restaurantUser.dinerUserLikeList)
-    const restaurantUserNewLikeListJson = JSON.stringify(this.restaurantUser.dinerUserLikeList);
-    //Might need to move this somewhere else
-    this.restaurantService.updateDinerUserLikeListByRestaurantUserProfileId(restaurantUserNewLikeListJson, this.restaurantUser.restaurantUserProfileId).subscribe(
+
+  addMatchedDinerUserIdToCurrentDinerMatchedDinerUserList(currentDinerUserMatchedDinerUserListJson: string, currentDinerUserProfileId: number): void {
+    this.dinerService.updateDinerUserLikeListByRestaurantUserProfileId
+    (currentDinerUserMatchedDinerUserListJson, currentDinerUserProfileId).subscribe(
       (response) => {
-        // Handle the success response here if needed
         console.log('Update successful:', response);
       },
       (error) => {
-        // Handle any errors that occur during the HTTP request
         console.error('Update failed:', error);
       }
     );
+  }
+
+  addDinerUserIdToCurrentRestaurantUserLikeList(): void {
+    if(this.restaurantUser.dinerUserLikeList === null) {
+      this.restaurantUser.dinerUserLikeList = [];
+    } 
+    this.restaurantUser.dinerUserLikeList.push(this.dinerUser.userId);
+    const restaurantUserNewLikeListJson = JSON.stringify(this.restaurantUser.dinerUserLikeList);
+    this.updateDinerUserLikeListByRestaurantUserProfileId(restaurantUserNewLikeListJson, this.restaurantUser.restaurantUserProfileId);
+  }
+
+  updateDinerUserLikeListByRestaurantUserProfileId(restaurantUserNewLikeListJson: any, restaurantUserProfileId: any) {
+    this.restaurantService.updateDinerUserLikeListByRestaurantUserProfileId(restaurantUserNewLikeListJson, restaurantUserProfileId).subscribe(
+      (response) => {
+        console.log('Update successful:', response);
+      },
+      (error) => {
+        console.error('Update failed:', error);
+      }
+    );
+  }
+
+  addDinerUserIdToCurrentMatchedDinerUserIdList(anotherDinerUserIdThatMatchedCurrentDinerUser: number): void {
+    if(this.dinerUser.matchedDinerUserIdList === null) {
+      this.dinerUser.matchedDinerUserIdList = [];
+    } 
+    this.dinerUser.matchedDinerUserIdList.push(anotherDinerUserIdThatMatchedCurrentDinerUser);
+    const dinerUserNewMatchedDinerUserListJson = JSON.stringify(this.dinerUser.matchedDinerUserIdList);
+    this.addMatchedDinerUserIdToCurrentDinerMatchedDinerUserList(dinerUserNewMatchedDinerUserListJson, this.dinerUser.userId);
   }
 
   getNextRestaurantUser(): void {
@@ -200,8 +212,6 @@ export class SwipeComponent implements OnInit {
       this.restaurantService.getAllRestaurantUserImagesByUsernameAndUserType(this.restaurantUser.userId, this.RESTAURANT_USER_TYPE).subscribe(
         (response) => {
           this.currentRestaurantUserImages = response.data;
-          console.log("this.currentRestaurantUserImages", this.currentRestaurantUserImages)
-          console.log("response.data", response.data)
           const currentRestaurantUserFeedImageByteUrls = this.currentRestaurantUserImages.filter((feedImage: { usageType: string; }) => feedImage.usageType === 'feed');
           const restaurantProfilePicByte = this.currentRestaurantUserImages.filter((feedImage: { usageType: string; }) => feedImage.usageType === 'profile');
           this.restaurantProfilePic = this.getImageUrls(restaurantProfilePicByte);
@@ -229,12 +239,9 @@ export class SwipeComponent implements OnInit {
     const imageByte = this.currentRestaurantUserImages[0].imageByte;
     const blob = new Blob([imageByte], { type: 'image/jpeg' });
     const imageUrl = URL.createObjectURL(blob);
-  
-    // Get a reference to the <img> element by its ID
     const img = this.el.nativeElement.querySelector('#restaurantImage');
   
     if (img) {
-      // Use Renderer2 to set the src attribute
       this.renderer.setAttribute(img, 'src', imageUrl);
     }
   }

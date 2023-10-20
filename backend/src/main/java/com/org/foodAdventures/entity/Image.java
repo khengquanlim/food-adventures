@@ -5,17 +5,12 @@ import java.util.Date;
 import java.sql.Timestamp;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.envers.NotAudited;
 
-import org.springframework.data.relational.core.mapping.Table;
 
 @Entity
-@Table("T_IMAGE")
-@DynamicInsert
-@DynamicUpdate
+@Table(name = "T_IMAGE")
 public class Image implements java.io.Serializable {
 
     @Id
