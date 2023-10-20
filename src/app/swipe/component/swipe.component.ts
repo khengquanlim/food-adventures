@@ -1,10 +1,9 @@
-import { Component, OnInit, AfterViewInit, ElementRef, Renderer2 } from '@angular/core';
+import { Component, OnInit, ElementRef, Renderer2 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
 import { ActivatedRoute } from '@angular/router';
 import { RestaurantUserService } from '../../core/services/restaurantUser.service';
-import { RestaurantUser } from '../../core/models/restaurantUser.model';
 
 import { DinerUserService } from '../../core/services/dinerUser.service';
 import { DinerUser } from '../../core/models/dinerUser.model';
@@ -72,7 +71,6 @@ export class SwipeComponent implements OnInit {
     this.dinerService.getAllDinerUserProfile().subscribe(
       (response) => {
         this.dinerUsers = response.data;
-        console.log("this.dinerUsers", this.dinerUser)
       },
       (error) => {
         console.error('Error fetching data:', error);
