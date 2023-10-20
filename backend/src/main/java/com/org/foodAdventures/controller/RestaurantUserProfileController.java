@@ -64,7 +64,6 @@ public class RestaurantUserProfileController {
             RestaurantUserProfile restaurantUserProfile = restaurantUserProfileService.getRestaurantProfileById(
                     restaurantUserProfileId
             );
-            log.info("What is inside  = {}", dinerUserLikeListJson);
             restaurantUserProfile.setDinerUserLikeList(dinerUserLikeListJson);
             restaurantUserProfileService.updateRestaurantUserProfile(restaurantUserProfile);
             log.info("Successfully updated restaurant user profiles = {}", restaurantUserProfile);

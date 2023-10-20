@@ -1,7 +1,6 @@
 package com.org.foodAdventures.service;
 
 import com.org.foodAdventures.entity.DinerUserProfile;
-import com.org.foodAdventures.entity.RestaurantUserProfile;
 import com.org.foodAdventures.repository.DinerUserProfileRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;

@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.org.foodAdventures.common.CommonConstant;
 import com.org.foodAdventures.common.JsonWrapperObject;
 import com.org.foodAdventures.entity.DinerUserProfile;
-import com.org.foodAdventures.entity.RestaurantUserProfile;
 import com.org.foodAdventures.service.DinerUserProfileService;
 
 @RestController
@@ -69,7 +68,6 @@ public class DinerUserProfileController {
 
         try {
 			DinerUserProfile dinerUser = dinerUserProfileService.getCurrentDinerUsersDetailsById(dinerUserProfileId);
-            log.info("What is inside  = {}", matchedDinerUserIdListJson);
             dinerUser.setMatchedDinerUserIdList(matchedDinerUserIdListJson);
             dinerUserProfileService.updateDinerUserProfile(dinerUser);
             log.info("Successfully updated diner user profiles = {}", dinerUser);

@@ -1,6 +1,5 @@
 package com.org.foodAdventures.entity;
 
-import java.util.Date;
 import java.sql.Timestamp;
 import jakarta.persistence.*;
 
