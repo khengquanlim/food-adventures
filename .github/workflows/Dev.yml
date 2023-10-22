@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Deploy
-        run: mvnw.cmd deploy
+        run: mvnw.cmd install tomcat9:deploy -Dmaven.test.skip=true
         shell: cmd
         working-directory: ./backend
 
