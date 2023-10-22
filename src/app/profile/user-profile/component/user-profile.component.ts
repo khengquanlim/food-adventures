@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Photo } from 'src/app/core/models/photo.model';
+import { UserUpdateRequest } from 'src/app/core/models/userUpdateRequest.model';
 import { DinerUserService } from 'src/app/core/services/dinerUser.service';
-import { ImageGridComponent } from 'src/app/image-grid/image-grid.component';
-
+import { ImageGridComponent } from 'src/app/image-grid/image-grid.component'; 
+import { UserProfilePicRequest } from 'src/app/core/models/userProfilePicRequest.model';
 
 @Component({
   selector: 'app-user-profile',
@@ -13,100 +13,266 @@ export class UserProfileComponent implements OnInit {
 
   constructor(private userService : DinerUserService) {}
 
-  user: any = {};
+  userDetails: any = {};
+  user: UserUpdateRequest = {};
+  newProfilePic:UserProfilePicRequest = {};
+
   imageUrls: string[] = [];
   editMode = false;
+  uploadMode = false;
   numberOfColumns=3;
-  selectedFile: File | undefined;
-  retrievedImage: any;
-  base64Data: any;
-  retrieveResonse: any;
-  imageName: any;
+  
+  profilePic: any;
+  photoChanged = false;
+  feedPic : any;
+  userId = 'SUP003';
+  
+  DINER_USER_TYPE = 'diner';
+
+  PROFILE_USAGE_TYPE='profile';
+  FEED_USAGE_TYPE ='feed';
 
   ngOnInit(): void {
     console.log("in user profile");
-    this.userService.getUserDetails('username').subscribe((userDetails: any) => {
-      console.log("user profile get user details");
-      this.user = userDetails;
+    this.getUserDetails();
+    this.getProfilePic();
+    this.getFeed();
+    }
+
+    
+  toggleEditMode() {
+    this.editMode = true;
+    // console.log("editmode: ", this.editMode);
+  }
+
+  toggleUploadMode() {
+    this.uploadMode = true;
+    // console.log("uploadMode: ", this.uploadMode);
+  }
+
+  getUserDetails(){
+    this.userService.getUserDetails('SUP003').subscribe((userDetails: any) => {
+      // console.log("user profile get user details");
+      console.log(userDetails);
+      console.log(userDetails[0]);
+      
+      this.userDetails = userDetails[0];
+      this.user.userId= this.userDetails.userId;
+      this.user.age = this.userDetails.age;
+      this.user.gender = this.userDetails.gender;
+      this.user.bio = this.userDetails.bio;
+      this.user.foodPreferencesTag = this.userDetails.foodPreferencesTag;
+      this.user.username = this.userDetails.username;
       
     });
+  }
 
-    // Retrieve photo feed from the UserService
-    this.userService.getPhotoFeed('username').subscribe(
-      (photoFeed: Photo[]) => {
-        // Use the map operator to extract image URLs
-        console.log("user profile get photo feed");
-        this.imageUrls = photoFeed.map(photo => photo.imageUrl);
-        console.log("this photo feed = ", this.imageUrls)
+  // getProfilePic(){
+  //   this.userService.getFeed(this.userId, this.PROFILE_USAGE_TYPE, this.DINER_USER_TYPE).subscribe((profilePic: any) => {
+  //     this.profilePic = profilePic;
+  //   },
+  //   (error) => {
+  //     console.error('Error fetching photo feed:', error);
+  //   }
+  //   );
+  // }
+  
+  getProfilePic(){
+    this.userService.getFeed(this.userId, this.PROFILE_USAGE_TYPE, this.DINER_USER_TYPE).subscribe(
+      (response) => {
+        this.profilePic = response.data;
+        console.log("this.profilePic", this.profilePic);
+        this.profilePic = this.getImageUrls(this.profilePic);
       },
       (error) => {
-        console.error('Error fetching photo feed:', error);
+        console.error('Error fetching data:', error);
       }
     );
+  }
 
+  getFeed(): void {
+    this.userService.getFeed(this.userId, this.FEED_USAGE_TYPE, this.DINER_USER_TYPE).subscribe(
+      (response) => {
+        this.feedPic = response.data;
+        console.log("this.feedpic", this.feedPic);
+        this.filterImages(this.feedPic);
+      },
+      (error) => {
+        console.error('Error fetching data:', error);
+      }
+    );
+  }
 
-    console.log("this.user ngoninit = ", this.user);
+  filterImages(currentImages: any[]) {
+    const currentRestaurantUserFeedImageByteUrls = currentImages.filter((feedImage: { usageType: string; }) => feedImage.usageType === 'feed');
+    // const restaurantProfilePicByte = currentImages.filter((feedImage: { usageType: string; }) => feedImage.usageType === 'profile');
+    // this.profilePic = this.getImageUrls(restaurantProfilePicByte);
+    this.feedPic = this.getImageUrls(currentRestaurantUserFeedImageByteUrls);
+    console.log("this.feedpic", this.feedPic);
+    // console.log("this.profilePic", this.profilePic);
+  }
+
+  getImageUrls(images: any[]): string[] {
+    if (images && images.length > 0) {
+      return images.map((image) => 'data:image/jpeg;base64,' + image.imageByte);
+    }
+    return [];
+  }
+
+  saveChanges() {
+    console.log("savechanges()");
+    this.editMode = false;
+    this.userService.updateUserDetails(this.user)
+    .subscribe((updateUserDetails: any) => {
+      console.log('User details updated:', updateUserDetails);
+      this.user = updateUserDetails;
+      this.getUserDetails()
+    },(error) => {
+      // Handle any errors that occur during the update
+      console.error('Error updating user details:', error);
+    });
+
+    if (this.photoChanged){
+      console.log("yes photo changed");
+      this.userService.updateProfilePic(this.newProfilePic)
+      .subscribe(() => {
+        console.log("entering NOW");
+        this.getProfilePic();
+        this.photoChanged = false;
+      },(error) => {
+        // Handle any errors that occur during the update
+        console.error('Error updating user details:', error);
+      });
+
+      //return to false
+      
+    }
     
+
   }
   
-  
-
-  toggleEditMode() {
-    this.editMode = !this.editMode;
-    console.log("editmode: ", this.editMode);
-  }
-
   
   onProfilePictureChange(event: any) {
     console.log('File input changed:', event);
+    if (event){
+      this.photoChanged = true;
+    }
     // Implement logic to upload and set the new profile picture
     const file = event.target.files[0];
     // Implement logic to upload the file and set profilePictureUrl
     if (file && file.type.startsWith('image/')) {
       console.log("in true");
-      this.user.profilePictureUrl = URL.createObjectURL(file);
-  } else {
-    console.log('Invalid file type or no file selected.');
-  }
+      // this.newProfilePic = URL.createObjectURL(file);
+      const reader = new FileReader();
+      
+      reader.onload = (e) => {
+        // The result property contains the base64 string
+        this.newProfilePic.userId=this.userId;
+        this.newProfilePic.restaurantId = '1';
+        this.newProfilePic.imageName = file.name;
+        const imageType = file.type.split('/')[1]; // This extracts the "jpeg" part
+        this.newProfilePic.imageType = imageType;
+        this.newProfilePic.userType = 'diner';
+        this.newProfilePic.usageType='profile';
+        this.newProfilePic.imageByte = reader.result as string;
+        if (this.newProfilePic.imageByte.startsWith('data:image/jpeg;base64,')) {
+          // It's a JPEG image
+          this.newProfilePic.imageByte = this.newProfilePic.imageByte.substring('data:image/jpeg;base64,'.length);
+      } else if (this.newProfilePic.imageByte.startsWith('data:image/jpg;base64,')) {
+          // It's a JPG image
+          this.newProfilePic.imageByte = this.newProfilePic.imageByte.substring('data:image/jpg;base64,'.length);
+      } else if (this.newProfilePic.imageByte.startsWith('data:image/png;base64,')) {
+          // It's a PNG image
+          this.newProfilePic.imageByte = this.newProfilePic.imageByte.substring('data:image/png;base64,'.length);
+      }
+        // this.newProfilePic.imageByte = this.newProfilePic.imageByte.substring('image/jpeg;base64,'.length);
+        console.log("Base64 Image: ", this.newProfilePic);
+        console.log("onProfilePicChange base64? = ",this.isBase64Image(this.newProfilePic.imageByte));
+        console.log("model = ", this.newProfilePic);
+
+      };
+
+      reader.readAsDataURL(file);
+    } else {
+      console.log('Invalid file type or no file selected.');
+    }
     
-    
-    console.log('File input changed:', event);
   }
 
-  // onFeedChanged(event: any) {
-  //   // Handle file selection
-  //   this.selectedFile = event.target.files[0];
-  // }
+  onFeedChanged(event: any) {
+    console.log('on feed changed:', event);
+    if (event){
+      this.photoChanged = true;
+    }
+    // Implement logic to upload and set the new profile picture
+    const file = event.target.files[0];
+    // Implement logic to upload the file and set profilePictureUrl
+    if (file && file.type.startsWith('image/')) {
+      console.log("in true");
+      // this.newProfilePic = URL.createObjectURL(file);
+      const reader = new FileReader();
+      
+      reader.onload = (e) => {
+        // The result property contains the base64 string
+        this.newProfilePic.userId=this.userId;
+        this.newProfilePic.restaurantId = '1';
+        this.newProfilePic.imageName = file.name;
+        const imageType = file.type.split('/')[1]; // This extracts the "jpeg" part
+        this.newProfilePic.imageType = imageType;
+        this.newProfilePic.userType = 'diner';
+        this.newProfilePic.usageType='feed';
+        this.newProfilePic.imageByte = reader.result as string;
+        if (this.newProfilePic.imageByte.startsWith('data:image/jpeg;base64,')) {
+          // It's a JPEG image
+          this.newProfilePic.imageByte = this.newProfilePic.imageByte.substring('data:image/jpeg;base64,'.length);
+      } else if (this.newProfilePic.imageByte.startsWith('data:image/jpg;base64,')) {
+          // It's a JPG image
+          this.newProfilePic.imageByte = this.newProfilePic.imageByte.substring('data:image/jpg;base64,'.length);
+      } else if (this.newProfilePic.imageByte.startsWith('data:image/png;base64,')) {
+          // It's a PNG image
+          this.newProfilePic.imageByte = this.newProfilePic.imageByte.substring('data:image/png;base64,'.length);
+      }
+        // this.newProfilePic.imageByte = this.newProfilePic.imageByte.substring('image/jpeg;base64,'.length);
+        console.log("Base64 Image: ", this.newProfilePic);
+        console.log("onProfilePicChange base64? = ",this.isBase64Image(this.newProfilePic.imageByte));
+        console.log("model = ", this.newProfilePic);
+
+      };
+
+
+
+      reader.readAsDataURL(file);
+    } else {
+      console.log('Invalid file type or no file selected.');
+    }
+    
+  }
+
+  onFeedUpload() {
+    console.log("savechanges()");
+    this.userService.insertFeed(this.newProfilePic)
+      .subscribe(() => {
+        console.log("entering NOW");
+
+        this.uploadMode = false;
+        this.getFeed();
+        
+      },(error) => {
+        // Handle any errors that occur during the update
+        console.error('Error updating user details:', error);
+      });
+
+
+  }
 
   
-  // onFeedUpload(){
-  //   if (!this.selectedFile) {
-  //     // Handle if no file is selected
-  //     console.error('No file selected.');
-  //     return;
-  //   }
+  isBase64Image(base64String: string): boolean {
+    const regex = /^data:image\/(jpeg|jpg|png|gif);base64,/i;
+    return regex.test(base64String);
+  }
 
-  //   // Create a FormData object to send the file
-  //   const formData = new FormData();
-  //   formData.append('file', this.selectedFile);
-
-  //   // Call the insertPhoto() method from UserService with the FormData
-  //   this.userService.insertPhoto('username', formData).subscribe(
-  //     (response: any[]) => { // Explicitly type response as an array
-  //       // Photo added successfully, update the photo feed if your API returns the updated feed
-  //       this.imageUrls = response.map((photo: any) => photo.imageUrl);
-  //     },
-  //     (error) => {
-  //       // Handle error if the photo upload fails
-  //       console.error('Error adding photo:', error);
-  //     }
-  //   );
-
-
-  //   // Reset the selected file
-  //   this.selectedFile = undefined;
-  // }
+  
+  
   
 
-  saveChanges() {}
 }

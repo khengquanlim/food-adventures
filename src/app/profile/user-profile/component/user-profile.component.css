@@ -97,8 +97,9 @@
 .center-image-grid {
     display: flex;
     justify-content: center;
-    align-items: center;
+    /* align-items: center; */
     height: 100%; /* Adjust as needed */
+    margin-top:20px;
   }
   
 .enabled-input {
@@ -111,4 +112,3 @@
     background-color:rgba(239, 239, 239, 0.3);
     border:1px solid black;
 }
-  

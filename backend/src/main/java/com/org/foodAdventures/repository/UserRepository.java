@@ -1,6 +1,9 @@
 package com.org.foodAdventures.repository;
 
-import com.org.foodAdventures.entity.User;
+// import com.org.foodAdventures.entity.User;
+import com.org.foodAdventures.entity.DinerUserProfile;
+import com.org.foodAdventures.entity.Image;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,9 +18,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 @Repository
-public interface UserRepository extends JpaRepository<User, String>{
-    @Query(value = "select * from T_USER", nativeQuery = true)
-    List<User> getAllUsers();
+public interface UserRepository extends JpaRepository<DinerUserProfile, String>{
+    @Query(value = "select * from T_DINER_USER_PROFILE", nativeQuery = true)
+    List<DinerUserProfile> getAllUsers();
 // extends JpaRepository<User, Long> {
     // Define custom query methods if needed
     // @Query(nativeQuery = true, value="SELECT p FROM TB_PHOTO p WHERE p.user.id = :username")
@@ -25,18 +28,24 @@ public interface UserRepository extends JpaRepository<User, String>{
     //     @Param("username") String username
     // );
 
-    // @Query(nativeQuery = true, value="SELECT age, gender, profilePic, bio FROM TB_USER p WHERE p.user.id = :userId")
-    // public List<User> getUserDetails(
-    //     @Param("username") String username
-    // );
+    @Query(nativeQuery = true, value="SELECT * FROM T_DINER_USER_PROFILE WHERE USERNAME = :username")
+    public List<DinerUserProfile> getUserDetails(
+        @Param("username") String username
+    );
 
-    // @Modifying
-    // @Query(nativeQuery = true, value = "UPDATE TB_USER SET age = :age, gender = :gender, profilePic = :profilePic, bio = :bio WHERE id = :userId")
-    // void updateUserDetails(
-    //     @Param("age") Integer age,
-    //     @Param("gender") String gender,
-    //     @Param("profilePic") String profilePic,
-    //     @Param("bio") String bio,
+    @Modifying
+    @Query(nativeQuery = true, value = "UPDATE T_DINER_USER_PROFILE SET age = :age, gender = :gender, biography = :bio, food_preferences_tag = :foodPreferencesTag WHERE username = :username")
+    void updateUserDetails(
+        @Param("username") String username,
+        @Param("age") BigDecimal age,
+        @Param("gender") String gender,
+        @Param("bio") String bio,
+        @Param("foodPreferencesTag") String foodPreferencesTag
+    );
+    
+
+    // @Query(nativeQuery = true, value="SELECT * FROM T_IMAGE WHERE USER_ID = :username and usage_type='profile' ")
+    // public List<Image> getProfilePic(
     //     @Param("username") String username
     // );
 
