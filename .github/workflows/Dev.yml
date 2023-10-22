@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Deploy
-        run: mvnv.cmd deploy
+        run: mvnw.cmd deploy
         shell: cmd
         working-directory: ./backend
 
