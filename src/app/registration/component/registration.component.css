@@ -1,29 +1,3 @@
-.registerForm {
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #f5f5f5;
-}
-
-.registerFormGroup {
-  margin-bottom: 15px;
-}
-
-label {
-  font-weight: bold;
-}
-
-.registeredUsername,
-input[type="email"],
-input[type="password"] {
-  width: 95%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
 .registerBtn {
   padding: 10px 20px;
   background-color: #007bff;
@@ -41,11 +15,39 @@ input[type="password"] {
   cursor: not-allowed;
   color: #888; 
   pointer-events: none; 
-
+  margin-top: 10px;
 }
 
 .registerErrorMsg {
   color: #ff0000;
   font-size: 14px;
   margin-top: 5px;
+}
+
+.registerForm {
+  max-width: 300px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f5f5f5;
+  position: fixed; 
+  top: 2%; 
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000; 
+}
+
+.registerFormGroup {
+  margin-bottom: 15px;
+}
+
+.registerFormGroup input[type="text"],
+.registerFormGroup input[type="date"],
+.registerFormGroup input[type="email"],
+.registerFormGroup input[type="password"] {
+  width: 90%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
