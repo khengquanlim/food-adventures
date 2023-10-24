@@ -16,6 +16,26 @@
   border-radius: 5px;
 }
 
+.message-you {
+  text-align: left;
+}
+
+.message-selected-user {
+  text-align: right;
+}
+
+.message-text-you {
+  background-color: #f0f0f0;
+  color: #000;  
+  text-align: left;
+}
+
+.message-text-selected-user {
+  background-color: #f0f0f0;
+  color: #000;
+  text-align: right;
+}
+
 .message-sender {
   font-weight: bold;
 }
@@ -55,14 +75,29 @@
 
 .chat-window {
   flex: 3;
-  /* padding: 20px; */
-  /* overflow-y: auto; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
 }
-  
+
+.header-button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: auto; /* Push the button to the right */
+}
+.chat-header {
+  display: flex;
+  justify-content: space-between; /* Pushes elements to opposite ends */
+  align-items: center; /* Aligns elements vertically */
+  /* background-color: #f0f0f0; */
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
 .chat-header > img {
   width: 40px;
   height: 40px;

@@ -6,7 +6,8 @@ import { ActivatedRoute } from '@angular/router';
 import { RestaurantUserService } from '../../core/services/restaurantUser.service';
 
 import { DinerUserService } from '../../core/services/dinerUser.service';
-import { DinerUser } from '../../core/models/dinerUser.model';
+import { ChatMessageService } from 'src/app/core/services/chatMessage.service';
+
 @Component({
   selector: 'app-swipe',
   templateUrl: './swipe.component.html',
@@ -31,7 +32,6 @@ export class SwipeComponent implements OnInit {
   dinerUser: any | undefined;
   matchedDinerUser: any | undefined;
   
-  user: DinerUser | undefined;
   dinerUsers: any[] | undefined;
   restaurantUsers?: any[];
   currentRestaurantUserImages?: any;
@@ -48,6 +48,7 @@ export class SwipeComponent implements OnInit {
     private route: ActivatedRoute,
     private restaurantService: RestaurantUserService,
     private dinerService: DinerUserService,
+    private chatService: ChatMessageService,
     private el: ElementRef, 
     private renderer: Renderer2,
     private sanitizer: DomSanitizer
@@ -121,11 +122,12 @@ export class SwipeComponent implements OnInit {
     if(likeOrDislike === 'like') {
       this.directionOfCard = 'right';
       if (this.restaurantUser) {
+        console.log("this.restaurantUser", this.restaurantUser)
         if(this.dinerUser) {
           const isAnotherDinerInUserLikedListAndCurrentUserNeverLikeBeforeCurrentRestaurant = 
           this.restaurantService.compareCurrentDinerUserToRestaurantDinerLikesIdList(this.dinerUser.userId, this.restaurantUser.dinerUserLikeList);
-          this.addDinerUserIdToCurrentRestaurantUserLikeList();
-          if(isAnotherDinerInUserLikedListAndCurrentUserNeverLikeBeforeCurrentRestaurant) {
+          if(isAnotherDinerInUserLikedListAndCurrentUserNeverLikeBeforeCurrentRestaurant) {          
+            this.addDinerUserIdToCurrentRestaurantUserLikeList();
             const anotherDinerUserIdThatMatchedCurrentDinerUser = 
             this.restaurantService.getOtherDinerUserIdFromRestaurantDinerLikesIdList(this.dinerUser, this.restaurantUser.dinerUserLikeList);
             const isMatchWithNewUser = anotherDinerUserIdThatMatchedCurrentDinerUser === 0 ? false : true;
@@ -133,6 +135,8 @@ export class SwipeComponent implements OnInit {
               this.directionOfCard = 'match';
               this.matchedDinerUser = this.dinerUsers?.find(dinerUser => dinerUser.userId === anotherDinerUserIdThatMatchedCurrentDinerUser);
               this.addDinerUserIdToCurrentMatchedDinerUserIdList(anotherDinerUserIdThatMatchedCurrentDinerUser);
+              this.chatService.addRestaurantNameAndBookingUrlToMessageDatabase(this.restaurantUser.restaurantName, this.restaurantUser.bookingUrl,
+              this.dinerUser.userId, this.restaurantUser.restaurantUserProfileId);
             } else {
               setTimeout(() => {
                 this.isResetting = false;
@@ -154,12 +158,22 @@ export class SwipeComponent implements OnInit {
     } else if (likeOrDislike === 'dislike') {
       this.directionOfCard = 'left';
       if (this.restaurantUser) {
-        this.restaurantService.dislikeUser(this.restaurantUser.restaurantUserId);
         this.getNextRestaurantUser();
       }
     }
   }
+  addRestaurantNameAndBookingUrlToMessageDatabase(restaurantName: any, bookingUrl: any, senderId: any, receiverId: any) {
+    this.chatService.addRestaurantNameAndBookingUrlToMessageDatabase
+    (restaurantName, bookingUrl, senderId, receiverId).subscribe(
+      (response) => {
+        console.log('Update successful:', response);
+      },
+      (error) => {
+        console.error('Update failed:', error);
+      }
+    );
 
+  }
   addMatchedDinerUserIdToCurrentDinerMatchedDinerUserList(currentDinerUserMatchedDinerUserListJson: string, currentDinerUserProfileId: number): void {
     this.dinerService.updateDinerUserLikeListByRestaurantUserProfileId
     (currentDinerUserMatchedDinerUserListJson, currentDinerUserProfileId).subscribe(
@@ -233,26 +247,26 @@ export class SwipeComponent implements OnInit {
     }
   }
 
-  loadImage(): void {
-    const imageByte = this.currentRestaurantUserImages[0].imageByte;
-    const blob = new Blob([imageByte], { type: 'image/jpeg' });
-    const imageUrl = URL.createObjectURL(blob);
-    const img = this.el.nativeElement.querySelector('#restaurantImage');
+  // loadImage(): void {
+  //   const imageByte = this.currentRestaurantUserImages[0].imageByte;
+  //   const blob = new Blob([imageByte], { type: 'image/jpeg' });
+  //   const imageUrl = URL.createObjectURL(blob);
+  //   const img = this.el.nativeElement.querySelector('#restaurantImage');
   
-    if (img) {
-      this.renderer.setAttribute(img, 'src', imageUrl);
-    }
-  }
+  //   if (img) {
+  //     this.renderer.setAttribute(img, 'src', imageUrl);
+  //   }
+  // }
 
-  displayImage(): any {
-    if (this.currentRestaurantUserImages.imageByte) {
-      const arrayBufferView = new Uint8Array(this.currentRestaurantUserImages.imageByte);
-      const blob = new Blob([arrayBufferView], { type: 'image/jpeg' });
-      const imageUrl = URL.createObjectURL(blob);
-      return this.sanitizer.bypassSecurityTrustUrl(imageUrl);
-    }
-    return '';
-  }
+  // displayImage(): any {
+  //   if (this.currentRestaurantUserImages.imageByte) {
+  //     const arrayBufferView = new Uint8Array(this.currentRestaurantUserImages.imageByte);
+  //     const blob = new Blob([arrayBufferView], { type: 'image/jpeg' });
+  //     const imageUrl = URL.createObjectURL(blob);
+  //     return this.sanitizer.bypassSecurityTrustUrl(imageUrl);
+  //   }
+  //   return '';
+  // }
   getImageUrls(images: any[]): string[] {
     if (images && images.length > 0) {
       return images.map((image) => 'data:image/jpeg;base64,' + image.imageByte);

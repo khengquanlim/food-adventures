@@ -4,13 +4,28 @@
   </div>
   <div class="chat-window" *ngIf="selectedUser"  [@slideIn]="selectedUser ? 'in' : 'out'">
     <div class="chat-header">
-      <img [src]="selectedUser.photoUrl" alt="{{ selectedUser.name }}" />
-      Chat with {{ selectedUser.name }}
+      <img [src]="selectedUser.profileImage" alt="{{ selectedUser.dinerUserName }}" />
+      Chat with {{ selectedUser.dinerUserName}}
+      <a [href]="'http://' + selectedRestaurantBookingUrl" target="_blank">
+        <button class="header-button">Book {{selectedRestaurantName || "hehe"}}</button>
+      </a>
     </div>
     <div class="chat-messages" #chatMessagesContainer>
-      <div class="message" *ngFor="let message of messages">
-        <div class="message-sender">{{ message.senderId === currentDinerUser.id ? 'You' : selectedUser.name }}</div>
-        <div class="message-text">{{ message.content }}</div>
+      <div class="message" *ngFor="let message of allMatchedChatMessages">
+        <div [ngClass]="{
+          'message-sender': true,
+          'message-you': message.senderId === currentDinerUser.userId.toString(),
+          'message-selected-user': message.senderId !== currentDinerUser.userId.toString()
+        }">
+          {{ message.senderId === currentDinerUser.userId.toString() ? 'You' : selectedUser.dinerUserName }}
+        </div>
+        <div [ngClass]="{
+          'message-text': true,
+          'message-text-you': message.senderId === currentDinerUser.userId.toString(),
+          'message-text-selected-user': message.senderId !== currentDinerUser.userId.toString()
+        }">
+          {{ message.message }}
+        </div>
       </div>
     </div>
     <div class="chat-input-container">

@@ -2,10 +2,10 @@ import { Component, ElementRef, OnInit, ViewChild, Input, OnChanges, SimpleChang
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
 import { DinerUserService } from '../../core/services/dinerUser.service';
-import { DinerUser } from '../../core/models/dinerUser.model';
 import { ChatMessageService } from 'src/app/core/services/chatMessage.service';
-import { ChatMessage } from 'src/app/core/models/chatMessage.model';
 import { ActivatedRoute } from '@angular/router';
+import { ChangeDetectorRef } from '@angular/core';
+
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
@@ -23,8 +23,11 @@ export class ChatComponent implements OnInit {
   @ViewChild('chatMessages') chatMessages!: ElementRef;
   @ViewChild('chatMessagesContainer') chatMessagesContainer!: ElementRef;
 
+  selectedRestaurantName: any;
+  selectedRestaurantBookingUrl: any;
   selectedUser: any | null = null;
-  messages: ChatMessage[] = [];
+  currentMessages: any[] = [];
+  allMatchedChatMessages: any[] = [];
   newMessage: string = '';
   currentDinerUser!: any;
   dinerUsers!: any[];
@@ -32,12 +35,12 @@ export class ChatComponent implements OnInit {
   constructor(
     private dinerService: DinerUserService,
     private chatMessageService: ChatMessageService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private cd: ChangeDetectorRef
     ) {}
 
   ngOnInit(): void {
     this.getCurrentDinerUser();
-    //this.dinerUsers not getting inputed
     this.getAllDinerUserProfile();
   }
   getCurrentDinerUser(): void {
@@ -46,7 +49,6 @@ export class ChatComponent implements OnInit {
       this.dinerService.getDinerUserProfileByUserId('sky1005').subscribe(
         (response) => {
           this.currentDinerUser = response.data;
-          console.log("this.currentDinerUser", this.currentDinerUser)
           this.convertMatchedDinerUserIdListListToNumberList(this.currentDinerUser);
         }
       )
@@ -59,45 +61,97 @@ export class ChatComponent implements OnInit {
     this.dinerService.getAllDinerUserProfile().subscribe(
       (response) => {
         this.dinerUsers = response.data;
-        console.log("this.dinerUsers", this.dinerUsers)
       },
       (error) => {
         console.error('Error fetching data:', error);
       }
     );
   }
+  getAllMatchedDinerUserChatMessages(): void {
+    this.chatMessageService.getAllMatchedDinerUserChatMessages(this.currentDinerUser.userId, this.selectedUser.userId).subscribe(
+      (response) => {
+        this.allMatchedChatMessages = response.data;
+        this.sortChatMessagesByAscendingOrder(this.allMatchedChatMessages);
+        const newMessageHeight = this.calculateMessageHeight(this.allMatchedChatMessages[this.allMatchedChatMessages.length - 1]);
+        setTimeout(() => {
+          this.scrollToBottom(newMessageHeight);
+        });
+      },
+      (error) => {
+        console.error('Error fetching data:', error);
+      }
+    );
+
+  }
+
   sendMessage() {
     if (this.newMessage.trim() !== '') {
       if (this.selectedUser) {
-        const message: ChatMessage = {
-          senderId: this.currentDinerUser.id,
-          receiverId: this.selectedUser.id,
+        const message: any = {
+          senderId: this.currentDinerUser.userId,
+          receiverId: this.selectedUser.userId,
           //TODO: Add this.matchedRestaurant.id
-          restaurantId: 1,
-          content: this.newMessage,
-          timestamp: new Date(),
-        };
-
-        this.chatMessageService.addMessage(message);
-
-        this.messages.push(message);
+          // restaurantId: 1,
+          message: this.newMessage,
+          createdTs: new Date(),
+        }
+        this.updateMessageBetweenCurrentUserAndSelectedUser(message);
 
         this.newMessage = '';
-        setTimeout(() => {
-        this.scrollToBottom();
-        });
       }
     }
   } 
 
-  private scrollToBottom() {
+  updateMessageBetweenCurrentUserAndSelectedUser(message: any): void {
+    this.chatMessageService.updateMessageBetweenCurrentUserAndSelectedUser(message.senderId, message.receiverId, message.message).subscribe(
+      (response) => {
+        const updatedMessages = response;
+
+        if (updatedMessages && updatedMessages.length > 0) {
+          this.allMatchedChatMessages = updatedMessages;
+          const newMessageHeight = this.calculateMessageHeight(updatedMessages[updatedMessages.length - 1]);
+
+          this.sortChatMessagesByAscendingOrder(this.allMatchedChatMessages);
+          this.cd.detectChanges();
+          setTimeout(() => {
+            this.scrollToBottom(newMessageHeight);
+          });
+
+        } else {
+          console.log("No messages received.");
+        }
+      },
+      (error) => {
+        console.error('Error fetching data:', error);
+      }
+    );
+  }
+  private calculateMessageHeight(message: any): number {
+    return message.message.length * 150; 
+  }
+  private scrollToBottom(newMessageHeight: number) {
     try {
-      this.chatMessagesContainer.nativeElement.scrollTop = this.chatMessagesContainer.nativeElement.scrollHeight;
+      this.chatMessagesContainer.nativeElement.scrollTop += newMessageHeight;
     } catch (err) {}
   }
   
-  openChatWithUser(user: DinerUser) {
+  openChatWithUser(user: any) {
     this.selectedUser = user;
-    this.messages = this.chatMessageService.getMessagesForUser(user.id);
+    this.getAllMatchedDinerUserChatMessages();
+    if(this.allMatchedChatMessages.find(message => message.restaurantName != null)) {
+      this.selectedRestaurantName = this.allMatchedChatMessages.find(message => message.restaurantName != null).restaurantName;
+    } else {
+      this.selectedRestaurantName = "Now";
+    }
+    if(this.allMatchedChatMessages.find(message => message.bookingUrl != null)) {
+      this.selectedRestaurantBookingUrl = this.allMatchedChatMessages.find(message => message.bookingUrl != null).bookingUrl;
+    } else {
+      this.selectedRestaurantBookingUrl = "www.google.com";
+    }
+  }
+  sortChatMessagesByAscendingOrder(messages: any[]) {
+    this.allMatchedChatMessages = messages.sort((a, b) => {
+    return a.msgId - b.msgId;
+    });
   }
 }

@@ -17,7 +17,11 @@ public class ImageService {
     private ImageRepository imageRepository;
     private final Logger log = LoggerFactory.getLogger(UserService.class);
 
-    public List<Image> getAllRestaurantImagesByUsername(String username, String userType) {
-        return imageRepository.getAllRestaurantImagesByUsername(username, userType);
+    public List<Image> getAllImagesByUsernameAndImageType(String username, String userType) {
+        return imageRepository.getAllImagesByUsernameAndImageType(username, userType);
+    }
+
+    public List<Image> getAllImagesByUsernameAndImageTypeAndUsageType(String username, String userType, String usageType) {
+        return imageRepository.getAllImagesByUsernameAndImageTypeAndUsageType(username, userType, usageType);
     }
 }

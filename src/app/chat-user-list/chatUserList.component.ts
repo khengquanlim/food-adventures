@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-
+import { Component, EventEmitter, Input, Output, OnInit, ElementRef, Renderer2 } from '@angular/core';
+import { catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
 import { DinerUserService } from '../core/services/dinerUser.service';
 import { DinerUser } from '../core/models/dinerUser.model';
 
@@ -15,11 +16,24 @@ export class ChatUserListComponent {
   selectedUser: any | null = null;
   filteredDinerUsers: any[] = [];
 
-  constructor() {
+  dinerProfilePicByte: any;
+  dinerUser: any;
+  dinerProfilePic: any;
+  dinerFeedImages?: any[];
+  currentDinerUserImagesUrls: string[] = [];
+  currentDinerUserImages?: any;
+  RESTAURANT_USER_TYPE = 'diner';
+  RESTAURANT_USAGE_TYPE = 'profile';
+
+  constructor(
+    private dinerService: DinerUserService,
+    private el: ElementRef, 
+    private renderer: Renderer2
+    ) {
   }
 
-  ngOnInit() {
-    console.log("dinerUsers", this.dinerUsers)
+  ngOnChanges() {
+    this.getDinerUserAllProfileImages();
     this.filterDinerUsersBasedOnMatchedId();
   }
 
@@ -28,11 +42,50 @@ export class ChatUserListComponent {
   }
 
   filterDinerUsersBasedOnMatchedId() {
-    console.log("?? this.dinerUsers", this.dinerUsers)
     this.filteredDinerUsers = this.dinerUsers.filter((user) =>
-      this.matchedUserIds.includes(user.id)
+      this.matchedUserIds.includes(user.userId)
     );
-    console.log("?? this.filteredDinerUsers", this.filteredDinerUsers)
+  }
+
+  filterDinerProfileImages(currentAllDinerUserImages: any[]) {
+    const currentDinerUserFeedImageByteUrls = currentAllDinerUserImages.filter((feedImage: { usageType: string; }) => feedImage.usageType === 'feed');
+    const dinerProfilePicByte = this.filteredDinerUsers.filter((feedImage: { usageType: string; }) => feedImage.usageType === 'profile');
+  }
+
+  getDinerUserAllProfileImages(): void {
+    this.dinerService.getAllDinerUserProfile().subscribe(
+      (response) => {
+        this.dinerUsers = response.data;
+        if (this.dinerUsers) {
+          for (const dinerUser of this.filteredDinerUsers) {  
+            this.dinerService.getAllDinerUserImagesByUsernameAndUserTypeAndUsageType(
+            dinerUser.username,
+            this.RESTAURANT_USER_TYPE,
+            this.RESTAURANT_USAGE_TYPE
+          ).subscribe(
+            (response) => {
+              const images = response.data;
+              if (images.length > 0) {
+                dinerUser.profileImage = 'data:image/jpeg;base64,' + images[0].imageByte;
+              }
+            },
+            (error) => {
+              console.error(`Error fetching images for user ${dinerUser.username}:`, error);
+            }
+          );
+        }
+        }
+      },
+      (error) => {
+        console.error('Error fetching data:', error);
+      }
+    );
+  }
+
+  convertDinerUserListListToNumberList(dinerUsers: any[]) {
+    for(const dinerUser of dinerUsers!) {
+      dinerUser.dinerUserLikeList = this.dinerService.convertStringToArray(dinerUser.dinerUserLikeList)
+    }
   }
 
 }

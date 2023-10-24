@@ -24,10 +24,17 @@ public interface ImageRepository extends JpaRepository<Image,Integer>{
 //        @Param("usageType") String usageType
 //    );
 
-	@Query(value = "select * from T_IMAGE u where u.USER_ID=:username and u.USER_TYPE = :userType order by CRT_TS desc", nativeQuery = true)
-    public List<Image> getAllRestaurantImagesByUsername(
+	@Query(value = "select * from T_IMAGE u where u.USER_ID=:username and u.USER_TYPE =:userType order by CRT_TS desc", nativeQuery = true)
+    public List<Image> getAllImagesByUsernameAndImageType(
         @Param("username") String username,
         @Param("userType") String userType
+    );
+
+	@Query(value = "select * from T_IMAGE u where u.USER_ID=:username and u.USER_TYPE = :userType and u.USAGE_TYPE =:usageType order by CRT_TS desc", nativeQuery = true)
+    public List<Image> getAllImagesByUsernameAndImageTypeAndUsageType(
+        @Param("username") String username,
+        @Param("userType") String userType,
+        @Param("usageType") String usageType
     );
 //
 //    @Modifying

@@ -19,20 +19,20 @@ import com.org.foodAdventures.service.ImageService;
 
 @RestController
 
-public class ImageAtSwipeController {
+public class ImageAtChatController {
 
 	@Autowired
 	private ImageService imageService;
 
 	private static final Logger log = LoggerFactory.getLogger(UserController.class);
-        
-    @RequestMapping(value="/getAllImagesByUsernameAndImageType", method= RequestMethod.GET)
+    
+	@RequestMapping(value="/getAllImagesByUsernameAndImageTypeAndUsageType", method= RequestMethod.GET)
 	public ResponseEntity<JsonWrapperObject> getAllRestaurantImages(@RequestParam("username") String username, 
-			@RequestParam("userType") String userType) {
+			@RequestParam("userType") String userType, @RequestParam("usageType") String usageType) {
 		log.info("user controller get AllRestaurantImages");
 		JsonWrapperObject response = new JsonWrapperObject();
 		try {
-			List<Image> imagesRetrieved = imageService.getAllImagesByUsernameAndImageType(username, userType);
+			List<Image> imagesRetrieved = imageService.getAllImagesByUsernameAndImageTypeAndUsageType(username, userType, usageType);
 			log.info("successfully retrieve AllRestaurantImages = {}", imagesRetrieved);
 			response.setStatus(CommonConstant.SUCCESS);
 			response.setData(imagesRetrieved);
@@ -44,5 +44,6 @@ public class ImageAtSwipeController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
 		}
 	}
+
 
 }
