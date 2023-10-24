@@ -1,4 +1,4 @@
-package com.org.foodAdventures.entity;
+package com.org.foodAdventuresBackendOne.entity;
 
 import jakarta.persistence.*;
 
@@ -6,7 +6,7 @@ import java.sql.*;
 
 @Entity
 @Table(name = "T_USER")
-public class User{
+public class User {
     @Id
     @Column(name="USER_ID", unique = true)
     private String id;

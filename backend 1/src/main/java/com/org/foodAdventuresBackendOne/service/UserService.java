@@ -1,16 +1,14 @@
-package com.org.foodAdventures.service;
+package com.org.foodAdventuresBackendOne.service;
 
-import com.org.foodAdventures.entity.User;
-import com.org.foodAdventures.model.*;
-import com.org.foodAdventures.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.org.foodAdventuresBackendOne.entity.*;
+import com.org.foodAdventuresBackendOne.model.*;
+import com.org.foodAdventuresBackendOne.repository.*;
+import org.slf4j.*;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.stereotype.*;
 
 import java.sql.*;
-import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.*;
 
 @Service
 public class UserService {

@@ -1,13 +1,12 @@
-package com.org.foodAdventures.repository;
+package com.org.foodAdventuresBackendOne.repository;
 
-import com.org.foodAdventures.entity.User;
-
+import com.org.foodAdventuresBackendOne.entity.*;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.query.*;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.*;
 
 import java.sql.*;
-import java.util.List;
+import java.util.*;
 
 
 @Repository
