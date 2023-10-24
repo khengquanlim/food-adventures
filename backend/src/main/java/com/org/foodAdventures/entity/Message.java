@@ -1,23 +1,21 @@
 package com.org.foodAdventures.entity;
 
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
-import org.springframework.data.relational.core.mapping.Table;
 import jakarta.persistence.*;
 
-import java.math.*;
 import java.sql.*;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 @Entity
-@Table("T_MESSAGE")
-@DynamicInsert
-@DynamicUpdate
+@Table(name = "T_MESSAGE")
 public class Message implements java.io.Serializable{
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="MSG_ID", unique = true, nullable = false)
-    private BigDecimal msgId;
-
+    private Long msgId;
+    
     @Column(name="SENDER_ID", nullable = false)
     private String senderId;
 
@@ -27,19 +25,27 @@ public class Message implements java.io.Serializable{
     @Column(name="MESSAGE", nullable = false)
     private String message;
 
+    @Column(name="BOOKING_URL", nullable = false)
+    private String bookingUrl;
+
+    @Column(name="RESTAURANT_NAME", nullable = false)
+    private String restaurantName;
+    
+    @CreationTimestamp
     @Column(name="CRT_TS", nullable = false)
     private Timestamp createdTs;
 
+    @UpdateTimestamp
     @Column(name="UPD_TS", nullable = false)
     private Timestamp updatedTs;
 
     // Getters and setters
 
-    public BigDecimal getMsgId() {
+    public Long getMsgId() {
         return msgId;
     }
 
-    public void setMsgId(BigDecimal msgId) {
+    public void setMsgId(Long msgId) {
         this.msgId = msgId;
     }
 
@@ -58,14 +64,30 @@ public class Message implements java.io.Serializable{
     public void setReceiverId(String receiverId) {
         this.receiverId = receiverId;
     }
+	
+	public String getMessage() {
+	    return message;
+	}
+	
+	public void setMessage(String message) {
+	    this.message = message;
+	}
 
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
+	public String getBookingUrl() {
+	    return bookingUrl;
+	}
+	
+	public void setBookingUrl(String bookingUrl) {
+	    this.bookingUrl = bookingUrl;
+	}
+	
+	public String getRestaurantName() {
+	    return restaurantName;
+	}
+	
+	public void setRestaurantName(String restaurantName) {
+	    this.restaurantName = restaurantName;
+	}
 
     public Timestamp getCreatedTs() {
         return createdTs;
@@ -83,11 +105,13 @@ public class Message implements java.io.Serializable{
         this.updatedTs = updatedTs;
     }
 
-    public Message(BigDecimal msgId, String senderId, String receiverId, String message, Timestamp createdTs, Timestamp updatedTs) {
+    public Message(Long msgId, String senderId, String receiverId, String message, String bookingUrl, String restaurantName, Timestamp createdTs, Timestamp updatedTs) {
         this.msgId = msgId;
         this.senderId = senderId;
         this.receiverId = receiverId;
         this.message = message;
+	    this.bookingUrl = bookingUrl;
+	    this.restaurantName = restaurantName;
         this.createdTs = createdTs;
         this.updatedTs = updatedTs;
     }
@@ -101,6 +125,8 @@ public class Message implements java.io.Serializable{
             ", senderId='" + senderId + '\'' +
             ", receiverId='" + receiverId + '\'' +
             ", message='" + message + '\'' +
+            ", bookingUrl=" + bookingUrl +
+            ", restaurantName=" + restaurantName +
             ", createdTs=" + createdTs +
             ", updatedTs=" + updatedTs +
             '}';

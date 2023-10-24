@@ -4,7 +4,6 @@ import com.org.foodAdventures.entity.RestaurantUserProfile;
 import com.org.foodAdventures.repository.RestaurantUserProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -19,5 +18,13 @@ public class RestaurantUserProfileService {
 
     public List<RestaurantUserProfile> getAllRestaurantProfile() {
         return restaurantUserProfileRepository.getAllRestaurantUserProfiles();
+    }
+
+    public RestaurantUserProfile getRestaurantProfileById(Integer restaurantUserProfileId) {
+        return restaurantUserProfileRepository.getRestaurantProfileById(restaurantUserProfileId);
+    }
+
+    public RestaurantUserProfile updateRestaurantUserProfile(RestaurantUserProfile restaurantUserProfile) {
+        return restaurantUserProfileRepository.save(restaurantUserProfile);
     }
 }

@@ -1,28 +1,23 @@
 package com.org.foodAdventures.entity;
 
-import java.util.Date;
 import java.sql.Timestamp;
 import jakarta.persistence.*;
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import org.springframework.data.relational.core.mapping.Table;
-
 @Entity
-@Table("T_DINER_USER_PROFILE")
-@DynamicInsert
-@DynamicUpdate
+@Table(name = "T_DINER_USER_PROFILE")
 public class DinerUserProfile implements java.io.Serializable{
 
 
     @Id
     private Integer userId;
     private String username;
+    private String dinerUserName;
     private Integer age;
     private String gender;
     private String bio;
+    private String matchedDinerUserIdList;
     private String foodPreferencesTag;
 
     @JsonIgnore
@@ -42,6 +37,15 @@ public class DinerUserProfile implements java.io.Serializable{
     }
 
     @Column(name="USERNAME", length = 50, unique = true, nullable = false)
+    public String getDinerUserName(){
+        return dinerUserName;
+    }
+
+    public void setDinerUserName(String dinerUserName){
+        this.dinerUserName = dinerUserName;
+    }
+
+    @Column(name="USER_ID", length = 50, unique = true, nullable = false)
     public String getUsername(){
         return username;
     }
@@ -49,7 +53,7 @@ public class DinerUserProfile implements java.io.Serializable{
     public void setUsername(String username){
         this.username = username;
     }
-
+    
     @Column(name = "AGE", nullable = false)
     public Integer getAge(){
         return age;
@@ -75,6 +79,15 @@ public class DinerUserProfile implements java.io.Serializable{
 
     public void setBio(String bio){
         this.bio = bio;
+    }
+
+    public void setMatchedDinerUserIdList(String matchedDinerUserIdList){
+        this.matchedDinerUserIdList = matchedDinerUserIdList;
+    }
+
+    @Column(name = "MATCHED_DINER_USER_ID_LIST", nullable = false)
+    public String getMatchedDinerUserIdList(){
+        return matchedDinerUserIdList;
     }
 
     @Column(name = "FOOD_PREFERENCES_TAG", length = 10, nullable = false)

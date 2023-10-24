@@ -1,22 +1,20 @@
-package com.org.foodAdventures.entity;
+package com.org.foodAdventures.entity;	
 
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
-import org.springframework.boot.test.autoconfigure.data.couchbase.*;
-import org.springframework.data.relational.core.mapping.Table;
+import java.util.List;
 import jakarta.persistence.*;
 
 import java.math.*;
 import java.sql.*;
 
 @Entity
-@Table("T_RESTAURANT_USER_PROFILE")
-@DynamicInsert
-@DynamicUpdate
+@Table(name = "T_RESTAURANT_USER_PROFILE")
 public class RestaurantUserProfile implements java.io.Serializable{
     @Id
     @Column(name="RESTAURANT_USER_PROFILE_ID", unique = true, nullable = false)
     private BigDecimal restaurantUserProfileId;
+
+    @Column(name="USER_ID", nullable = false)
+    private String userId;
 
     @Column(name="RESTAURANT_NAME", nullable = false)
     private String restaurantName;
@@ -30,8 +28,20 @@ public class RestaurantUserProfile implements java.io.Serializable{
     @Column(name="BIOGRAPHY", nullable = false)
     private String bio;
 
+    @Column(name="RATING", nullable = false)
+    private String rating;
+
+    @Column(name="PRICE_PER_PAX", nullable = false)
+    private String pricePerPax;
+
+    @Column(name="LOCATION", nullable = false)
+    private String location;
+
     @Column(name="BOOKING_URL", nullable = false)
     private String bookingUrl;
+    
+    @Column(name="DINER_USER_LIKE_LIST", nullable = false)
+    private String dinerUserLikeList;
 
     @Column(name="CRT_TS", nullable = false)
     private Timestamp createdTs;
@@ -47,6 +57,14 @@ public class RestaurantUserProfile implements java.io.Serializable{
 
     public void setRestaurantUserProfileId(BigDecimal restaurantUserProfileId) {
         this.restaurantUserProfileId = restaurantUserProfileId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getRestaurantName() {
@@ -80,6 +98,30 @@ public class RestaurantUserProfile implements java.io.Serializable{
     public void setBio(String bio) {
         this.bio = bio;
     }
+    
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
+    }
+
+    public String getPricePerPax() {
+        return pricePerPax;
+    }
+
+    public void setPricePerPax(String pricePerPax) {
+        this.pricePerPax = pricePerPax;
+    }
+    
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
     public String getBookingUrl() {
         return bookingUrl;
@@ -87,6 +129,14 @@ public class RestaurantUserProfile implements java.io.Serializable{
 
     public void setBookingUrl(String bookingUrl) {
         this.bookingUrl = bookingUrl;
+    }
+
+    public String getDinerUserLikeList() {
+        return dinerUserLikeList;
+    }
+
+    public void setDinerUserLikeList(String  dinerUserLikeList) {
+        this.dinerUserLikeList = dinerUserLikeList;
     }
 
     public Timestamp getCreatedTs() {
@@ -105,9 +155,10 @@ public class RestaurantUserProfile implements java.io.Serializable{
         this.updatedTs = updatedTs;
     }
 
-    public RestaurantUserProfile(BigDecimal restaurantUserProfileId, String restaurantName, String restaurantOwnerName, String foodOptionsTag, String bio, String bookingUrl, Timestamp createdTs, Timestamp updatedTs) {
+    public RestaurantUserProfile(BigDecimal restaurantUserProfileId, String userId, String restaurantName, String restaurantOwnerName, String foodOptionsTag, String bio, String bookingUrl, Timestamp createdTs, Timestamp updatedTs) {
         super();
         this.restaurantUserProfileId = restaurantUserProfileId;
+        this.userId = userId;
         this.restaurantName = restaurantName;
         this.restaurantOwnerName = restaurantOwnerName;
         this.foodOptionsTag = foodOptionsTag;
@@ -125,6 +176,7 @@ public class RestaurantUserProfile implements java.io.Serializable{
     public String toString() {
         return "RestaurantUserProfile{" +
             "restaurantUserProfileId=" + restaurantUserProfileId +
+            ", userId='" + userId + '\'' +
             ", restaurantName='" + restaurantName + '\'' +
             ", restaurantOwnerName='" + restaurantOwnerName + '\'' +
             ", foodOptionsTag='" + foodOptionsTag + '\'' +

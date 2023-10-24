@@ -5,34 +5,42 @@ import java.util.Date;
 import java.sql.Timestamp;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.envers.NotAudited;
 
-import org.springframework.data.relational.core.mapping.Table;
 
 @Entity
-@Table("T_IMAGE")
-@DynamicInsert
-@DynamicUpdate
+@Table(name = "T_IMAGE")
 public class Image implements java.io.Serializable {
 
     @Id
     @Column(name="IMAGE_ID", unique = true, nullable = false, precision = 20, scale = 0)
     Integer imageId;
+
+    @Column(name = "IMAGE_NAME", length = 50, nullable = false)
     protected String imageName;
 
+    @Column(name = "IMAGE")
     protected byte[] imageByte;
 
+    @Column(name = "IMAGE_TYPE", length = 50, nullable = false)
     protected String imageType;
+
+    @Column(name = "USER_ID", unique=true, length = 50, nullable = false)
     protected String username;
+
+    @Column(name = "RESTAURANT_USER_PROFILE_ID", unique=true, length = 50, nullable = false)
     protected String restaurantId;
+
+    @Column(name = "USER_TYPE", length = 50, nullable = false)
     protected String userType;
+
+    @Column(name = "USAGE_TYPE", length = 50, nullable = false)
     protected String usageType;
 
     @JsonIgnore
-    protected Timestamp createdDttm;
+    @Column(name = "CRT_TS", length = 50, nullable = false)
+    protected Timestamp crtTs;
 
 
 //    @Id
@@ -44,7 +52,6 @@ public class Image implements java.io.Serializable {
         this.imageId = imageId;
     }
 
-    @Column(name = "USER_ID", unique=true, length = 50, nullable = false)
     public String getUsername(){
         return username;
     }
@@ -53,7 +60,6 @@ public class Image implements java.io.Serializable {
         this.username = username;
     }
 
-    @Column(name = "RESTAURANT_USER_PROFILE_ID", unique=true, length = 50, nullable = false)
     public String getRestaurantId(){
         return restaurantId;
     }
@@ -63,7 +69,6 @@ public class Image implements java.io.Serializable {
     }
 
 
-    @Column(name = "IMAGE_NAME", length = 50, nullable = false)
     public String getImageName(){
         return imageName;
     }
@@ -72,7 +77,6 @@ public class Image implements java.io.Serializable {
         this.imageName = imageName;
     }
 
-    @Column(name = "IMAGE_TYPE", length = 50, nullable = false)
     public String getImageType(){
         return imageType;
     }
@@ -83,7 +87,6 @@ public class Image implements java.io.Serializable {
 
 
 
-    @Column(name = "USER_TYPE", length = 50, nullable = false)
     public String getUserType(){
         return userType;
     }
@@ -92,7 +95,6 @@ public class Image implements java.io.Serializable {
         this.userType = userType;
     }
 
-    @Column(name = "USAGE_TYPE", length = 50, nullable = false)
     public String getUsageType(){
         return usageType;
     }
@@ -102,16 +104,14 @@ public class Image implements java.io.Serializable {
     }
 
     @Column(name = "CRT_TS", nullable = false)
-    public Timestamp getCreatedDttm(){
-        return createdDttm;
+    public Timestamp getCrtTs(){
+        return crtTs;
     }
 
-    public void setCreatedDttm(Timestamp createdDttm){
-        this.createdDttm = createdDttm;
+    public void setCrtTs(Timestamp crtTs){
+        this.crtTs = crtTs;
     }
 
-    @Column(name = "IMAGE")
-    @NotAudited
     public byte[] getImageByte(){
         return imageByte;
     }
@@ -124,7 +124,7 @@ public class Image implements java.io.Serializable {
 
 
     public String toString(){
-        return "Image Details: imageId = " + imageId+ ",imageName = "+ imageName+ ",imageType ="+ imageType + ", imageByte = "+ imageByte + ",username = "+ username+ ",userType = "+ userType+",usageType = "+usageType+", createdDttm ="+createdDttm;
+        return "Image Details: imageId = " + imageId+ ",imageName = "+ imageName+ ",imageType ="+ imageType + ", imageByte = "+ imageByte + ",username = "+ username+ ",userType = "+ userType+",usageType = "+usageType+", crtTs ="+crtTs;
     }
 
     // public Image(){

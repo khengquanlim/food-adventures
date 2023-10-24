@@ -1,86 +1,76 @@
 import { Injectable } from '@angular/core';
-import { RestaurantUser } from '../models/restaurantUser.model';
+import { RestaurantUser } from "../models/restaurantUser.model"
+import { DinerUser } from '../models/dinerUser.model';
+import { HttpClient, HttpParams } from '@angular/common/http'; 
+import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
   })
   export class RestaurantUserService {
-    private restaurantUsers: RestaurantUser[] = [
-      {
-        id: 1,
-        name: 'John Doe',
-        photoUrl: 'path/to/john-doe.jpg',
-        bio: 'Hi, I am John. Nice to meet you!',
-        // Add more properties as needed
-      },
-      {
-        id: 2,
-        name: 'Jane Smith',
-        photoUrl: 'path/to/jane-smith.jpg',
-        bio: 'Hey, I am Jane. Let\'s have a great conversation!',
-        // Add more properties as needed
-      },
-      // Add more dummy user data here
-    ];
   
-    //Hardcode 1 or 2 (user ID) for now
-    private likedRestaurantUserIds: number[] = [1,2];
+    private likedRestaurantUserIds: number[] = [];
     private dislikedRestaurantUserIds: number[] = [];
     private currentRestaurantUserIndex = 0;
-  
-    getRestaurantUsers(): RestaurantUser[] {
-      return this.restaurantUsers;
-    }
-  
-    getRestaurantUserById(restaurantUserId: number): RestaurantUser | undefined {
-      return this.restaurantUsers.find(restaurantUser => restaurantUser.id === restaurantUserId);
-    }
-  
-    getRestaurantCurrentUser(): RestaurantUser | undefined {
-      return this.restaurantUsers[this.currentRestaurantUserIndex];
-    }
-  
-    // Assuming you have a method to handle matching users
-    // For simplicity, this example just returns the first two users as matches
 
-    getMatchedRestaurantUsers(): RestaurantUser[] {
-      const matchedRestaurantUsers = this.restaurantUsers.filter(restaurantUser => this.likedRestaurantUserIds.includes(restaurantUser.id));
-      return matchedRestaurantUsers;
+    constructor(private http: HttpClient) {}
+    
+    getAllRestaurantUserProfile(): Observable<any> {
+      return this.http.get('http://localhost:8080/foodAdventures/getAllRestaurantProfile');
     }
+    
+    getAllRestaurantUserImagesByUsernameAndUserType(username: string, userType: string): Observable<any> {
+      return this.http.get(`http://localhost:8080/foodAdventures/getAllImagesByUsernameAndImageType?username=${username}&userType=${userType}`);
+    }
+    
+    updateDinerUserLikeListByRestaurantUserProfileId(dinerUserLikeList: string, restaurantUserProfileId: number): Observable<any> {
+      const url = `http://localhost:8080/foodAdventures/updateDinerUserLikeListById`;
+
+      const params = new HttpParams()
+      .set('dinerUserLikeList', dinerUserLikeList)
+      .set('restaurantUserProfileId', restaurantUserProfileId);
   
-    likeRestaurantUser(restaurantUserId: number): void {
-      if (!this.likedRestaurantUserIds.includes(restaurantUserId)) {
-        this.likedRestaurantUserIds.push(restaurantUserId);
-        console.log(`You liked user with ID ${restaurantUserId}.`);
+      return this.http.post(url, null, { params });
+    };
   
-        // Update the index to show the next user after liking/disliking
-        this.currentRestaurantUserIndex++;
-      }
-  
-      // Handle cases where there are no more users to display
-      if (this.currentRestaurantUserIndex >= this.restaurantUsers.length) {
-        console.log('No more users to display.');
-        // You can choose to redirect the user or show a message indicating that there are no more users.
-        // For this example, we'll just reset the index to show the first user again.
-        this.currentRestaurantUserIndex = 0;
+    getRestaurantUserById(): Observable<any> {
+      return this.http.get('http://localhost:8080/foodAdventures/getRestaurantProfileById');
+    }
+
+    addDinerUserToCurrentRestaurantUserLikesIdList(likedRestaurantUser: RestaurantUser, dinerUserId: number): void {
+      likedRestaurantUser.dinerLikesIdList.push(dinerUserId)
+    }
+
+    compareCurrentDinerUserToRestaurantDinerLikesIdList(currentDinerUserId: number, currentRestaurantDinerUserLikeList: number[]): boolean {
+      const currentDinerLikesIdList = currentRestaurantDinerUserLikeList;
+      if (currentDinerLikesIdList.length != 0 && !(currentDinerLikesIdList.includes(currentDinerUserId))) {
+        console.log("Got others in the like id list!")
+        return true;
+      } else {
+        console.log("Got ME in the like id list!")
+        return false;
       }
     }
-  
-    dislikeRestaurantUser(restaurantUserId: number): void {
-      if (!this.dislikedRestaurantUserIds.includes(restaurantUserId)) {
-        this.dislikedRestaurantUserIds.push(restaurantUserId);
-        console.log(`You disliked user with ID ${restaurantUserId}.`);
-  
-        // Update the index to show the next user after liking/disliking
-        this.currentRestaurantUserIndex++;
+
+    getOtherDinerUserIdFromRestaurantDinerLikesIdList(currentDinerUser: DinerUser, currentRestaurantDinerUserLikeList: number[]): number {
+
+      for (const dinerUserId of currentRestaurantDinerUserLikeList) {
+        if (!currentDinerUser.matchedDinerUserIdList.includes(dinerUserId) && dinerUserId != currentDinerUser.id) {
+          return dinerUserId;
+        }
       }
-  
-      // Handle cases where there are no more users to display
-      if (this.currentRestaurantUserIndex >= this.restaurantUsers.length) {
-        console.log('No more users to display.');
-        // You can choose to redirect the user or show a message indicating that there are no more users.
-        // For this example, we'll just reset the index to show the first user again.
-        this.currentRestaurantUserIndex = 0;
+      return 0;
+    }
+
+    convertStringToArray(inputString: String): number[] {
+      if(inputString === null) {
+        return [];
+      } else {
+        const cleanedString = inputString.replace(/^\[|\]$/g, '');
+        const stringArray = cleanedString.split(',');
+        const numberArray = stringArray.map(element => parseInt(element, 10));
+    
+        return numberArray;
       }
     }
   }
