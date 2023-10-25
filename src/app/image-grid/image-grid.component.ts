@@ -6,13 +6,25 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./image-grid.component.css']
 })
 export class ImageGridComponent implements OnInit {
+  // imageUrls: string[] = [
+  //   'assets/images/avocado.jpeg',
+  //   'assets/images/cake.jpeg',
+  //   'assets/images/crepe.jpeg',
+  //   'assets/images/pancake.jpeg',
+  //   'assets/images/pasta.jpeg',
+  //   'assets/images/potato.jpeg',
+  //   'assets/images/steak.jpeg',
+  //   // Add jpeg image URLs as needed
+  // ];
 
-  @Input() images!: string[]; // An array of image URLs
+  @Input() images?: string[]; // An array of image URLs
   @Input() numberOfColumns!: number;
   @Input() deleteMode?: boolean;
   @Output() imageSelected = new EventEmitter<any>();
 
   selectedImages: { [key: string]: boolean } = {};
+  @Input() imageWidth: string = '600px';
+  @Input() imageHeight: string = '600px';
 
   constructor() { }
 

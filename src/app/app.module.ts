@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,10 +17,10 @@ import { RegistrationComponent } from './registration/component/registration.com
 import { RestaurantOwnerProfileComponent } from './profile/restaurant-owner-profile/component/restaurant-owner-profile.component';
 import { UserProfileComponent } from './profile/user-profile/component/user-profile.component';
 import { LoginComponent } from './login/component/login.component';
-import { NavbarComponent } from './navbar/navbar.component';
 import { ImageGridComponent } from './image-grid/image-grid.component';
+import { ChatUserListComponent } from './chat-user-list/chatUserList.component';
+import { NavbarComponent } from './navbar/navbar.component';
 import { HttpClientModule } from '@angular/common/http';
-
 
 @NgModule({
   declarations: [
@@ -31,16 +34,20 @@ import { HttpClientModule } from '@angular/common/http';
     RegistrationComponent,
     RestaurantOwnerProfileComponent,
     LoginComponent,
+    ImageGridComponent,
+    ChatUserListComponent,
     NavbarComponent,
     ImageGridComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
-
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
