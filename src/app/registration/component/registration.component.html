@@ -15,7 +15,7 @@
     </div>
     <div class="registerFormGroup">
       <label>Username</label>
-      <input class="userId" type="text" formControlName="userId">
+      <input type="text" formControlName="userId">
       <div *ngIf="userId?.hasError('required') && userId?.touched" class="registerErrorMsg">Name is required</div>
     </div>
     <div class="registerFormGroup">
