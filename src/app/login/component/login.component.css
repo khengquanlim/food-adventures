@@ -74,11 +74,19 @@
 
   .form button:hover {
     color: white;
-    width:;
+    /* width:; */
     /* box-shadow: 0 0 20px rgba(104, 85, 224, 0.6); */
     background-color: rgbap(0,0,255,0.5);
   }
   
+  .error-message{
+    color:red;
+    font-size: 12px; /* Font size for error messages */
+    margin-top: -5px;
+    margin-bottom: 15px;
+    
+
+  }
 
 
   /* Styles for the form container */
