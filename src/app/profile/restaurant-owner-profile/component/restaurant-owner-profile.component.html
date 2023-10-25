@@ -177,32 +177,43 @@
                            
                             <div class="edit-button">
                                 <label >My Food Feed</label>
-                                <!-- <div class="upload-button"> -->
-
-                                    <button (click)="toggleUploadMode()" *ngIf="!uploadMode">
-                                        <a class="material-icons">upload</a>
-                                    </button>
-                                    
-                                    <!-- Done button -->
-                                    <button (click)="onFeedUpload()" *ngIf="uploadMode">
-                                        <a class="material-icons">done</a>
-                                    </button>
-                                <!-- </div> -->
                                 
+                                <label for="file-upload" class="custom-file-upload" *ngIf="uploadMode">
+                                    Upload Image
+                                </label>
+                                <input style="display: none;" id="file-upload" *ngIf="uploadMode" type="file" (change)="onFeedChanged($event)" accept="image/*">
+                                
+                                <button style="margin-right:50px;" (click)="toggleUploadMode()" *ngIf="!uploadMode">
+                                    <a class="material-icons">upload</a>
+                                </button>
+                                
+                                <button style="margin-right:50px;" (click)="onFeedUpload()" *ngIf="uploadMode">
+                                    <a class="material-icons" style="color: red;">done</a>
+                                </button>
+
+                                <button (click)="toggleDelete()" *ngIf="!deleteMode">
+                                    <a class="material-icons">delete</a>
+                                </button>
+
+
+                                <button  *ngIf="deleteMode" (click)="deleteSelectedImages()">
+                                    <a class="material-icons" style="color: red;">done</a>
+                                </button>
 
                             </div>
                                 
                             
-                            <div class="col text-center">
+                            <!-- <div class="col text-center">
                                 <input *ngIf="uploadMode" type="file" (change)="onFeedChanged($event)" accept="image/*">
-                            </div>
+                            </div> -->
                             
 
                             
                         </div>
                         <div class="center-image-grid">
-                            <app-image-grid [images]="feedPic" [numberOfColumns]="numberOfColumns"></app-image-grid>
-                        </div>
+                            <app-image-grid [images]="feedPic" [numberOfColumns]="numberOfColumns" [deleteMode]="deleteMode" (imageSelected)="handleImageSelection($event)">
+                            </app-image-grid>
+                          </div>
 
                             
                         

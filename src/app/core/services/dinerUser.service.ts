@@ -146,6 +146,11 @@ import { UserProfilePicRequest } from '../models/userProfilePicRequest.model';
 
     updateUserDetails(userDetails: UserUpdateRequest): Observable<any>
       {
+        // console.log("userid is ", userDetails.dinerUserProfileId);
+        // console.log("username is ", userDetails.username);
+        // console.log("userid is ", userDetails.userId);
+        // console.log("userdetails", userDetails);
+
       const url = `${this.baseUrl}/${userDetails.userId}/updateDinerDetails`;
       return this.http.post(url, userDetails);
     }
@@ -161,7 +166,15 @@ import { UserProfilePicRequest } from '../models/userProfilePicRequest.model';
       return this.http.post(url, profilePic);
     }
     
-
+    deleteImage(username: string, userType: string, usageType: string, image: string): Observable<any>{
+      console.log("deleteimage at service", image);
+      // console.log("image is ", image);
+      const base64ImageData = btoa(image);
+      console.log("base64 is ",base64ImageData);
+      const requestBody = { imageData: image };
+      const url = `${this.baseUrl}/${username}/deleteImage?username=${username}&userType=${userType}&usageType=${usageType}`;
+      return this.http.post(url, requestBody);
+    }
     
     getProfilePic(username: string, usageType: string, userType: string): Observable<string>{
       console.log("get pic username", username);

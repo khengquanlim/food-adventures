@@ -21,6 +21,8 @@ import org.springframework.core.io.Resource;
 
 import java.util.*;
 import java.math.*;
+// import java.util.Base64;
+import java.nio.charset.StandardCharsets;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -147,13 +149,53 @@ public class ProfileImageController {
 		return ResponseEntity.ok(response);
 	}
 			
+	@Transactional@RequestMapping(value="/{username}/deleteImage", method = RequestMethod.POST)
+	public ResponseEntity<JsonWrapperObject> deleteImage(@PathVariable String username, @RequestParam("userType") String userType,
+	@RequestParam("usageType") String usageType, @RequestBody Map<String, String> requestBody){
+		
+		//convert selected image from data url to byte
+		String imageData = requestBody.get("imageData");
+		String base64ImageData = imageData.substring("data:image/jpeg;base64,".length());
+		byte[] imageToDelete = Base64.getDecoder().decode(base64ImageData);
+		
+		//from list of images, compare byte array and get imagename
+		List<Image> images = imageService.getImage(username, usageType, userType);
+		Integer deletedImageId = null;
+
+		for (Image singleImage : images) {
+			byte[] imageBytes = singleImage.getImageByte();
+			log.info("loop imageBytes = " + imageBytes);
+			if (Arrays.equals(imageToDelete, imageBytes)) {
+				log.info("same image");
+				// If the image bytes match, save the image name
+				deletedImageId = singleImage.getImageId();
+				log.info("deleteId = " + deletedImageId);
+				break; // Exit the loop
+			}
+		}
+
+		//delete image
+		if (deletedImageId != null) {
+        // Image found and deleted
+			log.info("matching image is found");
+			imageService.deleteImage(username, userType, usageType, deletedImageId);
+			JsonWrapperObject response = new JsonWrapperObject();
+			response.setStatus(CommonConstant.SUCCESS);
+			response.setDescription("Image '" + deletedImageId + "' deleted successfully");
+			return ResponseEntity.ok(response);
+		} else {
+			// Image not found
+			JsonWrapperObject response = new JsonWrapperObject();
+			response.setStatus(CommonConstant.FAILURE);
+			response.setDescription("Image not found");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+		}
+
+	}
 		
     
 
 	private boolean isImage(MultipartFile file) {
-        // Implement a logic to check if the uploaded file is an image
-        // You can check the file's content type or extension
-        // For example, you can check if it starts with "image/"
         return file.getContentType() != null && file.getContentType().startsWith("image/");
     }
 	

@@ -3,14 +3,22 @@ import java.math.*;
 
 
 public class UserUpdateRequest {
-    private String userName;
-    private BigDecimal age;
+    private String dinerUserName;
+    private String username;
+    private Integer age;
     private String gender;
     private String bio;
     private String foodPreferencesTag;
     private String userId;
     
     // Add getters and setters
+    public String getDinerUserName(){
+        return dinerUserName;
+    }
+
+    public void setDinerUserName(String dinerUserName){
+        this.dinerUserName = dinerUserName;
+    }
 
     public String getUserId(){
         return userId;
@@ -20,19 +28,19 @@ public class UserUpdateRequest {
         this.userId = userId;
     }
 
-    public String getUserName(){
-        return userName;
+    public String getUsername(){
+        return username;
     }
 
-    public void setUserName(String userName){
-        this.userName = userName;
+    public void setUsername(String username){
+        this.username = username;
     }
     
-    public BigDecimal getAge(){
+    public Integer getAge(){
         return age;
     }
 
-    public void setAge(BigDecimal age){
+    public void setAge(Integer age){
         this.age = age;
     }
     
@@ -52,11 +60,11 @@ public class UserUpdateRequest {
         this.bio = bio;
     }
     
-    public String getFoodPreferencesTag(){
+    public String getFoodPrefTag(){
         return foodPreferencesTag;
     }
 
-    public void setFoodPreferencesTag(String foodPreferencesTag){
+    public void setFoodPrefTag(String foodPreferencesTag){
         this.foodPreferencesTag = foodPreferencesTag;
     }
 }

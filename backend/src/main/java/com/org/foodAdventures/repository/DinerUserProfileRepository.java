@@ -34,10 +34,11 @@ public interface DinerUserProfileRepository extends JpaRepository<DinerUserProfi
     );
 
     @Modifying
-    @Query(nativeQuery = true, value = "UPDATE T_DINER_USER_PROFILE SET username = :username, age = :age, gender = :gender, biography = :bio, food_preferences_tag = :foodPreferencesTag WHERE USER_ID =:userId")
+    @Query(nativeQuery = true, value = "UPDATE T_DINER_USER_PROFILE SET username = :dinerUserName, age = :age, gender = :gender, biography = :bio, food_preferences_tag = :foodPreferencesTag WHERE DINER_USER_PROFILE_ID =:userId and USER_ID =:username")
     void updateUserDetails(
+        @Param("dinerUserName") String dinerUserName,
         @Param("username") String username,
-        @Param("age") BigDecimal age,
+        @Param("age") Integer age,
         @Param("gender") String gender,
         @Param("bio") String bio,
         @Param("foodPreferencesTag") String foodPreferencesTag,

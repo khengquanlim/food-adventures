@@ -69,5 +69,13 @@ public interface ImageRepository extends JpaRepository<Image,Integer>{
         @Param("imageBytes") byte[] imageBytes
     );
     
+    @Modifying
+    @Query(nativeQuery = true, value = "DELETE FROM T_IMAGE WHERE user_id = :username AND user_Type = :userType AND usage_Type = :usageType AND image_id = :imageId")
+    void deleteImage(
+        @Param("username") String username,
+        @Param("userType") String userType,
+        @Param("usageType") String usageType,
+        @Param("imageId") Integer imageId
+    );
 
 }

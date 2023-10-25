@@ -35,10 +35,19 @@ public class DinerUserProfileService {
 
     //esther
     public List<DinerUserProfile> getUserDetails(String userId) {
+
+        List<DinerUserProfile> profiles = dinerUserProfileRepository.getUserDetails(userId);
+
+        for (DinerUserProfile profile : profiles) {
+			
+			log.info("loop age = " + profile);
+		}
         return dinerUserProfileRepository.getUserDetails(userId);
     }
 
-    public void updateUserDetails(String username, BigDecimal age, String gender, String bio, String foodPreferencesTag, String userId) {
-        dinerUserProfileRepository.updateUserDetails(username, age, gender, bio, foodPreferencesTag, userId);
+    public void updateUserDetails(String dinerUserName, String username, Integer age, String gender, String bio, String foodPreferencesTag, String userId) {
+        // log.info("service dinerUserName "+dinerUserName);
+        // log.info("service username "+username);
+        dinerUserProfileRepository.updateUserDetails(dinerUserName, username, age, gender, bio, foodPreferencesTag, userId);
     }
 }

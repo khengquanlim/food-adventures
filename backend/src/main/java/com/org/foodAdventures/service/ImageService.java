@@ -34,4 +34,9 @@ public class ImageService {
     public void updateUserProfilePic(String username, String restaurantId, String imageName, String imageType, String userType, String usageType, byte[] imageBytes) {
         imageRepository.updateProfilePic(username, restaurantId, imageName, imageType, userType, usageType, imageBytes);
     }
+
+    public void deleteImage(String username, String userType, String usageType, Integer imageId) {
+        log.info("imageservice.java delete image");
+        imageRepository.deleteImage(username, userType, usageType, imageId);
+    }
 }

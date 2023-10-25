@@ -1,49 +1,33 @@
 package com.org.foodAdventures.entity;
 
-import java.util.Date;
 import java.sql.Timestamp;
 import jakarta.persistence.*;
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import org.springframework.data.relational.core.mapping.Table;
-
-import java.math.*;
-
 @Entity
-@Table("T_DINER_USER_PROFILE")
-@DynamicInsert
-@DynamicUpdate
+@Table(name = "T_DINER_USER_PROFILE")
 public class DinerUserProfile implements java.io.Serializable{
 
 
     @Id
-    @Column(name="DINER_USER_PROFILE_ID", unique = true, nullable = false)
     private Integer userId;
-
-    @Column(name="USERNAME", length = 50, unique = true, nullable = false)
     private String username;
-
-    @Column(name = "AGE", nullable = true)
-    private BigDecimal age;
-
-    @Column(name = "GENDER", length = 6, nullable = false)
+    private String dinerUserName;
+    private Integer age;
     private String gender;
-
-    @Column(name = "BIOGRAPHY", length = 150, nullable = false)
     private String bio;
-
-    @Column(name = "FOOD_PREFERENCES_TAG", length = 10, nullable = false)
+    private String matchedDinerUserIdList;
     private String foodPreferencesTag;
 
-    @Column(name = "CRT_TS", nullable = false)
+    @JsonIgnore
     private Timestamp createdDttm;
-
-    @Column(name = "UPD_TS", nullable = false)
+    @JsonIgnore
     private Timestamp updatedDttm;
-    
+
+
+    @Id
+    @Column(name="DINER_USER_PROFILE_ID", unique = true, nullable = false)
     public Integer getUserId(){
         return userId;
     }
@@ -51,7 +35,17 @@ public class DinerUserProfile implements java.io.Serializable{
     public void setUserId(Integer userId){
         this.userId = userId;
     }
-    
+
+    @Column(name="USERNAME", length = 50, unique = true, nullable = false)
+    public String getDinerUserName(){
+        return dinerUserName;
+    }
+
+    public void setDinerUserName(String dinerUserName){
+        this.dinerUserName = dinerUserName;
+    }
+
+    @Column(name="USER_ID", length = 50, unique = true, nullable = false)
     public String getUsername(){
         return username;
     }
@@ -60,14 +54,16 @@ public class DinerUserProfile implements java.io.Serializable{
         this.username = username;
     }
     
-    public BigDecimal getAge(){
+    @Column(name = "AGE", nullable = false)
+    public Integer getAge(){
         return age;
     }
 
-    public void setAge(BigDecimal age){
+    public void setAge(Integer age){
         this.age = age;
     }
-    
+
+    @Column(name = "GENDER", length = 6, nullable = false)
     public String getGender(){
         return gender;
     }
@@ -76,6 +72,7 @@ public class DinerUserProfile implements java.io.Serializable{
         this.gender = gender;
     }
 
+    @Column(name = "BIOGRAPHY", length = 150, nullable = false)
     public String getBio(){
         return bio;
     }
@@ -83,16 +80,26 @@ public class DinerUserProfile implements java.io.Serializable{
     public void setBio(String bio){
         this.bio = bio;
     }
-    
-    public String getFoodPreferencesTag(){
+
+    public void setMatchedDinerUserIdList(String matchedDinerUserIdList){
+        this.matchedDinerUserIdList = matchedDinerUserIdList;
+    }
+
+    @Column(name = "MATCHED_DINER_USER_ID_LIST", nullable = false)
+    public String getMatchedDinerUserIdList(){
+        return matchedDinerUserIdList;
+    }
+
+    @Column(name = "FOOD_PREFERENCES_TAG", length = 10, nullable = false)
+    public String getFoodPrefTag(){
         return foodPreferencesTag;
     }
 
-    public void setFoodPreferencesTag(String foodPreferencesTag){
+    public void setFoodPrefTag(String foodPreferencesTag){
         this.foodPreferencesTag = foodPreferencesTag;
     }
 
-    
+    @Column(name = "CRT_TS", nullable = false)
     public Timestamp getCreatedDttm(){
         return createdDttm;
     }
@@ -101,7 +108,7 @@ public class DinerUserProfile implements java.io.Serializable{
         this.createdDttm = createdDttm;
     }
 
-    
+    @Column(name = "UPD_TS", nullable = false)
     public Timestamp getUpdatedDttm(){
         return updatedDttm;
     }
@@ -111,27 +118,17 @@ public class DinerUserProfile implements java.io.Serializable{
     }
 
     public String toString(){
-        return "User Profile Details: username = " + username+ ",age = "+ age+ ",gender ="+ gender + ", bio = " +  bio +", createdDttm ="+createdDttm + ", updatedDtttm ="+updatedDttm + ", foodPreferencesTag =" + foodPreferencesTag;
+        return "User Profile Details: username = " + username+ ",age = "+ age+ ",gender ="+ gender + ", bio = "+ bio +", createdDttm ="+createdDttm;
     }
 
-    public DinerUserProfile(Integer userId, String username, BigDecimal age, String bio, String gender, String foodPreferencesTag, Timestamp createdDttm, Timestamp updatedDttm){
-        super();
-        System.out.println("hello world");
-        this.userId = userId;
-        this.username = username;
-        this.age = age;
-        this.gender = gender;
-        this.bio = bio;
-        this.foodPreferencesTag = foodPreferencesTag;
-        this.createdDttm = createdDttm;
-        this.updatedDttm = updatedDttm;
+    // public DinerUserProfile(){
+    //     super();
+    //     this.username = username;
+    //     this.age = age;
+    //     this.gender = gender;
+    //     this.bio = bio;
+    //     this.createdDttm = createdDttm;
 
-    }
-
-    public DinerUserProfile() {
-        System.out.println("hello world 1");
-    }
-
-    
+    // }
 
 }

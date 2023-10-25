@@ -237,4 +237,14 @@ import { UserProfilePicRequest } from '../models/userProfilePicRequest.model';
       const url = `${this.baseUrl}/getFeed?username=${username}&usageType=${usageType}&userType=${userType}`;
       return this.http.get(url);
     }
+
+    deleteImage(username: string, userType: string, usageType: string, image: string): Observable<any>{
+      console.log("deleteimage at service", image);
+      // console.log("image is ", image);
+      const base64ImageData = btoa(image);
+      console.log("base64 is ",base64ImageData);
+      const requestBody = { imageData: image };
+      const url = `${this.baseUrl}/${username}/deleteImage?username=${username}&userType=${userType}&usageType=${usageType}`;
+      return this.http.post(url, requestBody);
+    }
   }
