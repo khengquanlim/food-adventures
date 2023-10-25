@@ -1,7 +1,9 @@
 package com.org.foodAdventures.controller;
 
+
 import java.util.*;
 import java.math.*;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +32,43 @@ public class DinerUserProfileController {
 	@Autowired
 	private DinerUserProfileService dinerUserProfileService;
 
+
 	private static final Logger log = LoggerFactory.getLogger(DinerUserProfileController.class);
+
+    //esther
+    @RequestMapping(value="/{userId}/getDinerUserDetails", method= RequestMethod.GET)
+	public List<DinerUserProfile> getUserDetails(@PathVariable String userId) {
+        // log.info("get userid is "+ userId);
+		return dinerUserProfileService.getUserDetails(userId);
+	}
+
+    @Transactional
+    @RequestMapping(value = "/{userId}/updateDinerDetails", method = RequestMethod.POST)
+	public ResponseEntity<JsonWrapperObject> updateUserDetails(@PathVariable String userId, @RequestBody UserUpdateRequest userUpdateRequest) {
+        // log.info("set userid is "+ userId);
+		String dinerUserName = userUpdateRequest.getDinerUserName();
+        String username = userUpdateRequest.getUsername();
+		Integer age = userUpdateRequest.getAge();
+		String gender = userUpdateRequest.getGender();
+		String bio = userUpdateRequest.getBio();
+		String foodPreferencesTag = userUpdateRequest.getFoodPrefTag();
+		// log.info("set dinerUserProfileId is "+ dinerUserProfileId);
+		// log.info("set dinerUserName is "+ dinerUserName);
+		// log.info("set username is "+ username);
+        // log.info("set age is "+ age);
+		// log.info("foodpref" + foodPreferencesTag);
+        // String userId = userUpdateRequest.getUserId();
+        
+		dinerUserProfileService.updateUserDetails(dinerUserName, username, age, gender, bio, foodPreferencesTag, userId);
+        JsonWrapperObject response = new JsonWrapperObject();
+		response.setStatus(CommonConstant.SUCCESS);
+		response.setDescription("User details updated successfully"); // Provide a description
+
+		return ResponseEntity.ok(response);
+    }
+    
+}
+
         
     //esther
     @RequestMapping(value="/{userId}/getDinerUserDetails", method= RequestMethod.GET)

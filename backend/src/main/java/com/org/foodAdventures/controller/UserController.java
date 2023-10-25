@@ -1,3 +1,4 @@
+
 package com.org.foodAdventures.controller;
 
 import com.org.foodAdventures.common.*;
@@ -20,22 +21,39 @@ import org.slf4j.LoggerFactory;
 // import org.springframework.core.io.ByteArrayResource;
 // import org.springframework.core.io.Resource;
 
+
+import java.util.List;
+
 @RestController
 public class UserController {
 
-// import java.util.*;
-// import java.math.*;
+	@Autowired
+	private UserService userService;
 
-// @RestController
-// @CrossOrigin(origins = "http://localhost:4200")
-// //@RequestMapping("/api/users")
-// public class UserController {
+	private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
 	@Autowired
 	private UserService userService;
 
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
     
+	@RequestMapping(value = "/getAllUsers", method = RequestMethod.GET)
+	public ResponseEntity<JsonWrapperObject> getAllUsers() {
+		log.info("user controller get all users");
+		JsonWrapperObject response = new JsonWrapperObject();
+		try {
+			List<User> users = userService.getAllUsers();
+			log.info("successfully retrieve users = {}", users);
+			response.setStatus(CommonConstant.SUCCESS);
+			response.setData(users);
+			return ResponseEntity.ok(response);
+		} catch (Exception e) {
+			log.info("error in retrieving all users: {}", e.getMessage());
+			response.setStatus(CommonConstant.FAILURE);
+			response.setDescription(e.getMessage());
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+		}
+	}
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ResponseEntity<JsonWrapperObject> saveUserRegistration(@RequestBody UserRegisterRequest userRegisterRequest) {

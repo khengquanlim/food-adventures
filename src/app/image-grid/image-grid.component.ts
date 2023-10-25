@@ -23,8 +23,10 @@ export class ImageGridComponent implements OnInit {
   @Output() imageSelected = new EventEmitter<any>();
 
   selectedImages: { [key: string]: boolean } = {};
+
   @Input() imageWidth: string = '600px';
   @Input() imageHeight: string = '600px';
+
 
   constructor() { }
 

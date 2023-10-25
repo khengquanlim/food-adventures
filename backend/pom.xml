@@ -87,10 +87,13 @@
 	    	<version>4.0.1</version>
 		</dependency>
 <!--        to solve the CORS policy issue -->
+
+
 <!--        <dependency>-->
 <!--            <groupId>org.springframework.boot</groupId>-->
 <!--            <artifactId>spring-boot-starter-security</artifactId>-->
 <!--        </dependency>-->
+
 	</dependencies>
 
 

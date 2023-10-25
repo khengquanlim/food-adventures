@@ -2,9 +2,11 @@ import { Injectable } from '@angular/core';
 import { RestaurantUser } from "../models/restaurantUser.model"
 import { DinerUser } from '../models/dinerUser.model';
 import { HttpClient, HttpParams } from '@angular/common/http'; 
+
 import { Observable, switchMap } from 'rxjs';
 import { RestaurantUpdateRequest } from '../models/restaurantUpdateRequest.model';
 import { UserProfilePicRequest } from '../models/userProfilePicRequest.model';
+
 
 @Injectable({
     providedIn: 'root'
@@ -87,7 +89,8 @@ import { UserProfilePicRequest } from '../models/userProfilePicRequest.model';
       const url = `${this.baseUrl}/${username}/deleteImage?username=${username}&userType=${userType}&usageType=${usageType}`;
       return this.http.post(url, requestBody);
     }
-
+    
+    
     getAllRestaurantUserProfile(): Observable<any> {
       return this.http.get('http://localhost:8080/foodAdventures/getAllRestaurantProfile');
     }

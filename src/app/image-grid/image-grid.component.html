@@ -1,4 +1,4 @@
-  <div class="image-grid" [style.grid-template-columns]="'repeat(' + numberOfColumns + ', 1fr)'">
+<div class="image-grid" [style.grid-template-columns]="'repeat(' + numberOfColumns + ', 1fr)'">
     <div class="grid-item" *ngFor="let image of images" >
       <div class="image-container" (click)="toggleImageSelection(image)">
         <img [src]="image" alt="Image" class="square-image" [style.width]="imageWidth" [style.height]="imageHeight">

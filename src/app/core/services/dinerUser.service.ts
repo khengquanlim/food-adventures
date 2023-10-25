@@ -61,6 +61,7 @@ import { UserProfilePicRequest } from '../models/userProfilePicRequest.model';
         // console.log("userid is ", userDetails.userId);
         // console.log("userdetails", userDetails);
 
+
       const url = `${this.baseUrl}/${userDetails.userId}/updateDinerDetails`;
       return this.http.post(url, userDetails);
     }
@@ -112,6 +113,7 @@ import { UserProfilePicRequest } from '../models/userProfilePicRequest.model';
       );
       
     }
+
 
     getFeed(username: string, usageType: string, userType:string): Observable<any> {
       // console.log("username", username);
