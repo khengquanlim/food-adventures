@@ -4,6 +4,7 @@ import com.org.foodAdventuresBackendOne.common.*;
 import com.org.foodAdventuresBackendOne.entity.*;
 import com.org.foodAdventuresBackendOne.model.*;
 import com.org.foodAdventuresBackendOne.service.*;
+import com.org.foodAdventuresBackendOne.model.LoginRequest;
 
 import org.slf4j.*;
 import org.springframework.beans.factory.annotation.*;
@@ -34,4 +35,33 @@ public class UserController {
             return ResponseEntity.ok(response);
         }
     }
+
+    @RequestMapping(value="/login", method = RequestMethod.POST)
+    public ResponseEntity<JsonWrapperObject> login(@RequestBody LoginRequest loginData) {
+        log.info("login usercontroller");
+        Object loginResult = userService.login(loginData.getEmail(), loginData.getPassword());
+        
+        JsonWrapperObject response = new JsonWrapperObject();
+		
+        if (loginResult instanceof User) {
+            User user = (User) loginResult;
+            log.info("im a user");
+            // If the returned object is a User, it means the login was successful.
+            response.setStatus("success");
+            response.setData(user);
+            return ResponseEntity.ok(response);
+        }else if (loginResult.equals("incorrect_password")) {
+            log.info("Incorrect password");
+            response.setStatus("error");
+            response.setDescription("Incorrect password"); // Return specific error message for incorrect password
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+        } else {
+            log.info("User not found");
+            response.setStatus("error");
+            response.setDescription("User not found"); // Return specific error message for user not found
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+        }
+    }
+
+    
 }
