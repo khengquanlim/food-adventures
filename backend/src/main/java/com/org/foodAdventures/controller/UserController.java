@@ -32,11 +32,7 @@ public class UserController {
 
 	private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
-	@Autowired
-	private UserService userService;
-
-    private static final Logger log = LoggerFactory.getLogger(UserController.class);
-    
+	
 	@RequestMapping(value = "/getAllUsers", method = RequestMethod.GET)
 	public ResponseEntity<JsonWrapperObject> getAllUsers() {
 		log.info("user controller get all users");
