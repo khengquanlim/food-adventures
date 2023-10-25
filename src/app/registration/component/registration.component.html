@@ -15,8 +15,13 @@
     </div>
     <div class="registerFormGroup">
       <label>Username</label>
-      <input class="registeredUsername" type="text" formControlName="registeredUserName">
-      <div *ngIf="registeredUserName?.hasError('required') && registeredUserName?.touched" class="registerErrorMsg">Name is required</div>
+      <input class="userId" type="text" formControlName="userId">
+      <div *ngIf="userId?.hasError('required') && userId?.touched" class="registerErrorMsg">Name is required</div>
+    </div>
+    <div class="registerFormGroup">
+      <label>Birth date</label>
+      <input type="date" formControlName="birthdate">
+      <div *ngIf="birthdate?.hasError('required') && birthdate?.touched" class="registerErrorMsg">Birthdate is required</div>
     </div>
     <div class="registerFormGroup">
       <label>Email</label>
@@ -37,7 +42,5 @@
       <div *ngIf="registrationForm?.hasError('passwordMismatch')" class="registerErrorMsg">Passwords must match</div>
     </div>
     <button class="registerBtn" type="submit" [disabled]="registrationForm.invalid">Register</button>
-    <!-- For debug -->
-    <p>Form Valid: {{ registrationForm.valid }}</p>
   </form>
 </div>
