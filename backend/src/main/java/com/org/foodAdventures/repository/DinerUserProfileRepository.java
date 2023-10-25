@@ -27,6 +27,7 @@ public interface DinerUserProfileRepository extends JpaRepository<DinerUserProfi
     DinerUserProfile getCurrentDinerUsersDetailsById(
             @Param("dinerUserProfileId") Integer dinerUserProfileId);
 
+
     //esther
     @Query(nativeQuery = true, value="SELECT * FROM T_DINER_USER_PROFILE WHERE USER_ID =:userId")
     public List<DinerUserProfile> getUserDetails(
@@ -47,3 +48,4 @@ public interface DinerUserProfileRepository extends JpaRepository<DinerUserProfi
     
 
 }
+

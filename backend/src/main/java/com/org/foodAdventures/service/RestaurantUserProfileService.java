@@ -28,6 +28,7 @@ public class RestaurantUserProfileService {
         return restaurantUserProfileRepository.save(restaurantUserProfile);
     }
 
+
     //esther
     public List<RestaurantUserProfile> getUserDetails(String userId) {
         return restaurantUserProfileRepository.getUserDetails(userId);
@@ -38,3 +39,4 @@ public class RestaurantUserProfileService {
         restaurantUserProfileRepository.updateUserDetails(restaurantName, ownerName, foodOptionsTag, bio, location, price,rating, bookingUrl, userId);
     }
 }
+

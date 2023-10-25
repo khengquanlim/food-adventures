@@ -1,13 +1,7 @@
-<!-- <div class="image-grid" [style.grid-template-columns]="'repeat(' + numberOfColumns + ', 1fr)'">
-        <div class="grid-item" *ngFor="let image of images" >
-      <img [src]="image" alt="Image" class="square-image">
-    </div>
-  </div> -->
-
-  <div class="image-grid" [style.grid-template-columns]="'repeat(' + numberOfColumns + ', 1fr)'">
+<div class="image-grid" [style.grid-template-columns]="'repeat(' + numberOfColumns + ', 1fr)'">
     <div class="grid-item" *ngFor="let image of images" >
       <div class="image-container" (click)="toggleImageSelection(image)">
-        <img [src]="image" alt="Image" class="square-image">
+        <img [src]="image" alt="Image" class="square-image" [style.width]="imageWidth" [style.height]="imageHeight">
         <!-- Display a checkmark if the image is selected -->
         <div class="selected-overlay">
           <span class="material-icons" *ngIf="deleteMode && selectedImages[image]" style="position:relative;top:-300px;color:white;">check_circle_outline</span>

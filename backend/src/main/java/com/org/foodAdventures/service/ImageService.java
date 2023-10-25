@@ -17,9 +17,7 @@ public class ImageService {
     private ImageRepository imageRepository;
     private final Logger log = LoggerFactory.getLogger(UserService.class);
 
-    // public List<Image> getAllRestaurantImagesByUsername(String username, String userType) {
-    //     return imageRepository.getAllRestaurantImagesByUsername(username, userType);
-    // }
+
 
     //esther
     public List<Image> getImage(String username, String usageType, String userType) {
@@ -38,5 +36,13 @@ public class ImageService {
     public void deleteImage(String username, String userType, String usageType, Integer imageId) {
         log.info("imageservice.java delete image");
         imageRepository.deleteImage(username, userType, usageType, imageId);
+
+    public List<Image> getAllImagesByUsernameAndImageType(String username, String userType) {
+        return imageRepository.getAllImagesByUsernameAndImageType(username, userType);
+    }
+
+    public List<Image> getAllImagesByUsernameAndImageTypeAndUsageType(String username, String userType, String usageType) {
+        return imageRepository.getAllImagesByUsernameAndImageTypeAndUsageType(username, userType, usageType);
+
     }
 }

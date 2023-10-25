@@ -1,52 +1,168 @@
-/* Add your styles for the swipe component here */
-.swipe {
-    max-width: 300px;
-    margin: 20px auto;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    text-align: center;
+.restaurant-user-match-card {
+  width: 100%;
+  max-width: 1200px;
+  height: 100%;
+  max-height: 600px;
+  margin: 0 auto;
+  position: absolute;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  top: 25%;
+  left: 25%;
+  display: flex;
+  flex-direction: column; 
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  text-align: center;
+  transition: transform 0.3s ease-in-out;
   }
-  
-  .swipe img {
-    width: 100%;
-    max-height: 200px;
-    border-radius: 5px;
-    margin-bottom: 10px;
-  }
-  
-  .swipe h2 {
-    font-size: 18px;
-    margin-bottom: 5px;
-  }
-  
-  .swipe p {
-    font-size: 14px;
-    margin-bottom: 10px;
-  }
-  
-  .swipe button {
-    display: block;
-    width: 100%;
-    padding: 8px 0;
-    margin-top: 10px;
-    border: none;
-    background-color: #ff585d;
-    color: #fff;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 5px;
-  }
-  
-  .swipe button:hover {
-    background-color: #ff474c;
-  }
-  
-  .swipe button:last-child {
-    background-color: #ccc;
-    color: #333;
-  }
-  
-  .swipe button:last-child:hover {
-    background-color: #bbb;
-  }
+.restaurant-user-match-card-container {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.3s ease-out;
+}
+
+.center-container {
+  width: 1200px;
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  overflow: hidden;
+  height: 100%;
+  transition: transform 0.3s ease-out;
+}
+
+.left-column,
+.right-column {
+  padding: 20px;
+  flex-basis: 48%;
+}
+
+.left-inner-column,
+.right-inner-column,
+.middle-inner-column {
+  flex-basis: 30%;
+}
+
+.inner-column {
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.restaurant-user-match-card img {
+  width: 600px;
+  height: 300px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.restaurant-user-match-card h2 {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+
+
+.restaurant-user-match-card p {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.restaurant-user-match-card .like-button {
+  display: block;
+  width: 100%;
+  padding: 8px 0;
+  margin-top: 10px;
+  border: none;
+  background-color: #ff585d;
+  color: #140d0d;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.restaurant-user-match-card .chat-button {
+  display: block;
+  width: 100%;
+  padding: 8px 0;
+  margin-top: 10px;
+  border: none;
+  background-color: #ff585d;
+  color: #140d0d;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.restaurant-user-match-card .swipe-button {
+  display: block;
+  width: 100%;
+  padding: 8px 0;
+  margin-top: 10px;
+  border: none;
+  background-color: #ff585d;
+  color: #140d0d;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.restaurant-user-match-card .dislike-button {
+  display: block;
+  width: 100%;
+  padding: 8px 0;
+  margin-top: 10px;
+  border: none;
+  background-color: #bbb;
+  color: #0e0909;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.restaurant-user-match-card.match {
+  opacity: 0; 
+  transform: scale(0.5);
+}
+
+.restaurant-user-match-card .like-button:hover{
+  background-color: #ff474c;
+}
+.restaurant-user-match-card .dislike-button:hover{
+  background-color: #8d8d8d;
+}
+
+.restaurant-user-match-card.swipedLeft {    
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.restaurant-user-match-card.swipedRight {
+  transform: translateX(100%);
+}
+
+.restaurant-user-match-card.notSwiped {
+  transform: translateX(0);
+}
+.match-container {
+  z-index: 1;
+  background-color: rgba(255, 255, 255, 0.9);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.match-message {
+  font-size: 16px;
+  color: #333;
+}

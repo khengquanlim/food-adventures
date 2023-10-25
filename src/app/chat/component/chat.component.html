@@ -1,15 +1,38 @@
 <div class="chat-container">
-  <div class="chat-messages">
-    <div class="message" *ngFor="let message of chatMessages" [ngClass]="{'sent-message': message.sender === 'You', 'received-message': message.sender !== 'You'}">
-      <div class="message-content">
-        <span class="sender-name">{{ message.sender }}:</span>
-        <span>{{ message.content }}</span>
+  <div class="user-list-container">
+    <app-chat-user-list [dinerUsers]="dinerUsers" [matchedUserIds]="currentDinerUser.matchedDinerUserIdList" (userSelected)="openChatWithUser($event)"></app-chat-user-list>
+  </div>
+  <div class="chat-window" *ngIf="selectedUser"  [@slideIn]="selectedUser ? 'in' : 'out'">
+    <div class="chat-header">
+      <img [src]="selectedUser.profileImage" alt="{{ selectedUser.dinerUserName }}" />
+      Chat with {{ selectedUser.dinerUserName}}
+      <a [href]="'http://' + selectedRestaurantBookingUrl" target="_blank">
+        <button class="header-button">Book {{selectedRestaurantName || "hehe"}}</button>
+      </a>
+    </div>
+    <div class="chat-messages" #chatMessagesContainer>
+      <div class="message" *ngFor="let message of allMatchedChatMessages">
+        <div [ngClass]="{
+          'message-sender': true,
+          'message-you': message.senderId === currentDinerUser.userId.toString(),
+          'message-selected-user': message.senderId !== currentDinerUser.userId.toString()
+        }">
+          {{ message.senderId === currentDinerUser.userId.toString() ? 'You' : selectedUser.dinerUserName }}
+        </div>
+        <div [ngClass]="{
+          'message-text': true,
+          'message-text-you': message.senderId === currentDinerUser.userId.toString(),
+          'message-text-selected-user': message.senderId !== currentDinerUser.userId.toString()
+        }">
+          {{ message.message }}
+        </div>
       </div>
     </div>
-  </div>
-
-  <div class="form-container">
-    <input type="text" [(ngModel)]="newMessage" name="message" placeholder="Type your message..." />
-    <button class="send-button" (click)="sendMessage()">Send</button>
+    <div class="chat-input-container">
+      <div class="chat-input">
+        <input type="text" [(ngModel)]="newMessage" (keyup.enter)="sendMessage()" placeholder="Type your message..." />
+        <button (click)="sendMessage()">Send</button>
+      </div>
+    </div>
   </div>
 </div>

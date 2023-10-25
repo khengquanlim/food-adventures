@@ -5,11 +5,13 @@ import com.org.foodAdventures.repository.DinerUserProfileRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.*;
 import java.math.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 
 @Service
 public class DinerUserProfileService {
@@ -33,6 +35,7 @@ public class DinerUserProfileService {
         return dinerUserProfileRepository.save(dinerUserProfile);
     }
 
+
     //esther
     public List<DinerUserProfile> getUserDetails(String userId) {
 
@@ -50,4 +53,5 @@ public class DinerUserProfileService {
         // log.info("service username "+username);
         dinerUserProfileRepository.updateUserDetails(dinerUserName, username, age, gender, bio, foodPreferencesTag, userId);
     }
+
 }

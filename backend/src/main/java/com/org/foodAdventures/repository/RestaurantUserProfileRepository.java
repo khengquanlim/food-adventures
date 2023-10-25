@@ -48,3 +48,4 @@ public interface RestaurantUserProfileRepository extends JpaRepository<Restauran
         @Param("userId") String userId
     );
 }
+
