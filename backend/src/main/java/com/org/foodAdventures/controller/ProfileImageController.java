@@ -3,6 +3,8 @@ package com.org.foodAdventures.controller;
 import org.springframework.transaction.annotation.Transactional;
 import com.org.foodAdventures.common.*;
 import com.org.foodAdventures.entity.*;
+import com.org.foodAdventures.repository.ImageRepository;
+import com.org.foodAdventures.repository.MessageRepository;
 import com.org.foodAdventures.service.*;
 import java.util.Map;
 import org.springframework.web.multipart.MultipartFile;
@@ -32,6 +34,9 @@ public class ProfileImageController {
 
 	@Autowired
 	private ImageService imageService;
+	
+    @Autowired
+    private ImageRepository imageRepository;
 
 	private static final Logger log = LoggerFactory.getLogger(ProfileImageController.class);
 
@@ -111,8 +116,32 @@ public class ProfileImageController {
 		log.info("Updating user details for getUserType: " + userProfilePicRequest.getUserType());
         log.info("Updating user details for getUsageType: " + userProfilePicRequest.getUsageType());
 		log.info("Updating user details for getImageByte: " + userProfilePicRequest.getImageByte());
+		log.info("Updating user details for username: " + username);
+		log.info("Updating user details for imageType: " + imageType);
+		
+		List<Image> existingImageList = imageService.getAllImagesByUsernameAndImageType(username, userType);
+		log.info("existingImageList: " + existingImageList.size());
+		log.info("existingImageList: " + usageType);
+		if(existingImageList.size() == 0 && usageType.equals("profile")) {
+			log.info("Handle new profile images for REST & DINNER: ");
+			Image newImage = new Image();
+			newImage.setUsername(username);
+			newImage.setImageByte(imageByte);
+			newImage.setImageName(imageName);		
+			newImage.setImageType(imageType);
+			newImage.setUserType(userType);
+			newImage.setUsageType(usageType);
+			if(userType.equals("restaurant")) {
+				newImage.setRestaurantId(restaurantId);
+			} else {
+				newImage.setDinerId(restaurantId);
+			}
+			imageRepository.save(newImage);
+		} else {
+			log.info("Coming here???: ");
+	        imageService.updateUserProfilePic(username, restaurantId, imageName, imageType, userType, usageType, imageByte);
+		}
 
-        imageService.updateUserProfilePic(username, restaurantId, imageName, imageType, userType, usageType, imageByte);
 
 		JsonWrapperObject response = new JsonWrapperObject();
 		response.setStatus(CommonConstant.SUCCESS);

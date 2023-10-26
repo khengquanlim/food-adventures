@@ -45,9 +45,10 @@ public class DinerUserProfileService {
         return dinerUserProfileRepository.getUserDetails(userId);
     }
 
-    public void updateUserDetails(String dinerUserName, String username, Integer age, String gender, String bio, String foodPreferencesTag, String userId) {
+    public void updateUserDetails(String dinerUserName, String username, Integer age, String gender, String bio, String foodPreferencesTag) {
         // log.info("service dinerUserName "+dinerUserName);
         // log.info("service username "+username);
-        dinerUserProfileRepository.updateUserDetails(dinerUserName, username, age, gender, bio, foodPreferencesTag, userId);
+        dinerUserProfileRepository.updateUserDetails(dinerUserName, username, age, gender, bio, foodPreferencesTag);
     }
+    
 }

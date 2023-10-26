@@ -2,7 +2,6 @@ package com.org.foodAdventures.controller;
 
 
 import java.util.*;
-import java.math.*;
 
 
 import org.slf4j.Logger;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +26,7 @@ import com.org.foodAdventures.service.DinerUserProfileService;
 
 import com.org.foodAdventures.dto.UserUpdateRequest;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 public class DinerUserProfileController {
 
@@ -59,9 +60,22 @@ public class DinerUserProfileController {
 		// log.info("set username is "+ username);
         // log.info("set age is "+ age);
 		// log.info("foodpref" + foodPreferencesTag);
-        // String userId = userUpdateRequest.getUserId();
+        // String userId = userUpdateRequest.getUserId();		List<DinerUserProfile> existingDinerUserList = dinerUserProfileService.getUserDetails(userId);
+		if(existingDinerUserList.size() == 0) {
+			 log.info("first time user: {}" + userId);
+			 DinerUserProfile newDinerUser = new DinerUserProfile();
+			 newDinerUser.setDinerUserName(dinerUserName);
+			 newDinerUser.setUsername(userId);
+			 newDinerUser.setAge(age);
+			 newDinerUser.setGender(gender);
+			 newDinerUser.setBio(bio);
+			 newDinerUser.setFoodPrefTag(foodPreferencesTag);
+			dinerUserProfileService.updateDinerUserProfile(newDinerUser);
+		} else {
+			 log.info("existing user: {}" + userId);
+			dinerUserProfileService.updateUserDetails(dinerUserName, username, age, gender, bio, foodPreferencesTag);
+		}
         
-		dinerUserProfileService.updateUserDetails(dinerUserName, username, age, gender, bio, foodPreferencesTag, userId);
         JsonWrapperObject response = new JsonWrapperObject();
 		response.setStatus(CommonConstant.SUCCESS);
 		response.setDescription("User details updated successfully"); // Provide a description

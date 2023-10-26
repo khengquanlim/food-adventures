@@ -56,6 +56,7 @@ import { UserProfilePicRequest } from '../models/userProfilePicRequest.model';
 
     updateUserDetails(userDetails: UserUpdateRequest): Observable<any>
       {
+        console.log("userDetails", userDetails)
         // console.log("userid is ", userDetails.dinerUserProfileId);
         // console.log("username is ", userDetails.username);
         // console.log("userid is ", userDetails.userId);

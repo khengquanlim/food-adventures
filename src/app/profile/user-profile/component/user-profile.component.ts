@@ -44,7 +44,8 @@ export class UserProfileComponent implements OnInit {
     this.route.params.subscribe((params) => {
       // Get the user's ID from the route parameters
       //e.g.SUP003
-      this.userId = params['id'];
+      this.userId = params['userId'];
+      console.log("this.userId", this.userId)
 
     });
 
@@ -58,7 +59,7 @@ export class UserProfileComponent implements OnInit {
   
 
     
-  toggleEditMode() {
+  toggleEditMode() {   
     this.editMode = true;
     // console.log("editmode: ", this.editMode);
   }
@@ -133,7 +134,9 @@ export class UserProfileComponent implements OnInit {
 
 
   saveChanges() {
-    console.log("savechanges()");
+    console.log("savechanges()");   
+    this.user.userId = this.userId;
+    console.log("this.user.userId", this.user.userId)
     this.editMode = false;
     console.log(this.user);
     this.userService.updateUserDetails(this.user).subscribe({

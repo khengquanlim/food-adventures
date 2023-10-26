@@ -1,6 +1,10 @@
 package com.org.foodAdventures.entity;
 
 import java.sql.Timestamp;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import jakarta.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -11,7 +15,7 @@ public class DinerUserProfile implements java.io.Serializable{
 
 
     @Id
-    private Integer userId;
+    private Long userId;
     private String username;
     private String dinerUserName;
     private Integer age;
@@ -27,12 +31,13 @@ public class DinerUserProfile implements java.io.Serializable{
 
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="DINER_USER_PROFILE_ID", unique = true, nullable = false)
-    public Integer getUserId(){
+    public Long getUserId(){
         return userId;
     }
 
-    public void setUserId(Integer userId){
+    public void setUserId(Long userId){
         this.userId = userId;
     }
 
@@ -54,7 +59,7 @@ public class DinerUserProfile implements java.io.Serializable{
         this.username = username;
     }
     
-    @Column(name = "AGE", nullable = false)
+    @Column(name = "AGE")
     public Integer getAge(){
         return age;
     }
@@ -63,7 +68,7 @@ public class DinerUserProfile implements java.io.Serializable{
         this.age = age;
     }
 
-    @Column(name = "GENDER", length = 6, nullable = false)
+    @Column(name = "GENDER", length = 6)
     public String getGender(){
         return gender;
     }
@@ -72,7 +77,7 @@ public class DinerUserProfile implements java.io.Serializable{
         this.gender = gender;
     }
 
-    @Column(name = "BIOGRAPHY", length = 150, nullable = false)
+    @Column(name = "BIOGRAPHY", length = 150)
     public String getBio(){
         return bio;
     }
@@ -85,12 +90,12 @@ public class DinerUserProfile implements java.io.Serializable{
         this.matchedDinerUserIdList = matchedDinerUserIdList;
     }
 
-    @Column(name = "MATCHED_DINER_USER_ID_LIST", nullable = false)
+    @Column(name = "MATCHED_DINER_USER_ID_LIST")
     public String getMatchedDinerUserIdList(){
         return matchedDinerUserIdList;
     }
 
-    @Column(name = "FOOD_PREFERENCES_TAG", length = 10, nullable = false)
+    @Column(name = "FOOD_PREFERENCES_TAG", length = 10)
     public String getFoodPrefTag(){
         return foodPreferencesTag;
     }
@@ -99,6 +104,7 @@ public class DinerUserProfile implements java.io.Serializable{
         this.foodPreferencesTag = foodPreferencesTag;
     }
 
+    @CreationTimestamp
     @Column(name = "CRT_TS", nullable = false)
     public Timestamp getCreatedDttm(){
         return createdDttm;
@@ -108,6 +114,7 @@ public class DinerUserProfile implements java.io.Serializable{
         this.createdDttm = createdDttm;
     }
 
+    @UpdateTimestamp
     @Column(name = "UPD_TS", nullable = false)
     public Timestamp getUpdatedDttm(){
         return updatedDttm;
