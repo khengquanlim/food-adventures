@@ -58,7 +58,3 @@ jobs:
       - run: npm run build -- --prod
       - name: Move Item
         run: Copy-Item -Path "dist\date-full2-frontend\*" -Destination "C:\inetpub\Sites\Angular" -Recurse -force
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project. 
