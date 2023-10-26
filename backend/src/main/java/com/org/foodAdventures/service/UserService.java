@@ -23,6 +23,10 @@ public class UserService {
         return userRepository.getAllUsers();
     }
 
+    public User getUserByUsername(String username) {
+        return userRepository.getByName(username);
+    }
+
     public User saveUserRegistration(UserRegisterRequest userRegisterRequest) {
 
         try{

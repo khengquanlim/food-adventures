@@ -5,10 +5,11 @@ import com.org.foodAdventures.repository.DinerUserProfileRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.List;
+import java.util.*;
+import java.math.*;
 
- import org.slf4j.Logger;
- import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Service
 public class DinerUserProfileService {
@@ -31,4 +32,23 @@ public class DinerUserProfileService {
     public DinerUserProfile updateDinerUserProfile(DinerUserProfile dinerUserProfile) {
         return dinerUserProfileRepository.save(dinerUserProfile);
     }
+
+    //esther
+    public List<DinerUserProfile> getUserDetails(String userId) {
+
+        List<DinerUserProfile> profiles = dinerUserProfileRepository.getUserDetails(userId);
+
+        for (DinerUserProfile profile : profiles) {
+			
+			log.info("loop age = " + profile);
+		}
+        return dinerUserProfileRepository.getUserDetails(userId);
+    }
+
+    public void updateUserDetails(String dinerUserName, String username, Integer age, String gender, String bio, String foodPreferencesTag) {
+        // log.info("service dinerUserName "+dinerUserName);
+        // log.info("service username "+username);
+        dinerUserProfileRepository.updateUserDetails(dinerUserName, username, age, gender, bio, foodPreferencesTag);
+    }
+    
 }

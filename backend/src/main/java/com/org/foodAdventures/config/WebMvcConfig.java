@@ -1,16 +1,13 @@
 package com.org.foodAdventures.config;
 
-import java.io.IOException;
 
+
+import com.org.foodAdventures.common.*;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.resource.PathResourceResolver;
 
-import java.io.*;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
 
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
@@ -18,7 +15,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
                 .allowedOrigins("http://localhost:4200")
+                .allowedOrigins(CommonConstant.PROD_URL)
                 .allowedMethods("GET", "POST","OPTIONS", "PUT")
                 .maxAge(3600);
     }
+    
+    
 }

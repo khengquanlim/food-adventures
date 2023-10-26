@@ -27,4 +27,24 @@ public interface RestaurantUserProfileRepository extends JpaRepository<Restauran
         @Param("dinerUserLikeList") List<Integer> dinerUserLikeList,
     	@Param("restaurantUserProfileId") Integer restaurantUserProfileId);
 
+
+    //esther
+    @Query(nativeQuery = true, value="SELECT * FROM T_RESTAURANT_USER_PROFILE WHERE USER_ID =:userId")
+    public List<RestaurantUserProfile> getUserDetails(
+        @Param("userId") String userId
+    );
+
+    @Modifying
+    @Query(nativeQuery = true, value = "UPDATE T_RESTAURANT_USER_PROFILE SET restaurant_name = :restaurantName, restaurant_owner_name = :restaurantOwnerName, food_options_tag = :foodOptionsTag, biography = :bio, location = :location, price_per_pax = :pricePerPax, rating = :rating, booking_url = :bookingUrl WHERE USER_ID =:userId")
+    void updateUserDetails(
+        @Param("restaurantName") String restaurantName,
+        @Param("restaurantOwnerName") String restaurantOwnerName,
+        @Param("foodOptionsTag") String foodOptionsTag,
+        @Param("bio") String bio,
+        @Param("location") String location,
+        @Param("pricePerPax") String pricePerPax,
+        @Param("rating") String rating,
+        @Param("bookingUrl") String bookingUrl,
+        @Param("userId") String userId
+    );
 }

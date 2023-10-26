@@ -1,6 +1,8 @@
 package com.org.foodAdventures.controller;
 
-import java.util.List;
+
+import java.util.*;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,20 +13,78 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.transaction.annotation.Transactional;
+
 
 import com.org.foodAdventures.common.CommonConstant;
 import com.org.foodAdventures.common.JsonWrapperObject;
 import com.org.foodAdventures.entity.DinerUserProfile;
 import com.org.foodAdventures.service.DinerUserProfileService;
 
+import com.org.foodAdventures.dto.UserUpdateRequest;
+
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 public class DinerUserProfileController {
 
 	@Autowired
 	private DinerUserProfileService dinerUserProfileService;
 
-	private static final Logger log = LoggerFactory.getLogger(UserController.class);
+
+	private static final Logger log = LoggerFactory.getLogger(DinerUserProfileController.class);
+
+    
+
+    //esther
+    @RequestMapping(value="/{userId}/getDinerUserDetails", method= RequestMethod.GET)
+	public List<DinerUserProfile> getUserDetails(@PathVariable String userId) {
+        // log.info("get userid is "+ userId);
+		return dinerUserProfileService.getUserDetails(userId);
+	}
+
+    @Transactional
+    @RequestMapping(value = "/{userId}/updateDinerDetails", method = RequestMethod.POST)
+	public ResponseEntity<JsonWrapperObject> updateUserDetails(@PathVariable String userId, @RequestBody UserUpdateRequest userUpdateRequest) {
+        // log.info("set userid is "+ userId);
+		String dinerUserName = userUpdateRequest.getDinerUserName();
+        String username = userUpdateRequest.getUsername();
+		Integer age = userUpdateRequest.getAge();
+		String gender = userUpdateRequest.getGender();
+		String bio = userUpdateRequest.getBio();
+		String foodPreferencesTag = userUpdateRequest.getFoodPrefTag();
+		// log.info("set dinerUserProfileId is "+ dinerUserProfileId);
+		// log.info("set dinerUserName is "+ dinerUserName);
+		// log.info("set username is "+ username);
+        // log.info("set age is "+ age);
+		// log.info("foodpref" + foodPreferencesTag);
+        // String userId = userUpdateRequest.getUserId();		List<DinerUserProfile> existingDinerUserList = dinerUserProfileService.getUserDetails(userId);
+		if(existingDinerUserList.size() == 0) {
+			 log.info("first time user: {}" + userId);
+			 DinerUserProfile newDinerUser = new DinerUserProfile();
+			 newDinerUser.setDinerUserName(dinerUserName);
+			 newDinerUser.setUsername(userId);
+			 newDinerUser.setAge(age);
+			 newDinerUser.setGender(gender);
+			 newDinerUser.setBio(bio);
+			 newDinerUser.setFoodPrefTag(foodPreferencesTag);
+			dinerUserProfileService.updateDinerUserProfile(newDinerUser);
+		} else {
+			 log.info("existing user: {}" + userId);
+			dinerUserProfileService.updateUserDetails(dinerUserName, username, age, gender, bio, foodPreferencesTag);
+		}
         
+        JsonWrapperObject response = new JsonWrapperObject();
+		response.setStatus(CommonConstant.SUCCESS);
+		response.setDescription("User details updated successfully"); // Provide a description
+
+		return ResponseEntity.ok(response);
+    }
+    
+
+	    
     @RequestMapping(value="/getAllDinerUserProfile", method= RequestMethod.GET)
 	public ResponseEntity<JsonWrapperObject> getAllDinerUsersDetails() {
 		log.info("user controller get all diner users details");

@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
+
     <!-- Include any CSS stylesheets or frameworks you need for styling -->
 </head>
 <body>
     <header>
-        <!-- Add a navigation header or user menu here if needed -->
+        <app-navbar></app-navbar>
     </header>
 
     <main>
@@ -18,12 +19,12 @@
                     <div class="profile">
                         <div class="row edit">
                             <div class="col text-right edit-button">
-                                <button (click)="editMode = true" *ngIf="!editMode">
+                                <button (click)="toggleEditMode()" *ngIf="!editMode">
                                     <a class="material-icons">edit</a>
                                 </button>
                                 
                                 <!-- Done button -->
-                                <button (click)="editMode = false" *ngIf="editMode">
+                                <button (click)="saveChanges()" *ngIf="editMode">
                                     <a class="material-icons">done</a>
                                 </button>
                                 
@@ -32,7 +33,7 @@
                         <div class="row profile-picture">
                                 <!-- User's profile picture -->
                                 <div class="col text-center">
-                                    <img *ngIf="!editMode" [src]="user.profilePictureUrl" alt="User Profile Picture">
+                                    <img *ngIf="!editMode" [src]="profilePic" alt="User Profile Picture">
                                     <!-- Add file upload input for changing profile picture when in edit mode -->
                                     <input *ngIf="editMode" type="file" (change)="onProfilePictureChange($event)" accept="image/*">
                                 </div>
@@ -50,7 +51,7 @@
                                 </div>
                                 <div class="col-md-m6">
                                     <div class="label-input">
-                                        <input class="form-control" id="profileName" type="text" [(ngModel)]="user.name" name="name" [disabled]="!editMode" [class.enabled-input]="!editMode"
+                                        <input class="form-control" id="profileName" type="text" [(ngModel)]="user.dinerUserName" name="dinerUserName" [disabled]="!editMode" [class.enabled-input]="!editMode"
                                         [class.disabled-input]="editMode">
                                     </div>
                                 </div>
@@ -95,7 +96,22 @@
                                 </div>
                                 <div class="col-md-m6">
                                     <div class="label-input">
-                                        <input class="form-control" id="profileBio" type="text" [(ngModel)]="user.bio" name="gender" [disabled]="!editMode" [class.enabled-input]="!editMode"
+                                        <input class="form-control" id="profileBio" type="text" [(ngModel)]="user.bio" name="Bio" [disabled]="!editMode" [class.enabled-input]="!editMode"
+                                        [class.disabled-input]="editMode">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="label">
+                                        <label style="margin-top:10px">
+                                            Food Preference
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-m6">
+                                    <div class="label-input">
+                                        <input class="form-control" id="profileFoodPref" type="text" [(ngModel)]="user.foodPrefTag" name="foodPrefTag" [disabled]="!editMode" [class.enabled-input]="!editMode"
                                         [class.disabled-input]="editMode">
                                     </div>
                                 </div>
@@ -111,26 +127,63 @@
                     </div>
                     <div class="feed">
                         <div style="text-align: center; padding-top:30px; font-size:larger">
-                            <label >My Food Feed</label>
-                            
-                            <!-- <div class="col-md-6">
-                                <input type="file" (change)="onFeedChanged($event)" accept="image/*">
-                        
-                            </div>
-                            <div class="col-md-6">
-                                <input type="button" (click)="onFeedUpload()" value="upload">
-                            </div>
+                           
+                            <div class="edit-button">
+                                <label >My Food Feed</label>
+                                <!-- <div class="upload-button"> -->
 
-                            <button (click)="addPhoto($event)">
-                                <a class="material-icons">plus</a>
-                            </button> -->
+                                    
+                                        <label for="file-upload" class="custom-file-upload" *ngIf="uploadMode">
+                                          Upload Image
+                                        </label>
+                                        <input style="display: none;" id="file-upload" *ngIf="uploadMode" type="file" (change)="onFeedChanged($event)" accept="image/*">
+                                    
+                                    <button style="margin-right:50px;" (click)="toggleUploadMode()" *ngIf="!uploadMode">
+                                        <a class="material-icons">upload</a>
+                                    </button>
+                                    
+                                    <!-- Done button -->
+                                    <button style="margin-right:50px;" (click)="onFeedUpload()" *ngIf="uploadMode">
+                                        <a class="material-icons">done</a>
+                                    </button>
+
+                                    <button (click)="toggleDelete()" *ngIf="!deleteMode">
+                                        <a class="material-icons">delete</a>
+                                    </button>
+
+
+
+                                    <!-- <button (click)="toggleDelete()">{{ deleteMode ? 'Cancel' : 'Delete' }}</button> -->
+                                    
+                                    
+
+
+                                    <button  *ngIf="deleteMode" (click)="deleteSelectedImages()">
+                                        <a class="material-icons">done</a>
+                                    </button>
+                                    
+                                    <!-- Done button -->
+                                    <!-- <button (click)="deleteImage(image.imageName)" *ngIf="deleteMode">
+                                        <a class="material-icons">done</a>
+                                    </button> -->
+                                <!-- </div> -->
+                                
+
+                            </div>
+                                
+                            <!-- <button (click)="deleteSelectedImages()" *ngIf="deleteMode">Delete Selected</button> -->
+                            <!-- <div class="col text-center">
+                                <input *ngIf="uploadMode" type="file" (change)="onFeedChanged($event)" accept="image/*">
+                            </div> -->
+                            
+                              
+
+                            
                         </div>
                         <div class="center-image-grid">
-                            <app-image-grid [images]="imageUrls" [numberOfColumns]="numberOfColumns"></app-image-grid>
-                        </div>
-
-                            
-                        
+                            <app-image-grid [images]="feedPic" [numberOfColumns]="numberOfColumns" [deleteMode]="deleteMode" (imageSelected)="handleImageSelection($event)">
+                            </app-image-grid>
+                          </div>
                     </div>
                 </div>
             </form>

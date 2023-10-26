@@ -32,6 +32,8 @@ export class ChatComponent implements OnInit {
   currentDinerUser!: any;
   dinerUsers!: any[];
 
+  userId: any;
+
   constructor(
     private dinerService: DinerUserService,
     private chatMessageService: ChatMessageService,
@@ -45,8 +47,8 @@ export class ChatComponent implements OnInit {
   }
   getCurrentDinerUser(): void {
     this.route.params.subscribe(params => {
-      const userId = Number(params['id']);
-      this.dinerService.getDinerUserProfileByUserId('sky1005').subscribe(
+      this.userId = params['userId'];
+      this.dinerService.getDinerUserProfileByUserId(this.userId).subscribe(
         (response) => {
           this.currentDinerUser = response.data;
           this.convertMatchedDinerUserIdListListToNumberList(this.currentDinerUser);

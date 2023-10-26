@@ -43,6 +43,8 @@ export class SwipeComponent implements OnInit {
   restaurantFeedImages?: any[];
   currentRestaurantUserImagesUrls: string[] = [];
 
+  userId: any;
+
   RESTAURANT_USER_TYPE = 'restaurant';
   constructor(
     private route: ActivatedRoute,
@@ -56,8 +58,8 @@ export class SwipeComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      const userId = Number(params['id']);
-      this.dinerService.getDinerUserProfileByUserId('sky1001').subscribe(
+      this.userId = params['userId'];
+      this.dinerService.getDinerUserProfileByUserId(this.userId).subscribe(
         (response) => {
           this.dinerUser = response.data;
           this.convertMatchedDinerUserIdListListToNumberList(this.dinerUser);

@@ -1,1 +1,237 @@
-<p>restaurant-owner-profile works!</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <!-- Include any CSS stylesheets or frameworks you need for styling -->
+</head>
+<body>
+    <header>
+        <!-- Add a navigation header or user menu here if needed -->
+    </header>
+
+    <main>
+        <div class="container">
+            <form name="profileForm" role="form" #profileForm="ngForm">
+                <div class="row profileContainer" style="">
+                    <div class="profile">
+                        <div class="row edit">
+                            <div class="col text-right edit-button">
+                                <button (click)="toggleEditMode()" *ngIf="!editMode">
+                                    <a class="material-icons">edit</a>
+                                </button>
+                                
+                                <!-- Done button -->
+                                <button (click)="saveChanges()" *ngIf="editMode">
+                                    <a class="material-icons">done</a>
+                                </button>
+                                
+                            </div>                    
+                        </div>    
+                        <div class="row profile-picture">
+                                <!-- User's profile picture -->
+                                <div class="col text-center">
+                                    <img *ngIf="!editMode" [src]="profilePic" alt="User Profile Picture">
+                                    <!-- Add file upload input for changing profile picture when in edit mode -->
+                                    <input *ngIf="editMode" type="file" (change)="onProfilePictureChange($event)" accept="image/*">
+                                </div>
+                                
+                        </div>
+                        <div class="row profile-info">
+                             <!-- trial -->
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="label">
+                                        <label style="margin-top:10px">
+                                            Restaurant Name
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-m6">
+                                    <div class="label-input">
+                                        <input class="form-control" id="profileRestName" type="text" [(ngModel)]="restaurant.restaurantName" name="restaurantName" [disabled]="!editMode" [class.enabled-input]="!editMode"
+                                        [class.disabled-input]="editMode">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="label">
+                                        <label style="margin-top:10px">
+                                            Owner Name
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-m6">
+                                    <div class="label-input">
+                                        <input class="form-control" id="profileOwner" type="text" [(ngModel)]="restaurant.restaurantOwnerName" name="restaurantOwnerName" [disabled]="!editMode" [class.enabled-input]="!editMode"
+                                        [class.disabled-input]="editMode">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="label">
+                                        <label style="margin-top:10px">
+                                            Food Options Tag
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-m6">
+                                    <div class="label-input">
+                                        <input class="form-control" id="profileTag" type="text" [(ngModel)]="restaurant.foodOptionsTag" name="foodOptionsTag" [disabled]="!editMode" [class.enabled-input]="!editMode"
+                                        [class.disabled-input]="editMode">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="label">
+                                        <label style="margin-top:10px">
+                                            Bio
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-m6">
+                                    <div class="label-input">
+                                        <input class="form-control" id="profileBio" type="text" [(ngModel)]="restaurant.bio" name="Bio" [disabled]="!editMode" [class.enabled-input]="!editMode"
+                                        [class.disabled-input]="editMode">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="label">
+                                        <label style="margin-top:10px">
+                                            Location
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-m6">
+                                    <div class="label-input">
+                                        <input class="form-control" id="profileLocation" type="text" [(ngModel)]="restaurant.location" name="location" [disabled]="!editMode" [class.enabled-input]="!editMode"
+                                        [class.disabled-input]="editMode">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="label">
+                                        <label style="margin-top:10px">
+                                            Price
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-m6">
+                                    <div class="label-input">
+                                        <input class="form-control" id="profilePrice" type="text" [(ngModel)]="restaurant.pricePerPax" name="pricePerPax" [disabled]="!editMode" [class.enabled-input]="!editMode"
+                                        [class.disabled-input]="editMode">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="label">
+                                        <label style="margin-top:10px">
+                                            Rating
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-m6">
+                                    <div class="label-input">
+                                        <input class="form-control" id="profileRating" type="text" [(ngModel)]="restaurant.rating" name="rating" [disabled]="!editMode" [class.enabled-input]="!editMode"
+                                        [class.disabled-input]="editMode">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="label">
+                                        <label style="margin-top:10px">
+                                            Booking URL
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-m6">
+                                    <div class="label-input">
+                                        <input class="form-control" id="profileURL" type="text" [(ngModel)]="restaurant.bookingUrl" name="bookingUrl" [disabled]="!editMode" [class.enabled-input]="!editMode"
+                                        [class.disabled-input]="editMode">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="row empty">
+                            <div class="col">
+                                <!-- Empty row for spacing -->
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="feed">
+                        <div style="text-align: center; padding-top:30px; font-size:larger">
+                           
+                            <div class="edit-button">
+                                <label >My Food Feed</label>
+                                
+                                <label for="file-upload" class="custom-file-upload" *ngIf="uploadMode">
+                                    Upload Image
+                                </label>
+                                <input style="display: none;" id="file-upload" *ngIf="uploadMode" type="file" (change)="onFeedChanged($event)" accept="image/*">
+                                
+                                <button style="margin-right:50px;" (click)="toggleUploadMode()" *ngIf="!uploadMode">
+                                    <a class="material-icons">upload</a>
+                                </button>
+                                
+                                <button style="margin-right:50px;" (click)="onFeedUpload()" *ngIf="uploadMode">
+                                    <a class="material-icons" style="color: red;">done</a>
+                                </button>
+
+                                <button (click)="toggleDelete()" *ngIf="!deleteMode">
+                                    <a class="material-icons">delete</a>
+                                </button>
+
+
+                                <button  *ngIf="deleteMode" (click)="deleteSelectedImages()">
+                                    <a class="material-icons" style="color: red;">done</a>
+                                </button>
+
+                            </div>
+                                
+                            
+                            <!-- <div class="col text-center">
+                                <input *ngIf="uploadMode" type="file" (change)="onFeedChanged($event)" accept="image/*">
+                            </div> -->
+                            
+
+                            
+                        </div>
+                        <div class="center-image-grid">
+                            <app-image-grid [images]="feedPic" [numberOfColumns]="numberOfColumns" [deleteMode]="deleteMode" (imageSelected)="handleImageSelection($event)">
+                            </app-image-grid>
+                          </div>
+
+                            
+                        
+                    </div>
+                </div>
+            </form>
+            
+        </div>
+        
+        
+        
+
+       
+    </main>
+
+    <footer>
+        <!-- Add a footer with additional information or links if needed -->
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -8,7 +8,7 @@
           <input type="radio" formControlName="userType" value="diner"> Diner
         </label>
         <label>
-          <input type="radio" formControlName="userType" value="restaurantOwner"> Restaurant Owner
+          <input type="radio" formControlName="userType" value="restaurant"> Restaurant Owner
         </label>
       </div>
       <div *ngIf="registrationForm.get('userType')?.hasError('required') && registrationForm.get('userType')?.touched && registrationForm.hasError('userTypeInvalid')" class="registerErrorMsg">Please select a user type</div>

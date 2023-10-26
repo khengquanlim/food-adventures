@@ -1,3 +1,6 @@
+<header>
+  <app-navbar></app-navbar>
+</header>
 <div class="chat-container">
   <div class="user-list-container">
     <app-chat-user-list [dinerUsers]="dinerUsers" [matchedUserIds]="currentDinerUser.matchedDinerUserIdList" (userSelected)="openChatWithUser($event)"></app-chat-user-list>
