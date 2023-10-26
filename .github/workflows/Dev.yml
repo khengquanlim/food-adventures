@@ -27,4 +27,23 @@ jobs:
       - name: Start Backend1
         run: nssm start  RestaurantService
 
+
+
+ 
+  backend2:
+    runs-on: [self-hosted, Windows,dev]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Stop Backend2
+        run: nssm stop  Restaurant2
+      - name: Deploy
+        run: mvn package
+        shell: cmd
+        working-directory: ./backend
+      - name: Move Item
+        run: Copy-Item -Path "C:\Users\Administrator\Desktop\actions-runner\_work\food-adventures\food-adventures\backend 1\target\foodAdventures-0.0.1-SNAPSHOT.jar" -Destination "C:\inetpub\Sites\BackEnd\Backend2.jar" -Recurse -force
+      - name: Start Backend2
+        run: nssm start  Restaurant2
+
  
