@@ -21,7 +21,6 @@ import { ImageGridComponent } from './image-grid/image-grid.component';
 import { ChatUserListComponent } from './chat-user-list/chatUserList.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HttpClientModule } from '@angular/common/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
