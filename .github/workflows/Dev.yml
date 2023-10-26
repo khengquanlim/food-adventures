@@ -4,9 +4,48 @@ name: CI
 
 # Controls when the workflow will run
 on:
-  workflow_dispatch:
+  push:
+    branches: [ "init" ]
 
 jobs:
+
+
+ 
+  backend:
+    runs-on: [self-hosted, Windows,dev]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Stop Backend1
+        run: nssm stop  RestaurantService
+      - name: Deploy
+        run: mvn package
+        shell: cmd
+        working-directory: ./backend
+      - name: Move Item
+        run: Copy-Item -Path "C:\Users\Administrator\Desktop\actions-runner\_work\food-adventures\food-adventures\backend\target\foodAdventures-0.0.1-SNAPSHOT.jar" -Destination "C:\inetpub\Sites\BackEnd\Backend1.jar" -Recurse -force
+      - name: Start Backend1
+        run: nssm start  RestaurantService
+
+
+
+ 
+  backend2:
+    runs-on: [self-hosted, Windows,dev]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Stop Backend2
+        run: nssm stop  Restaurant2
+      - name: Deploy
+        run: mvn package
+        shell: cmd
+        working-directory: ./backend 1
+      - name: Move Item
+        run: Copy-Item -Path "C:\Users\Administrator\Desktop\actions-runner\_work\food-adventures\food-adventures\backend 1\target\foodAdventuresBackend1-0.0.1-SNAPSHOT.jar" -Destination "C:\inetpub\Sites\BackEnd\Backend2.jar" -Recurse -force
+      - name: Start Backend2
+        run: nssm start  Restaurant2
+
   frontend:
     runs-on: [self-hosted, Windows,dev]
 
@@ -19,9 +58,3 @@ jobs:
       - run: npm run build -- --prod
       - name: Move Item
         run: Copy-Item -Path "dist\date-full2-frontend\*" -Destination "C:\inetpub\Sites\Angular" -Recurse -force
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
-
- 
