@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 public class UserController {
 
@@ -40,9 +41,9 @@ public class UserController {
     public ResponseEntity<JsonWrapperObject> login(@RequestBody LoginRequest loginData) {
         log.info("login usercontroller");
         Object loginResult = userService.login(loginData.getEmail(), loginData.getPassword());
-        
+
         JsonWrapperObject response = new JsonWrapperObject();
-		
+
         if (loginResult instanceof User) {
             User user = (User) loginResult;
             log.info("im a user");
@@ -63,5 +64,5 @@ public class UserController {
         }
     }
 
-    
+
 }
