@@ -9,8 +9,6 @@ on:
     branches: [ "init" ]
 
 jobs:
-
-
  
   backend:
     runs-on: [self-hosted, Windows,dev]
