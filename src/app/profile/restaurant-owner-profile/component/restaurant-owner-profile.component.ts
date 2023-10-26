@@ -72,6 +72,7 @@ export class RestaurantOwnerProfileComponent implements OnInit  {
       console.log(userDetails[0]);
       
       this.userDetails = userDetails[0];
+      this.restaurant.restaurantUserProfileId = this.userDetails.restaurantUserProfileId;
       this.restaurant.restaurantName= this.userDetails.restaurantName;
       this.restaurant.restaurantOwnerName = this.userDetails.restaurantOwnerName;
       this.restaurant.foodOptionsTag = this.userDetails.foodOptionsTag;
@@ -196,7 +197,7 @@ export class RestaurantOwnerProfileComponent implements OnInit  {
       reader.onload = (e) => {
         // The result property contains the base64 string
         this.newProfilePic.userId=this.userId;
-        this.newProfilePic.restaurantId = '1';
+        this.newProfilePic.restaurantId = this.restaurant.restaurantUserProfileId!.toString();
         this.newProfilePic.imageName = file.name;
         const imageType = file.type.split('/')[1]; // This extracts the "jpeg" part
         this.newProfilePic.imageType = imageType;
@@ -240,7 +241,7 @@ export class RestaurantOwnerProfileComponent implements OnInit  {
       reader.onload = (e) => {
         // The result property contains the base64 string
         this.newFeed.userId=this.userId;
-        this.newFeed.restaurantId = '1';
+        this.newFeed.restaurantId = this.restaurant.restaurantUserProfileId!.toString();
         this.newFeed.imageName = file.name;
         const imageType = file.type.split('/')[1]; // This extracts the "jpeg" part
         this.newFeed.imageType = imageType;

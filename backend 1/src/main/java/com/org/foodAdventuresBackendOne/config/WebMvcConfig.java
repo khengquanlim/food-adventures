@@ -11,7 +11,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addMapping("/**")
                 .allowedOrigins("http://localhost:4200")
                 .allowedOrigins(CommonConstant.PROD_URL)
-                .allowedMethods("GET", "POST","OPTIONS")
+                .allowedMethods("GET", "POST","OPTIONS", "PUT")
                 .maxAge(3600);
     }
 }

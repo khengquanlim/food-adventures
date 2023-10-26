@@ -1,5 +1,6 @@
 export class RestaurantUpdateRequest {
     constructor(
+        public restaurantUserProfileId?: number,
         public userId?: string,
         public restaurantName?: string,
         public restaurantOwnerName?: string,

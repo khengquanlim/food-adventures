@@ -6,7 +6,7 @@ export class UserUpdateRequest {
         public gender?: string,
         public bio?: string,
         public foodPrefTag?: string,
-        public userId?: string
+        public userId?: number
     ) {
     }
 }

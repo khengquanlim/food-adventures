@@ -54,7 +54,7 @@ export class UserProfileComponent implements OnInit {
 
     });
 
-    console.log("in user profile");
+    console.log("in user profile", );
     this.getUserDetails();
     this.getProfilePic();
     this.getFeed();
@@ -83,6 +83,8 @@ export class UserProfileComponent implements OnInit {
       this.userDetails = userDetails[0];
       this.user.dinerUserName=this.userDetails.dinerUserName;
       this.user.userId= this.userDetails.userId;
+      console.log("this.userDetails.userId,", this.userDetails.userId)
+      console.log("this.user.userId,", this.user.userId)
       this.user.age = this.userDetails.age;
       this.user.gender = this.userDetails.gender;
       this.user.bio = this.userDetails.bio;
@@ -205,7 +207,7 @@ export class UserProfileComponent implements OnInit {
       reader.onload = (e) => {
         // The result property contains the base64 string
         this.newProfilePic.userId=this.userId;
-        this.newProfilePic.restaurantId = '1';
+        // this.newProfilePic.restaurantId = '1';
         this.newProfilePic.imageName = file.name;
         const imageType = file.type.split('/')[1]; // This extracts the "jpeg" part
         this.newProfilePic.imageType = imageType;
@@ -250,7 +252,7 @@ export class UserProfileComponent implements OnInit {
       reader.onload = (e) => {
         // The result property contains the base64 string
         this.newFeed.userId=this.userId;
-        this.newFeed.restaurantId = '1';
+        this.newFeed.restaurantId = this.user.userId!.toString();
         this.newFeed.imageName = file.name;
         const imageType = file.type.split('/')[1]; // This extracts the "jpeg" part
         this.newFeed.imageType = imageType;
