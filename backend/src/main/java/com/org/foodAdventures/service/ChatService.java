@@ -3,7 +3,7 @@ package com.org.foodAdventures.service;
 import com.org.foodAdventures.entity.DinerUserProfile;
 import com.org.foodAdventures.entity.Message;
 import com.org.foodAdventures.repository.MessageRepository;
-import org.hibernate.validator.constraints.*;
+// import org.hibernate.validator.constraints.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

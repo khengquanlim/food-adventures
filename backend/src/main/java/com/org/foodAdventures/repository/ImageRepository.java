@@ -49,4 +49,46 @@ public interface ImageRepository extends JpaRepository<Image,Integer>{
 //
 //    );
 
+    //esther
+    @Query(nativeQuery = true, value="SELECT * FROM T_IMAGE WHERE USER_ID = :username and usage_type=:usageType and user_type=:userType")
+    public List<Image> getImage(
+        @Param("username") String username,
+        @Param("usageType") String usageType,
+        @Param("userType") String userType
+    );
+
+    
+    @Modifying
+    @Query(nativeQuery = true, value = "UPDATE T_IMAGE SET restaurant_user_profile_id = :restaurantId, image_name = :imageName, image_Type = :imageType, image = :imageBytes WHERE user_id = :username and user_Type = :userType and usage_Type = :usageType")
+    void updateProfilePic(
+        @Param("username") String username,
+        @Param("restaurantId") String restaurantId,
+        @Param("imageName") String imageName,
+        @Param("imageType") String imageType,
+        @Param("userType") String userType,
+        @Param("usageType") String usageType,
+        @Param("imageBytes") byte[] imageBytes
+    );
+
+    @Modifying
+    @Query(nativeQuery = true, value = "INSERT INTO T_IMAGE (user_id,restaurant_user_profile_id, image_name, image_Type, user_Type, usage_Type, image) VALUES (:username, :restaurantId, :imageName, :imageType, :userType, :usageType, :imageBytes)")
+    void insertFeed(
+        @Param("username") String username,
+        @Param("restaurantId") String restaurantId,
+        @Param("imageName") String imageName,
+        @Param("imageType") String imageType,
+        @Param("userType") String userType,
+        @Param("usageType") String usageType,
+        @Param("imageBytes") byte[] imageBytes
+    );
+    
+    @Modifying
+    @Query(nativeQuery = true, value = "DELETE FROM T_IMAGE WHERE user_id = :username AND user_Type = :userType AND usage_Type = :usageType AND image_id = :imageId")
+    void deleteImage(
+        @Param("username") String username,
+        @Param("userType") String userType,
+        @Param("usageType") String usageType,
+        @Param("imageId") Integer imageId
+    );
+
 }

@@ -25,10 +25,10 @@ public class Message implements java.io.Serializable{
     @Column(name="MESSAGE", nullable = false)
     private String message;
 
-    @Column(name="BOOKING_URL", nullable = false)
+    @Column(name="BOOKING_URL")
     private String bookingUrl;
 
-    @Column(name="RESTAURANT_NAME", nullable = false)
+    @Column(name="RESTAURANT_NAME")
     private String restaurantName;
     
     @CreationTimestamp

@@ -6,6 +6,8 @@ import java.sql.Timestamp;
 
 import jakarta.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.envers.NotAudited;
 
 
@@ -14,6 +16,7 @@ import org.hibernate.envers.NotAudited;
 public class Image implements java.io.Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="IMAGE_ID", unique = true, nullable = false, precision = 20, scale = 0)
     Integer imageId;
 
@@ -29,8 +32,11 @@ public class Image implements java.io.Serializable {
     @Column(name = "USER_ID", unique=true, length = 50, nullable = false)
     protected String username;
 
-    @Column(name = "RESTAURANT_USER_PROFILE_ID", unique=true, length = 50, nullable = false)
+    @Column(name = "RESTAURANT_USER_PROFILE_ID", unique=true, length = 50)
     protected String restaurantId;
+
+    @Column(name = "DINER_USER_PROFILE_ID", unique=true, length = 50)
+    protected String dinerId;
 
     @Column(name = "USER_TYPE", length = 50, nullable = false)
     protected String userType;
@@ -39,7 +45,8 @@ public class Image implements java.io.Serializable {
     protected String usageType;
 
     @JsonIgnore
-    @Column(name = "CRT_TS", length = 50, nullable = false)
+    @CreationTimestamp
+    @Column(name = "CRT_TS", nullable = false)
     protected Timestamp crtTs;
 
 
@@ -66,6 +73,14 @@ public class Image implements java.io.Serializable {
 
     public void setRestaurantId(String restaurantId){
         this.restaurantId = restaurantId;
+    }
+
+    public String getDinerId(){
+        return dinerId;
+    }
+
+    public void setDinerId(String dinerId){
+        this.dinerId = dinerId;
     }
 
 
@@ -102,8 +117,7 @@ public class Image implements java.io.Serializable {
     public void setUsageType(String usageType){
         this.usageType = usageType;
     }
-
-    @Column(name = "CRT_TS", nullable = false)
+    
     public Timestamp getCrtTs(){
         return crtTs;
     }

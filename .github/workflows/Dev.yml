@@ -7,14 +7,21 @@ on:
   workflow_dispatch:
 
 jobs:
-  backend:
+  frontend:
     runs-on: [self-hosted, Windows,dev]
 
     steps:
       - uses: actions/checkout@v3
-      - name: Deploy
-        run: mvnw.cmd install tomcat9:deploy -Dmaven.test.skip=true
-        shell: cmd
-        working-directory: ./backend
+      - name: Setup node
+        uses: actions/setup-node@v3
+      - run: npm install -g npm@8.12.1
+      - run: npm update
+      - run: npm run build -- --prod
+      - name: Move Item
+        run: Copy-Item -Path "dist\date-full2-frontend\*" -Destination "C:\inetpub\Sites\Angular" -Recurse -force
+      - name: Run a multi-line script
+        run: |
+          echo Add other actions to build,
+          echo test, and deploy your project.
 
  

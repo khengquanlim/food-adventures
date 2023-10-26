@@ -1,3 +1,4 @@
+
 package com.org.foodAdventures.controller;
 
 import com.org.foodAdventures.common.*;
@@ -11,6 +12,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
+// import org.apache.coyote.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+// import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.http.*;
+// import org.springframework.web.bind.annotation.*;
+// import org.springframework.core.io.ByteArrayResource;
+// import org.springframework.core.io.Resource;
+
+
 import java.util.List;
 
 @RestController
@@ -21,6 +32,7 @@ public class UserController {
 
 	private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
+	
 	@RequestMapping(value = "/getAllUsers", method = RequestMethod.GET)
 	public ResponseEntity<JsonWrapperObject> getAllUsers() {
 		log.info("user controller get all users");

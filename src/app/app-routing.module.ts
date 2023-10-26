@@ -4,7 +4,6 @@ import { LoginComponent } from './login/component/login.component';
 import { HomeComponent } from './home/component/home.component';
 import { UserProfileComponent } from './profile/user-profile/component/user-profile.component';
 import { RestaurantOwnerProfileComponent } from './profile/restaurant-owner-profile/component/restaurant-owner-profile.component';
-// import { MatchesComponent } from './matches/component/matches.component';
 import { ChatComponent } from './chat/component/chat.component';
 import { SwipeComponent } from './swipe/component/swipe.component';
 import { RegistrationComponent } from './registration/component/registration.component';
@@ -14,11 +13,10 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegistrationComponent },
-  { path: 'user-profile', component: UserProfileComponent },
-  { path: 'restaurant-profile', component: RestaurantOwnerProfileComponent },
-  // { path: 'matches', component: MatchesComponent },
-  { path: 'chat', component: ChatComponent },
-  { path: 'swipe', component: SwipeComponent },
+  { path: 'user-profile/:userId', component: UserProfileComponent },
+  { path: 'restaurant-owner-profile/:userId', component: RestaurantOwnerProfileComponent },
+  { path: 'chat/:userId', component: ChatComponent },
+  { path: 'swipe/:userId', component: SwipeComponent },
   { path: 'recommend', component: RecommendationComponent },
 ];
 @NgModule({

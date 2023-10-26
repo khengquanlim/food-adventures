@@ -1,3 +1,6 @@
+<header>
+  <app-navbar></app-navbar>
+</header>
 <div class="restaurant-user-match-card" [ngClass]="{ 'swipedLeft': directionOfCard === 'left', 'swipedRight': directionOfCard === 'right' }" *ngIf="restaurantUser">
   <div class="center-container" [@swipeAnimation]="directionOfCard">
     <div class="left-column">
@@ -19,7 +22,7 @@
   </div>
   <div class="match-container" *ngIf="directionOfCard === 'match'"> 
     <p class="match-message">You have matched with: {{matchedDinerUser.dinerUserName}}</p>
-    <p class="match-message">Would you like to chat with {{matchedDinerUser.dinerUserName}} <button class="chat-button" routerLink="/chat">Continue to Chat</button> </p>
+    <p class="match-message">Would you like to chat with {{matchedDinerUser.dinerUserName}} <button class="chat-button" [routerLink]="['/chat', userId]">Continue to Chat</button> </p>
     <p class="match-message">Continue with matching other users? <button class="swipe-button" (click)="getNextRestaurantUser()" >Continue with Swiping</button></p>
 
   </div>
