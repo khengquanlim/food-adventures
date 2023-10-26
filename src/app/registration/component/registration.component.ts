@@ -34,8 +34,8 @@ export class RegistrationComponent implements OnInit {
 
   userTypeValidator(control: AbstractControl): { [key: string]: boolean } | null {
     const userType = control.value;
-    if (userType === 'diner' || userType === 'restaurantOwner') {
-      console.log("select diner or restaurantOwner");
+    if (userType === 'diner' || userType === 'restaurant') {
+      console.log("select diner or restaurant");
       return null;
     } else {
       return { 'userTypeInvalid': true };
