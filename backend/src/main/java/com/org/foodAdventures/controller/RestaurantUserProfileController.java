@@ -111,7 +111,7 @@ public class RestaurantUserProfileController {
 			 newRestaurantUser.setRestaurantName(restaurantName);
 			 newRestaurantUser.setRestaurantOwnerName(ownerName);
 			 newRestaurantUser.setFoodOptionsTag(foodOptionsTag);
-			 newRestaurantUser.setBiography(bio);
+			 newRestaurantUser.setBio(bio);
 			 newRestaurantUser.setLocation(location);
 			 newRestaurantUser.setPricePerPax(price);
 			 newRestaurantUser.setRating(rating);

@@ -24,7 +24,7 @@ public class RestaurantUserProfile implements java.io.Serializable{
 
     private String foodOptionsTag;
 
-    private String biography;
+    private String bio;
 
     private String rating;
 
@@ -90,12 +90,12 @@ public class RestaurantUserProfile implements java.io.Serializable{
     }
 
     @Column(name="BIOGRAPHY")
-    public String getBiography() {
-        return biography;
+    public String getBio() {
+        return bio;
     }
 
-    public void setBiography(String biography) {
-        this.biography = biography;
+    public void setBio(String bio) {
+        this.bio = bio;
     }
 
     @Column(name="RATING")
@@ -163,14 +163,14 @@ public class RestaurantUserProfile implements java.io.Serializable{
         this.updatedTs = updatedTs;
     }
 
-    public RestaurantUserProfile(Long restaurantUserProfileId, String userId, String restaurantName, String restaurantOwnerName, String foodOptionsTag, String biography, String bookingUrl, Timestamp createdTs, Timestamp updatedTs) {
+    public RestaurantUserProfile(Long restaurantUserProfileId, String userId, String restaurantName, String restaurantOwnerName, String foodOptionsTag, String bio, String bookingUrl, Timestamp createdTs, Timestamp updatedTs) {
         super();
         this.restaurantUserProfileId = restaurantUserProfileId;
         this.userId = userId;
         this.restaurantName = restaurantName;
         this.restaurantOwnerName = restaurantOwnerName;
         this.foodOptionsTag = foodOptionsTag;
-        this.biography = biography;
+        this.bio = bio;
         this.bookingUrl = bookingUrl;
         this.createdTs = createdTs;
         this.updatedTs = updatedTs;
@@ -188,7 +188,7 @@ public class RestaurantUserProfile implements java.io.Serializable{
             ", restaurantName='" + restaurantName + '\'' +
             ", restaurantOwnerName='" + restaurantOwnerName + '\'' +
             ", foodOptionsTag='" + foodOptionsTag + '\'' +
-            ", biography='" + biography + '\'' +
+            ", biography='" + bio + '\'' +
             ", bookingUrl='" + bookingUrl + '\'' +
             ", createdTs=" + createdTs +
             ", updatedTs=" + updatedTs +
