@@ -1,6 +1,10 @@
 package com.org.foodAdventures.entity;	
 
 import java.util.List;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import jakarta.persistence.*;
 
 import java.math.*;
@@ -9,56 +13,47 @@ import java.sql.*;
 @Entity
 @Table(name = "T_RESTAURANT_USER_PROFILE")
 public class RestaurantUserProfile implements java.io.Serializable{
-    @Id
-    @Column(name="RESTAURANT_USER_PROFILE_ID", unique = true, nullable = false)
-    private BigDecimal restaurantUserProfileId;
+	
+    private Long restaurantUserProfileId;
 
-    @Column(name="USER_ID", nullable = false)
     private String userId;
 
-    @Column(name="RESTAURANT_NAME", nullable = false)
     private String restaurantName;
 
-    @Column(name="RESTAURANT_OWNER_NAME", nullable = false)
     private String restaurantOwnerName;
 
-    @Column(name="FOOD_OPTIONS_TAG", nullable = false)
     private String foodOptionsTag;
 
-    @Column(name="BIOGRAPHY", nullable = false)
-    private String bio;
+    private String biography;
 
-    @Column(name="RATING", nullable = false)
     private String rating;
 
-    @Column(name="PRICE_PER_PAX", nullable = false)
     private String pricePerPax;
 
-    @Column(name="LOCATION", nullable = false)
     private String location;
 
-    @Column(name="BOOKING_URL", nullable = false)
     private String bookingUrl;
     
-    @Column(name="DINER_USER_LIKE_LIST", nullable = false)
     private String dinerUserLikeList;
 
-    @Column(name="CRT_TS", nullable = false)
     private Timestamp createdTs;
 
-    @Column(name="UPD_TS", nullable = false)
     private Timestamp updatedTs;
 
     // Getters and setters
 
-    public BigDecimal getRestaurantUserProfileId() {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="RESTAURANT_USER_PROFILE_ID", unique = true, nullable = false)
+    public Long getRestaurantUserProfileId() {
         return restaurantUserProfileId;
     }
 
-    public void setRestaurantUserProfileId(BigDecimal restaurantUserProfileId) {
+    public void setRestaurantUserProfileId(Long restaurantUserProfileId) {
         this.restaurantUserProfileId = restaurantUserProfileId;
     }
 
+    @Column(name="USER_ID")
     public String getUserId() {
         return userId;
     }
@@ -67,6 +62,7 @@ public class RestaurantUserProfile implements java.io.Serializable{
         this.userId = userId;
     }
 
+    @Column(name="RESTAURANT_NAME", nullable = false)
     public String getRestaurantName() {
         return restaurantName;
     }
@@ -75,6 +71,7 @@ public class RestaurantUserProfile implements java.io.Serializable{
         this.restaurantName = restaurantName;
     }
 
+    @Column(name="RESTAURANT_OWNER_NAME", nullable = false)
     public String getRestaurantOwnerName() {
         return restaurantOwnerName;
     }
@@ -83,6 +80,7 @@ public class RestaurantUserProfile implements java.io.Serializable{
         this.restaurantOwnerName = restaurantOwnerName;
     }
 
+    @Column(name="FOOD_OPTIONS_TAG")
     public String getFoodOptionsTag() {
         return foodOptionsTag;
     }
@@ -91,14 +89,16 @@ public class RestaurantUserProfile implements java.io.Serializable{
         this.foodOptionsTag = foodOptionsTag;
     }
 
-    public String getBio() {
-        return bio;
+    @Column(name="BIOGRAPHY")
+    public String getBiography() {
+        return biography;
     }
 
-    public void setBio(String bio) {
-        this.bio = bio;
+    public void setBiography(String biography) {
+        this.biography = biography;
     }
-    
+
+    @Column(name="RATING")
     public String getRating() {
         return rating;
     }
@@ -107,6 +107,7 @@ public class RestaurantUserProfile implements java.io.Serializable{
         this.rating = rating;
     }
 
+    @Column(name="PRICE_PER_PAX")
     public String getPricePerPax() {
         return pricePerPax;
     }
@@ -114,7 +115,8 @@ public class RestaurantUserProfile implements java.io.Serializable{
     public void setPricePerPax(String pricePerPax) {
         this.pricePerPax = pricePerPax;
     }
-    
+
+    @Column(name="LOCATION")
     public String getLocation() {
         return location;
     }
@@ -123,6 +125,7 @@ public class RestaurantUserProfile implements java.io.Serializable{
         this.location = location;
     }
 
+    @Column(name="BOOKING_URL")
     public String getBookingUrl() {
         return bookingUrl;
     }
@@ -131,6 +134,7 @@ public class RestaurantUserProfile implements java.io.Serializable{
         this.bookingUrl = bookingUrl;
     }
 
+    @Column(name="DINER_USER_LIKE_LIST")
     public String getDinerUserLikeList() {
         return dinerUserLikeList;
     }
@@ -139,6 +143,8 @@ public class RestaurantUserProfile implements java.io.Serializable{
         this.dinerUserLikeList = dinerUserLikeList;
     }
 
+    @CreationTimestamp
+    @Column(name="CRT_TS", nullable = false)
     public Timestamp getCreatedTs() {
         return createdTs;
     }
@@ -147,6 +153,8 @@ public class RestaurantUserProfile implements java.io.Serializable{
         this.createdTs = createdTs;
     }
 
+    @UpdateTimestamp
+    @Column(name = "UPD_TS", nullable = false)
     public Timestamp getUpdatedTs() {
         return updatedTs;
     }
@@ -155,14 +163,14 @@ public class RestaurantUserProfile implements java.io.Serializable{
         this.updatedTs = updatedTs;
     }
 
-    public RestaurantUserProfile(BigDecimal restaurantUserProfileId, String userId, String restaurantName, String restaurantOwnerName, String foodOptionsTag, String bio, String bookingUrl, Timestamp createdTs, Timestamp updatedTs) {
+    public RestaurantUserProfile(Long restaurantUserProfileId, String userId, String restaurantName, String restaurantOwnerName, String foodOptionsTag, String biography, String bookingUrl, Timestamp createdTs, Timestamp updatedTs) {
         super();
         this.restaurantUserProfileId = restaurantUserProfileId;
         this.userId = userId;
         this.restaurantName = restaurantName;
         this.restaurantOwnerName = restaurantOwnerName;
         this.foodOptionsTag = foodOptionsTag;
-        this.bio = bio;
+        this.biography = biography;
         this.bookingUrl = bookingUrl;
         this.createdTs = createdTs;
         this.updatedTs = updatedTs;
@@ -180,7 +188,7 @@ public class RestaurantUserProfile implements java.io.Serializable{
             ", restaurantName='" + restaurantName + '\'' +
             ", restaurantOwnerName='" + restaurantOwnerName + '\'' +
             ", foodOptionsTag='" + foodOptionsTag + '\'' +
-            ", bio='" + bio + '\'' +
+            ", biography='" + biography + '\'' +
             ", bookingUrl='" + bookingUrl + '\'' +
             ", createdTs=" + createdTs +
             ", updatedTs=" + updatedTs +

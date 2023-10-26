@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegistrationComponent },
   { path: 'user-profile/:userId', component: UserProfileComponent },
-  { path: 'restaurant-profile', component: RestaurantOwnerProfileComponent },
+  { path: 'restaurant-owner-profile/:userId', component: RestaurantOwnerProfileComponent },
   { path: 'chat/:userId', component: ChatComponent },
   { path: 'swipe/:userId', component: SwipeComponent },
   { path: 'recommend', component: RecommendationComponent },

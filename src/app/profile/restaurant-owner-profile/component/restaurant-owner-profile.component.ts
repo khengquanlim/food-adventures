@@ -46,7 +46,7 @@ export class RestaurantOwnerProfileComponent implements OnInit  {
     this.route.params.subscribe((params) => {
       // Get the user's ID from the route parameters
       //e.g.SUP003
-      this.userId = params['id'];
+      this.userId = params['userId'];
 
     });
     this.getUserDetails();
@@ -132,7 +132,7 @@ export class RestaurantOwnerProfileComponent implements OnInit  {
     console.log("savechanges()");
     this.editMode = false;
     console.log("save changes rest", this.restaurant);
-    this.restaurantService.updateUserDetails(this.restaurant)
+    this.restaurantService.updateUserDetails(this.userId, this.restaurant)
     .subscribe((updateUserDetails: any) => {
       console.log('User details updated:', updateUserDetails);
       this.restaurant = updateUserDetails;

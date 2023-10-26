@@ -103,8 +103,25 @@ public class RestaurantUserProfileController {
         // log.info("price is"+ price);
         // log.info("rating is"+ rating);
         // log.info("bookingUrl is"+ bookingUrl);
+		List<RestaurantUserProfile> existingRestaurantUserList = restaurantUserProfileService.getUserDetails(userId);
+		if(existingRestaurantUserList.size() == 0) {
+			 log.info("first time user: {}" + userId);
+			 RestaurantUserProfile newRestaurantUser = new RestaurantUserProfile();
+			 newRestaurantUser.setUserId(userId);
+			 newRestaurantUser.setRestaurantName(restaurantName);
+			 newRestaurantUser.setRestaurantOwnerName(ownerName);
+			 newRestaurantUser.setFoodOptionsTag(foodOptionsTag);
+			 newRestaurantUser.setBiography(bio);
+			 newRestaurantUser.setLocation(location);
+			 newRestaurantUser.setPricePerPax(price);
+			 newRestaurantUser.setRating(rating);
+			 newRestaurantUser.setBookingUrl(bookingUrl);
+			restaurantUserProfileService.updateRestaurantUserProfile(newRestaurantUser);
+		} else {
+			 log.info("existing user: {}" + userId);
+				restaurantUserProfileService.updateUserDetails(restaurantName, ownerName, foodOptionsTag, bio, location,price, rating, bookingUrl, userId);
+		}
 		
-		restaurantUserProfileService.updateUserDetails(restaurantName, ownerName, foodOptionsTag, bio, location,price, rating, bookingUrl, userId);
         JsonWrapperObject response = new JsonWrapperObject();
 		response.setStatus(CommonConstant.SUCCESS);
 		response.setDescription("User details updated successfully"); // Provide a description

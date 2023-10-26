@@ -24,9 +24,10 @@ import { UserProfilePicRequest } from '../models/userProfilePicRequest.model';
       return this.http.get<DinerUser[]>(url);
     }
 
-    updateUserDetails(userDetails: RestaurantUpdateRequest): Observable<any>
+    updateUserDetails(userId: any, userDetails: RestaurantUpdateRequest): Observable<any>
       {
-      const url = `${this.baseUrl}/${userDetails.userId}/updateRestaurantDetails`;
+        console.log("userId", userId)
+      const url = `${this.baseUrl}/${userId}/updateRestaurantDetails`;
       return this.http.post(url, userDetails);
     }
 
