@@ -14,6 +14,7 @@ import com.org.foodAdventures.dto.RestaurantUpdateRequest;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 public class RestaurantUserProfileController {
     @Autowired
@@ -22,23 +23,23 @@ public class RestaurantUserProfileController {
 
     private static final Logger log = LoggerFactory.getLogger(RestaurantUserProfileController.class);
 
-    // @RequestMapping(value="/getAllRestaurantProfile", method= RequestMethod.GET)
-    // public ResponseEntity<JsonWrapperObject> getAllRestaurantProfile() {
-    //     log.info("restaurant user profile controller get all restaurant profile");
-    //     JsonWrapperObject response = new JsonWrapperObject();
-    //     try {
-    //         List<RestaurantUserProfile> restaurantUserProfiles = restaurantUserProfileService.getAllRestaurantProfile();
-    //         log.info("successfully retrieve restaurant user profiles = {}", restaurantUserProfiles);
-    //         response.setStatus(CommonConstant.SUCCESS);
-    //         response.setData(restaurantUserProfiles);
-    //         return ResponseEntity.ok(response);
-    //     } catch(Exception e) {
-    //         log.info("error in retrieving all restaurant user profiles: {}", e.getMessage());
-    //         response.setStatus(CommonConstant.FAILURE);
-    //         response.setDescription(e.getMessage());
-    //         return ResponseEntity.ok(response);
-    //     }
-    // }
+     @RequestMapping(value="/getAllRestaurantProfile", method= RequestMethod.GET)
+     public ResponseEntity<JsonWrapperObject> getAllRestaurantProfile() {
+         log.info("restaurant user profile controller get all restaurant profile");
+         JsonWrapperObject response = new JsonWrapperObject();
+         try {
+             List<RestaurantUserProfile> restaurantUserProfiles = restaurantUserProfileService.getAllRestaurantProfile();
+             log.info("successfully retrieve restaurant user profiles = {}", restaurantUserProfiles);
+             response.setStatus(CommonConstant.SUCCESS);
+             response.setData(restaurantUserProfiles);
+             return ResponseEntity.ok(response);
+         } catch(Exception e) {
+             log.info("error in retrieving all restaurant user profiles: {}", e.getMessage());
+             response.setStatus(CommonConstant.FAILURE);
+             response.setDescription(e.getMessage());
+             return ResponseEntity.ok(response);
+         }
+     }
 
     // @RequestMapping(value="/getRestaurantProfileById", method= RequestMethod.GET)
     // public ResponseEntity<JsonWrapperObject> getRestaurantProfileById(@RequestParam("restaurantUserProfileId") Integer restaurantUserProfileId) {

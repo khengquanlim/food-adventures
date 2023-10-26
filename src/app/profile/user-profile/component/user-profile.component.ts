@@ -13,7 +13,10 @@ import { ActivatedRoute } from '@angular/router';
 export class UserProfileComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
-    private userService : DinerUserService) {}
+    private userService : DinerUserService) {
+      this.userId = this.route.snapshot.paramMap.get('userId');
+      console.log("this.userId", this.userId)
+    }
 
   user: UserUpdateRequest = {};
   newProfilePic:UserProfilePicRequest = {};
@@ -40,6 +43,8 @@ export class UserProfileComponent implements OnInit {
   FEED_USAGE_TYPE ='feed';
 
   ngOnInit(): void {
+    const userId = this.route.snapshot.paramMap.get('userId');
+    console.log("??????",userId)
 
     this.route.params.subscribe((params) => {
       // Get the user's ID from the route parameters

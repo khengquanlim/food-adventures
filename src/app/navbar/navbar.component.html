@@ -7,10 +7,10 @@
 <body>
 
 <div class="sidenav">
-    <a class="material-icons" routerLink="/chat">chat_bubble_outline</a>
-    <a class="material-icons" routerLink="/user-profile">person</a>
+    <a class="material-icons"  [routerLink]="['/chat', userId]">chat_bubble_outline</a>
+    <a class="material-icons" [routerLink]="['/user-profile', userId]">person</a>
     <a class="material-icons" href="#about">house</a>
-    <a class="material-icons" routerLink="/swipe">favorite_outline</a>
+    <a class="material-icons" [routerLink]="['/swipe', userId]">favorite_outline</a>
 </div>
 
 
