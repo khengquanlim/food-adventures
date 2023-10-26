@@ -42,7 +42,7 @@ jobs:
         shell: cmd
         working-directory: ./backend 1
       - name: Move Item
-        run: Copy-Item -Path "C:\Users\Administrator\Desktop\actions-runner\_work\food-adventures\food-adventures\backend 1\target\foodAdventures-0.0.1-SNAPSHOT.jar" -Destination "C:\inetpub\Sites\BackEnd\Backend2.jar" -Recurse -force
+        run: Copy-Item -Path "C:\Users\Administrator\Desktop\actions-runner\_work\food-adventures\food-adventures\backend 1\target\foodAdventuresBackend1-0.0.1-SNAPSHOT.jar" -Destination "C:\inetpub\Sites\BackEnd\Backend2.jar" -Recurse -force
       - name: Start Backend2
         run: nssm start  Restaurant2
 
