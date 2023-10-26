@@ -36,5 +36,7 @@ jobs:
         run: mvn package
         shell: cmd
         working-directory: ./backend
+      - name: Start Backend1
+        run: nssm start  RestaurantService
 
  
