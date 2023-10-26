@@ -120,4 +120,8 @@ export class RegistrationComponent implements OnInit {
   get birthdate() {
     return this.registrationForm.get('birthdate');
   }
+
+  routeLogin(){
+    this.router.navigateByUrl('/login');
+  }
 }

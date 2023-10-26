@@ -10,7 +10,8 @@ import { RegistrationComponent } from './registration/component/registration.com
 import { RecommendationComponent } from './recommendation/component/recommendation.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  // { path: '', component: HomeComponent },
+  { path: '', redirectTo: '/register', pathMatch: 'full' }, // Default route
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegistrationComponent },
   { path: 'user-profile/:userId', component: UserProfileComponent },

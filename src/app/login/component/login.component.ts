@@ -80,4 +80,8 @@ export class LoginComponent {
     }
     
   }
+
+  routeRegister(){
+    this.router.navigateByUrl('/register');
+  }
 }

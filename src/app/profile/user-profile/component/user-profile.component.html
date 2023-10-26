@@ -133,10 +133,10 @@
                                 <!-- <div class="upload-button"> -->
 
                                     
-                                        <label for="file-upload" class="custom-file-upload" *ngIf="uploadMode">
-                                          Upload Image
-                                        </label>
-                                        <input style="display: none;" id="file-upload" *ngIf="uploadMode" type="file" (change)="onFeedChanged($event)" accept="image/*">
+                                    <label for="file-upload" class="custom-file-upload" *ngIf="uploadMode">
+                                        Upload Image
+                                    </label>
+                                    <input style="display: none;" id="file-upload" *ngIf="uploadMode" type="file" (change)="onFeedChanged($event)" accept="image/*">
                                     
                                     <button style="margin-right:50px;" (click)="toggleUploadMode()" *ngIf="!uploadMode">
                                         <a class="material-icons">upload</a>
@@ -181,7 +181,7 @@
                             
                         </div>
                         <div class="center-image-grid">
-                            <app-image-grid [images]="feedPic" [numberOfColumns]="numberOfColumns" [deleteMode]="deleteMode" (imageSelected)="handleImageSelection($event)">
+                            <app-image-grid [images]="feedPic" [numberOfColumns]="numberOfColumns" [deleteMode]="deleteMode" [imageWidth]="'400px'" [imageHeight]="'400px'" (imageSelected)="handleImageSelection($event)">
                             </app-image-grid>
                           </div>
                     </div>

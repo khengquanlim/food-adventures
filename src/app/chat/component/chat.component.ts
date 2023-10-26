@@ -148,7 +148,7 @@ export class ChatComponent implements OnInit {
     if(this.allMatchedChatMessages.find(message => message.bookingUrl != null)) {
       this.selectedRestaurantBookingUrl = this.allMatchedChatMessages.find(message => message.bookingUrl != null).bookingUrl;
     } else {
-      this.selectedRestaurantBookingUrl = "www.google.com";
+      this.selectedRestaurantBookingUrl = "www.burpple.com/sg";
     }
   }
   sortChatMessagesByAscendingOrder(messages: any[]) {

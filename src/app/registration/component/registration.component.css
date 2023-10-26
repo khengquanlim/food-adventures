@@ -1,4 +1,4 @@
-.registerBtn {
+/* .registerBtn {
   padding: 10px 20px;
   background-color: #007bff;
   color: #fff;
@@ -50,4 +50,94 @@
   padding: 5px;
   border: 1px solid #ccc;
   border-radius: 5px;
+} */
+
+
+/* esther */
+
+/* Styles for the register form container */
+.registerForm {
+  width: 20%;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  background-color: rgba(239, 239, 239, 0.7);
+}
+
+.registerForm h2 {
+  color: blue;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.registerFormGroup {
+  margin-bottom: 20px;
+}
+
+/* Remove the line below to display "Restaurant Owner" on the same line as "Diner" */
+.registerFormGroup label {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Adjust the gap between radio buttons and labels */
+}
+
+.registerFormGroup .radio-buttons {
+  display: flex; /* Display the radio buttons in a row */
+  gap: 10px; /* Adjust the gap between radio buttons */
+  align-items: center; /* Vertically align the radio buttons */
+}
+
+.registerFormGroup .radio-buttons label {
+  display: flex; /* Display the label and radio button content in a row */
+  align-items: center; /* Vertically align the label and radio button content */
+}
+
+.registerFormGroup .radio-buttons label {
+  display: flex;
+  align-items: center;
+}
+
+.registerFormGroup input {
+  padding: 10px;
+  border: 0;
+  background-color: rgba(239, 239, 239, 0.7);
+  width: 100%;
+}
+
+.registerErrorMsg {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+}
+
+.registerBtn {
+  cursor: pointer;
+  border: 0;
+  width: 100px;
+  padding: 5px 0;
+  color: white;
+  background-color: blue;
+  transition: 0.4s;
+}
+
+.registerBtn:hover {
+  color: white;
+  background-color: rgba(0, 0, 255, 0.5);
+}
+
+.loginBtn {
+  cursor: pointer;
+  border: 0;
+  width: 100px;
+  padding: 5px 0;
+  color: white;
+  background-color: gray;
+  transition: 0.4s;
+  margin-left: 10px;
+}
+
+.loginBtn:hover {
+  color: white;
+  background-color: rgba(128, 128, 128, 0.5);
 }

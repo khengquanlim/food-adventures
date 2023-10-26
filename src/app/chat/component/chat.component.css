@@ -21,7 +21,7 @@
 }
 
 .message-selected-user {
-  text-align: right;
+  text-align: left;
 }
 
 .message-text-you {
@@ -33,7 +33,7 @@
 .message-text-selected-user {
   background-color: #f0f0f0;
   color: #000;
-  text-align: right;
+  text-align: left;
 }
 
 .message-sender {

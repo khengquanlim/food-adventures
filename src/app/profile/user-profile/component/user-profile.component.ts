@@ -43,14 +43,14 @@ export class UserProfileComponent implements OnInit {
   FEED_USAGE_TYPE ='feed';
 
   ngOnInit(): void {
-    const userId = this.route.snapshot.paramMap.get('userId');
+const userId = this.route.snapshot.paramMap.get('userId');
     console.log("??????",userId)
 
     this.route.params.subscribe((params) => {
       // Get the user's ID from the route parameters
       //e.g.SUP003
       this.userId = params['userId'];
-      console.log("this.userId", this.userId)
+console.log("this.userId", this.userId)
 
     });
 
@@ -64,7 +64,7 @@ export class UserProfileComponent implements OnInit {
   
 
     
-  toggleEditMode() {   
+  toggleEditMode() {
     this.editMode = true;
     // console.log("editmode: ", this.editMode);
   }
@@ -83,7 +83,7 @@ export class UserProfileComponent implements OnInit {
       this.userDetails = userDetails[0];
       this.user.dinerUserName=this.userDetails.dinerUserName;
       this.user.userId= this.userDetails.userId;
-      console.log("this.userDetails.userId,", this.userDetails.userId)
+console.log("this.userDetails.userId,", this.userDetails.userId)
       console.log("this.user.userId,", this.user.userId)
       this.user.age = this.userDetails.age;
       this.user.gender = this.userDetails.gender;
@@ -141,8 +141,8 @@ export class UserProfileComponent implements OnInit {
 
 
   saveChanges() {
-    console.log("savechanges()");   
-    this.user.userId = this.userId;
+    console.log("savechanges()");
+this.user.userId = this.userId;
     console.log("this.user.userId", this.user.userId)
     this.editMode = false;
     console.log(this.user);
@@ -252,7 +252,8 @@ export class UserProfileComponent implements OnInit {
       reader.onload = (e) => {
         // The result property contains the base64 string
         this.newFeed.userId=this.userId;
-        this.newFeed.restaurantId = this.user.userId!.toString();
+        // this.newFeed.restaurantId = this.user.userId!.toString();
+        this.newFeed.restaurantId = '1';
         this.newFeed.imageName = file.name;
         const imageType = file.type.split('/')[1]; // This extracts the "jpeg" part
         this.newFeed.imageType = imageType;
