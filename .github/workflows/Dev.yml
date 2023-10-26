@@ -7,7 +7,22 @@ on:
   workflow_dispatch:
 
 jobs:
+  frontend:
+    runs-on: [self-hosted, Windows,dev]
 
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup node
+        uses: actions/setup-node@v3
+      - run: npm install -g npm@8.12.1
+      - run: npm update
+      - run: npm run build -- --prod
+      - name: Move Item
+        run: Copy-Item -Path "dist\date-full2-frontend\*" -Destination "C:\inetpub\Sites\Angular" -Recurse -force
+      - name: Run a multi-line script
+        run: |
+          echo Add other actions to build,
+          echo test, and deploy your project.
 
  
   backend:
@@ -15,6 +30,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      - name: Move Item
+        run: Copy-Item -Path "C:\Users\Administrator\Desktop\actions-runner\_work\food-adventures\food-adventures\backend\target\foodAdventures-0.0.1-SNAPSHOT.jar" -Destination "C:\inetpub\Sites\BackEnd\Backend1.jar" -Recurse -force
       - name: Stop Backend1
         run: nssm stop  RestaurantService
       - name: Deploy
