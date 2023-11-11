@@ -3,6 +3,7 @@ package com.org.foodAdventuresBackendOne;
 import org.slf4j.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.*;
 import org.springframework.data.jdbc.repository.config.*;

@@ -15,7 +15,7 @@ import java.util.*;
 public class UserService {
     @Autowired
     private UserRepository userRepository;
-    private final BCryptPasswordEncoder passwordEncoder;
+    private BCryptPasswordEncoder passwordEncoder;
     private final Logger log = LoggerFactory.getLogger(UserService.class);
 
     public UserService() {
@@ -48,7 +48,7 @@ public class UserService {
             }
 
         }catch (Exception e){
-            log.info("Exception: {}", e);
+            log.info("Exception: {}", e.getMessage());
             return null;
         }
     }
@@ -65,7 +65,7 @@ public class UserService {
             String storedHashedPassword = user.getPwdHash();
             // if (true){
             log.info("storedHashedPassword is = "+storedHashedPassword);
-            
+
             if (this.verifyPassword(password, storedHashedPassword)) {
                 log.info("verified");
                 return user;
@@ -73,7 +73,7 @@ public class UserService {
                 log.info("not verified");
                 return "incorrect_password";
             }
-        
+
         }else {
             //return error message saying no such user
             return "user_not_found";
