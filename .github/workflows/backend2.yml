@@ -14,6 +14,10 @@ jobs:
       - uses: actions/checkout@v3
       - name: Stop Backend2
         run: nssm stop  Restaurant2
+      - name: Run JUnit Tests
+        run: |
+          cd ./backend 1/src
+          mvn test
       - name: Deploy
         run: mvn package
         shell: cmd
