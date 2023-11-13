@@ -16,7 +16,7 @@ jobs:
         run: nssm stop  Restaurant2
       - name: Run JUnit Tests
         run: |
-          cd ./backend 1/src
+          cd ./backend 1
           mvn test
       - name: Deploy
         run: mvn package
