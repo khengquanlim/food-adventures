@@ -1,0 +1,26 @@
+# This is a basic workflow to help you get started with Actions
+
+name: backend2
+
+# Controls when the workflow will run
+# Workflow runs when changes are pushed
+on:
+  push:
+    branches: [ "init" ]
+
+jobs:
+  backend2:
+    runs-on: [self-hosted, Windows,dev]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Stop Backend2
+        run: nssm stop  Restaurant2
+      - name: Deploy
+        run: mvn package
+        shell: cmd
+        working-directory: ./backend 1
+      - name: Move Item
+        run: Copy-Item -Path "C:\Users\Administrator\Desktop\actions-runner\_work\food-adventures\food-adventures\backend 1\target\foodAdventuresBackend1-0.0.1-SNAPSHOT.jar" -Destination "C:\inetpub\Sites\BackEnd\Backend2.jar" -Recurse -force
+      - name: Start Backend2
+        run: nssm start  Restaurant2
