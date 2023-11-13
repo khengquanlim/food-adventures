@@ -7,7 +7,7 @@ name: Backend 1
 on:
   push:
     branches: [ "init" ]
-
+  workflow_dispatch:
 jobs:
  
   backend:
