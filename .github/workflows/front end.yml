@@ -1,0 +1,24 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+# Workflow runs when changes are pushed
+on:
+  push:
+    branches: [ "init" ]
+
+jobs:
+
+  frontend:
+    runs-on: [self-hosted, Windows,dev]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup node
+        uses: actions/setup-node@v3
+      - run: npm install -g npm@8.12.1
+      - run: npm update
+      - run: npm run build -- --prod
+      - name: Move Item
+        run: Copy-Item -Path "dist\date-full2-frontend\*" -Destination "C:\inetpub\Sites\Angular" -Recurse -force
